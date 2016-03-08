@@ -4,12 +4,13 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>2016年的第一篇文章 | 划不出的界限 Blog</title>
+    <title>windows系统无法安装SQLServer2005的两种解决方法 | 划不出的界限 Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="鞠骞">
     
-    <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in ">
+    <meta name="description" content="最近遇到童鞋谈论说,windows下重新安装SqlServer2005总是不成功,大多数是因为以前安装过，卸载后出现的问题，(以下解决方案适用于:重新安装不成功)
+两种解决方法方法一: 清理注册表打开windows注册表，在注册表中查找一下信息，并进行删除[-HKEY_LOCAL_MACHINE\S">
     
     
     
@@ -65,15 +66,15 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/03/02/hello-world/" title="2016年的第一篇文章" itemprop="url">2016年的第一篇文章</a>
+      <a href="/2015/12/24/sqlserver/" title="windows系统无法安装SQLServer2005的两种解决方法" itemprop="url">windows系统无法安装SQLServer2005的两种解决方法</a>
   </h1>
   <p class="article-author">By
     
       <a href="http://yoursite.com" title="鞠骞">鞠骞</a>
     </p>
   <p class="article-time">
-    <time datetime="2016-03-02T05:49:00.000Z" itemprop="datePublished">2016-03-02</time>
-    更新日期:<time datetime="2016-03-08T05:00:38.483Z" itemprop="dateModified">2016-03-08</time>
+    <time datetime="2015-12-23T18:21:00.000Z" itemprop="datePublished">2015-12-24</time>
+    更新日期:<time datetime="2016-03-08T05:26:44.976Z" itemprop="dateModified">2016-03-08</time>
     
   </p>
 </header>
@@ -82,38 +83,34 @@
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
-		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-number">1.</span> <span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-number">1.1.</span> <span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-number">1.2.</span> <span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-number">1.3.</span> <span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-number">1.4.</span> <span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#两种解决方法"><span class="toc-number">1.</span> <span class="toc-text">两种解决方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#方法一-清理注册表"><span class="toc-number">1.1.</span> <span class="toc-text">方法一: 清理注册表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#方法二-清理注册表"><span class="toc-number">1.2.</span> <span class="toc-text">方法二: 清理注册表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#小结"><span class="toc-number">1.3.</span> <span class="toc-text">小结:</span></a></li></ol></li></ol>
 		</div>
 		
-		<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+		<p>最近遇到童鞋谈论说,windows下重新安装SqlServer2005总是不成功,大多数是因为以前安装过，卸载后出现的问题，(以下解决方案适用于:重新安装不成功)</p>
+<h2 id="两种解决方法"><a href="#两种解决方法" class="headerlink" title="两种解决方法"></a>两种解决方法</h2><h3 id="方法一-清理注册表"><a href="#方法一-清理注册表" class="headerlink" title="方法一: 清理注册表"></a>方法一: 清理注册表</h3><p>打开windows注册表，在注册表中查找一下信息，并进行删除<br>[-HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\MSSQLServer]<br>[-HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Microsoft SQL Server]<br>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Search]<br>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\MSSQLSERVER]<br>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\MSSQLServerADHelper]<br>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SQLSERVERAGENT]<br>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\MSFtpsvc]<br>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\MSSCNTRS]<br>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\MSSEARCH]<br>[-HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\MSSGatherer]<br>[-HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\MSSGTHRSVC]<br>[-HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\mssindex]<br>也可以下载,通过 Windows Installer Clean UP 将里面将所有关于SQL的全部删除并重启再进行安装，</p>
+<h3 id="方法二-清理注册表"><a href="#方法二-清理注册表" class="headerlink" title="方法二: 清理注册表"></a>方法二: 清理注册表</h3><p>哈哈，你没看错，还是清理注册表，但是是不同的位置哦</p>
+<p>在这个路径里：<br>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Contro\Session Manager<br>点Session Manager 然后在右边有一个叫PendingFileRenameOperations的名，删之，重启电脑，再安装即可，</p>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结:"></a>小结:</h3><p>以上，就是重新安装sqlserver 2005失败的解决办法！希望能够帮到您!</p>
   
 	</div>
 		<footer class="article-footer clearfix">
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/Java/">Java</a>
+  <span></span> <a href="/tags/Sqlserver/">Sqlserver</a>
   </div>
 
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/Java/">Java</a>
+  <a class="article-category-link" href="/categories/Sqlserver/">Sqlserver</a>
 </div>
 
 
 
 <div class="article-share" id="share">
 
-  <div data-url="http://yoursite.com/2016/03/02/hello-world/" data-title="2016年的第一篇文章 | 划不出的界限 Blog" data-tsina="null" class="share clearfix">
+  <div data-url="http://yoursite.com/2015/12/24/sqlserver/" data-title="windows系统无法安装SQLServer2005的两种解决方法 | 划不出的界限 Blog" data-tsina="null" class="share clearfix">
   </div>
 
 </div>
@@ -122,11 +119,19 @@
 	
 <nav class="article-nav clearfix">
  
+ <div class="prev" >
+ <a href="/2016/03/02/hello-world/" title="2016年的第一篇文章">
+  <strong>PREVIOUS:</strong><br/>
+  <span>
+  2016年的第一篇文章</span>
+</a>
+</div>
+
 
 <div class="next">
-<a href="/2015/12/24/sqlserver/"  title="windows系统无法安装SQLServer2005的两种解决方法">
+<a href="/2015/12/22/JavaEnvironment/"  title="windows下java环境配置">
  <strong>NEXT:</strong><br/> 
- <span>windows系统无法安装SQLServer2005的两种解决方法
+ <span>windows下java环境配置
 </span>
 </a>
 </div>
@@ -143,7 +148,7 @@
 
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
-  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-number">1.</span> <span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-number">1.1.</span> <span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-number">1.2.</span> <span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-number">1.3.</span> <span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-number">1.4.</span> <span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#两种解决方法"><span class="toc-number">1.</span> <span class="toc-text">两种解决方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#方法一-清理注册表"><span class="toc-number">1.1.</span> <span class="toc-text">方法一: 清理注册表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#方法二-清理注册表"><span class="toc-number">1.2.</span> <span class="toc-text">方法二: 清理注册表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#小结"><span class="toc-number">1.3.</span> <span class="toc-text">小结:</span></a></li></ol></li></ol>
   </div>
 
 <div id="asidepart">
