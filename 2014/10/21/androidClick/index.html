@@ -10,7 +10,7 @@
     <meta name="author" content="鞠骞">
     
     <meta name="description" content="在android开发中，经常会进行事件的绑定，来进行用户交互，今天小结一下android中事件绑定常用的几种方法
-Android中按钮绑定事件的几种方法在xml中注册 onclick方法① xml文件中   ② java 代码中 public void startClick(View view){T">
+Android中按钮绑定事件的几种方法在xml中注册 onclick方法① xml文件中1234567   &amp;lt;Button    android:id=&amp;quot;@+id/sta">
     
     
     
@@ -76,7 +76,7 @@ Android中按钮绑定事件的几种方法在xml中注册 onclick方法① xml�
     </p>
   <p class="article-time">
     <time datetime="2014-10-21T04:23:00.000Z" itemprop="datePublished">2014-10-21</time>
-    更新日期:<time datetime="2016-03-23T09:58:23.868Z" itemprop="dateModified">2016-03-23</time>
+    更新日期:<time datetime="2016-03-25T15:09:50.649Z" itemprop="dateModified">2016-03-25</time>
     
   </p>
 </header>
@@ -89,16 +89,63 @@ Android中按钮绑定事件的几种方法在xml中注册 onclick方法① xml�
 		</div>
 		
 		<p>在android开发中，经常会进行事件的绑定，来进行用户交互，今天小结一下android中事件绑定常用的几种方法</p>
-<h2 id="Android中按钮绑定事件的几种方法"><a href="#Android中按钮绑定事件的几种方法" class="headerlink" title="Android中按钮绑定事件的几种方法"></a>Android中按钮绑定事件的几种方法</h2><h3 id="在xml中注册-onclick方法"><a href="#在xml中注册-onclick方法" class="headerlink" title="在xml中注册 onclick方法"></a>在xml中注册 onclick方法</h3><p>① xml文件中<br>   <button android:id="@+id/startBtn" android:layout_width="wrap_content" android:layout_height="wrap_content" android:onclick="startClick" android:text="开始按钮"><br>② java 代码中<br> public void startClick(View view){<br>Toast.makeText(getApplicationContext(),”在xml文件中绑定的方法”,0).show();<br>}</button></p>
-<p>③ 在xml中的onclick方法名应该与 java代码中的 方法名一致</p>
-<h3 id="在类中实现-View-OnClickListener接口"><a href="#在类中实现-View-OnClickListener接口" class="headerlink" title="在类中实现 View.OnClickListener接口"></a>在类中实现 View.OnClickListener接口</h3><p>① xml文件:<br> <button android:id="@+id/startBtn" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="开始按钮"></button></p>
-<p>② java代码<br>   public class myListener implements OnClickListener{<br>   //在初始化方法(如 onCreate())中添加<br>mbtn.setOnClickListener(this);</p>
-<p>public void onClick(View view){<br>//具体实现的方法<br>}<br> }</p>
-<h3 id="使用内部类来监听事件的响应"><a href="#使用内部类来监听事件的响应" class="headerlink" title="使用内部类来监听事件的响应"></a>使用内部类来监听事件的响应</h3><p>① xml文件</p>
-<p><button android:id="@+id/startBtn" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="开始按钮"><br>② java 代码<br> public class myListener extends Activity{</button></p>
-<p>//在初始化方法(如 onCreate 中添加)<br>mbtn.setOnClickListener(new mclicklistener());<br>//<br>private class mclicklistener implements OnClickListener{<br>public void onClick(View view){<br>   //具体的点击实现响应方法<br>}<br>}<br>} </p>
-<h3 id="使用匿名内部类来监听事件的响应"><a href="#使用匿名内部类来监听事件的响应" class="headerlink" title="使用匿名内部类来监听事件的响应"></a>使用匿名内部类来监听事件的响应</h3><p>① xml 文件<br>  <button android:id="@+id/startBtn" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="开始按钮"><br>② java 代码<br>public class myListener extends Activity{<br>     mbtn.setOnClickListener(new OnClickListener(){<br>             public void onClick(View view){<br>                           //具体的点击实现响应方法<br>             }<br>      })<br>}</button></p>
-<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>上述就是Android中 几种常用的事件绑定的方法，在项目中，可根据实际情况选择绑定方法!</p>
+<h2 id="Android中按钮绑定事件的几种方法"><a href="#Android中按钮绑定事件的几种方法" class="headerlink" title="Android中按钮绑定事件的几种方法"></a>Android中按钮绑定事件的几种方法</h2><h3 id="在xml中注册-onclick方法"><a href="#在xml中注册-onclick方法" class="headerlink" title="在xml中注册 onclick方法"></a>在xml中注册 onclick方法</h3><p>① xml文件中<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">   &lt;Button </span><br><span class="line">   android:id=&quot;@+id/startBtn&quot;</span><br><span class="line">   android:layout_width=&quot;wrap_content&quot;</span><br><span class="line">   android:layout_height=&quot;wrap_content&quot;</span><br><span class="line">   android:onClick=&quot;startClick&quot;</span><br><span class="line">   android:text=&quot;开始按钮&quot;</span><br><span class="line">/&gt;</span><br></pre></td></tr></table></figure></p>
+<p>② java 代码中</p>
+<pre><code> public void startClick(View view){
+Toast.makeText(getApplicationContext(),&quot;在xml文件中绑定的方法&quot;,0).show();
+}
+</code></pre><p>③ 在xml中的onclick方法名应该与 java代码中的 方法名一致</p>
+<h3 id="在类中实现-View-OnClickListener接口"><a href="#在类中实现-View-OnClickListener接口" class="headerlink" title="在类中实现 View.OnClickListener接口"></a>在类中实现 View.OnClickListener接口</h3><p>① xml文件: </p>
+<pre><code> &lt;Button 
+   android:id=&quot;@+id/startBtn&quot;
+   android:layout_width=&quot;wrap_content&quot;
+   android:layout_height=&quot;wrap_content&quot;
+   android:text=&quot;开始按钮&quot;
+/&gt;
+</code></pre><p>② java代码</p>
+<pre><code>   public class myListener implements OnClickListener{
+   //在初始化方法(如 onCreate())中添加
+mbtn.setOnClickListener(this);
+
+public void onClick(View view){
+//具体实现的方法
+}
+ }
+</code></pre><h3 id="使用内部类来监听事件的响应"><a href="#使用内部类来监听事件的响应" class="headerlink" title="使用内部类来监听事件的响应"></a>使用内部类来监听事件的响应</h3><p>① xml文件</p>
+<pre><code>&lt;Button 
+   android:id=&quot;@+id/startBtn&quot;
+   android:layout_width=&quot;wrap_content&quot;
+   android:layout_height=&quot;wrap_content&quot;
+   android:text=&quot;开始按钮&quot;
+/&gt;
+</code></pre><p>② java 代码</p>
+<pre><code> public class myListener extends Activity{
+
+//在初始化方法(如 onCreate 中添加)
+mbtn.setOnClickListener(new mclicklistener());
+//
+private class mclicklistener implements OnClickListener{
+public void onClick(View view){
+   //具体的点击实现响应方法
+}
+}
+}
+</code></pre><h3 id="使用匿名内部类来监听事件的响应"><a href="#使用匿名内部类来监听事件的响应" class="headerlink" title="使用匿名内部类来监听事件的响应"></a>使用匿名内部类来监听事件的响应</h3><p>① xml 文件</p>
+<pre><code>  &lt;Button 
+       android:id=&quot;@+id/startBtn&quot;
+       android:layout_width=&quot;wrap_content&quot;
+       android:layout_height=&quot;wrap_content&quot;
+       android:text=&quot;开始按钮&quot;
+ /&gt;
+② java 代码
+public class myListener extends Activity{
+     mbtn.setOnClickListener(new OnClickListener(){
+             public void onClick(View view){
+                           //具体的点击实现响应方法
+             }
+      })
+}
+</code></pre><h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>上述就是Android中 几种常用的事件绑定的方法，在项目中，可根据实际情况选择绑定方法!</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -128,10 +175,10 @@ Android中按钮绑定事件的几种方法在xml中注册 onclick方法① xml�
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2015/12/12/mobileIpAddress/" title="移动设备访问本地电脑web站点的方法">
+ <a href="/2014/12/02/svn/" title="myeclipse 中使用版本控制工具svn的坑">
   <strong>PREVIOUS:</strong><br/>
   <span>
-  移动设备访问本地电脑web站点的方法</span>
+  myeclipse 中使用版本控制工具svn的坑</span>
 </a>
 </div>
 
@@ -162,9 +209,11 @@ Android中按钮绑定事件的几种方法在xml中注册 onclick方法① xml�
 		
 			<li><a href="/categories/Android/" title="Android">Android<sup>2</sup></a></li>
 		
-			<li><a href="/categories/Java/" title="Java">Java<sup>2</sup></a></li>
+			<li><a href="/categories/Java/" title="Java">Java<sup>1</sup></a></li>
 		
 			<li><a href="/categories/Sqlserver/" title="Sqlserver">Sqlserver<sup>1</sup></a></li>
+		
+			<li><a href="/categories/svn-git/" title="svn &amp; git">svn &amp; git<sup>1</sup></a></li>
 		
 		</ul>
 </div>
@@ -177,9 +226,11 @@ Android中按钮绑定事件的几种方法在xml中注册 onclick方法① xml�
 		
 			<li><a href="/tags/Android/" title="Android">Android<sup>2</sup></a></li>
 		
-			<li><a href="/tags/Java/" title="Java">Java<sup>2</sup></a></li>
+			<li><a href="/tags/Java/" title="Java">Java<sup>1</sup></a></li>
 		
 			<li><a href="/tags/Sqlserver/" title="Sqlserver">Sqlserver<sup>1</sup></a></li>
+		
+			<li><a href="/tags/版本控制工具/" title="版本控制工具">版本控制工具<sup>1</sup></a></li>
 		
 		</ul>
 </div>

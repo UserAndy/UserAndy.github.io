@@ -4,12 +4,13 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>2016年的第一篇文章 | 划不出的界限 Blog</title>
+    <title>myeclipse 中使用版本控制工具svn的坑 | 划不出的界限 Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="鞠骞">
     
-    <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in ">
+    <meta name="description" content="本文持续整理 在myeclipse下使用版本控制工具svn时的各种问题以及解决方案
+问题以及解决办法列表问题Error validating location: “org.tigris.subversion.javahl.ClientException:org.tigris.subversion.j">
     
     
     
@@ -67,15 +68,15 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/03/02/hello-world/" title="2016年的第一篇文章" itemprop="url">2016年的第一篇文章</a>
+      <a href="/2014/12/02/svn/" title="myeclipse 中使用版本控制工具svn的坑" itemprop="url">myeclipse 中使用版本控制工具svn的坑</a>
   </h1>
   <p class="article-author">By
     
       <a href="http://yoursite.com" title="鞠骞">鞠骞</a>
     </p>
   <p class="article-time">
-    <time datetime="2016-03-02T05:49:00.000Z" itemprop="datePublished">2016-03-02</time>
-    更新日期:<time datetime="2016-03-08T05:00:38.483Z" itemprop="dateModified">2016-03-08</time>
+    <time datetime="2014-12-02T13:49:00.000Z" itemprop="datePublished">2014-12-02</time>
+    更新日期:<time datetime="2016-03-25T15:17:16.006Z" itemprop="dateModified">2016-03-25</time>
     
   </p>
 </header>
@@ -84,38 +85,33 @@
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
-		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-number">1.</span> <span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-number">1.1.</span> <span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-number">1.2.</span> <span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-number">1.3.</span> <span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-number">1.4.</span> <span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#问题以及解决办法列表"><span class="toc-number">1.</span> <span class="toc-text">问题以及解决办法列表</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#问题"><span class="toc-number">1.0.1.</span> <span class="toc-text">问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#解决方法"><span class="toc-number">1.0.2.</span> <span class="toc-text">解决方法:</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#小结"><span class="toc-number">2.</span> <span class="toc-text">小结</span></a></li></ol>
 		</div>
 		
-		<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+		<p>本文持续整理 在myeclipse下使用版本控制工具svn时的各种问题以及解决方案</p>
+<h2 id="问题以及解决办法列表"><a href="#问题以及解决办法列表" class="headerlink" title="问题以及解决办法列表"></a>问题以及解决办法列表</h2><h4 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h4><p>Error validating location: “org.tigris.subversion.javahl.ClientException:<br>org.tigris.subversion.javahl.ClientException: Cannot negotiate authentication mechanism</p>
+<h4 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法:"></a>解决方法:</h4><p>在myeclipse 中选择<br>Window -&gt; Preference -&gt; Team -&gt; SVN and make sure there is an entry for SVN Interface.<br>设置成如图所示：<br><img src="/img/svn/myeclipse_svn.png" alt="图片"></p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>以上是小编在使用svn时，遇到的问题以及解决办法！</p>
   
 	</div>
 		<footer class="article-footer clearfix">
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/Java/">Java</a>
+  <span></span> <a href="/tags/版本控制工具/">版本控制工具</a>
   </div>
 
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/Java/">Java</a>
+  <a class="article-category-link" href="/categories/svn-git/">svn & git</a>
 </div>
 
 
 
 <div class="article-share" id="share">
 
-  <div data-url="http://yoursite.com/2016/03/02/hello-world/" data-title="2016年的第一篇文章 | 划不出的界限 Blog" data-tsina="null" class="share clearfix">
+  <div data-url="http://yoursite.com/2014/12/02/svn/" data-title="myeclipse 中使用版本控制工具svn的坑 | 划不出的界限 Blog" data-tsina="null" class="share clearfix">
   </div>
 
 </div>
@@ -124,11 +120,19 @@
 	
 <nav class="article-nav clearfix">
  
+ <div class="prev" >
+ <a href="/2015/12/12/mobileIpAddress/" title="移动设备访问本地电脑web站点的方法">
+  <strong>PREVIOUS:</strong><br/>
+  <span>
+  移动设备访问本地电脑web站点的方法</span>
+</a>
+</div>
+
 
 <div class="next">
-<a href="/2015/12/24/sqlserver/"  title="windows系统无法安装SQLServer2005的两种解决方法">
+<a href="/2014/10/21/androidClick/"  title="android 中按钮绑定事件的多种方法">
  <strong>NEXT:</strong><br/> 
- <span>windows系统无法安装SQLServer2005的两种解决方法
+ <span>android 中按钮绑定事件的多种方法
 </span>
 </a>
 </div>
@@ -145,7 +149,7 @@
 
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
-  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-number">1.</span> <span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-number">1.1.</span> <span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-number">1.2.</span> <span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-number">1.3.</span> <span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-number">1.4.</span> <span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#问题以及解决办法列表"><span class="toc-number">1.</span> <span class="toc-text">问题以及解决办法列表</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#问题"><span class="toc-number">1.0.1.</span> <span class="toc-text">问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#解决方法"><span class="toc-number">1.0.2.</span> <span class="toc-text">解决方法:</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#小结"><span class="toc-number">2.</span> <span class="toc-text">小结</span></a></li></ol>
   </div>
 
 <div id="asidepart">
@@ -159,9 +163,11 @@
 		
 			<li><a href="/categories/Android/" title="Android">Android<sup>2</sup></a></li>
 		
-			<li><a href="/categories/Java/" title="Java">Java<sup>2</sup></a></li>
+			<li><a href="/categories/Java/" title="Java">Java<sup>1</sup></a></li>
 		
 			<li><a href="/categories/Sqlserver/" title="Sqlserver">Sqlserver<sup>1</sup></a></li>
+		
+			<li><a href="/categories/svn-git/" title="svn &amp; git">svn &amp; git<sup>1</sup></a></li>
 		
 		</ul>
 </div>
@@ -174,9 +180,11 @@
 		
 			<li><a href="/tags/Android/" title="Android">Android<sup>2</sup></a></li>
 		
-			<li><a href="/tags/Java/" title="Java">Java<sup>2</sup></a></li>
+			<li><a href="/tags/Java/" title="Java">Java<sup>1</sup></a></li>
 		
 			<li><a href="/tags/Sqlserver/" title="Sqlserver">Sqlserver<sup>1</sup></a></li>
+		
+			<li><a href="/tags/版本控制工具/" title="版本控制工具">版本控制工具<sup>1</sup></a></li>
 		
 		</ul>
 </div>
