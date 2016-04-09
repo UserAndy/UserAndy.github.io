@@ -65,7 +65,7 @@ mysql 中添加索引的三种方法1.1 新建表中添加索引① 普通索引
 <meta property="og:site_name" content="随机bug的博客">
 <meta property="og:description" content="在mysql中有多种索引，有普通索引，全文索引，唯一索引，多列索引，小伙伴们可以通过不同的应用场景来进行索引的新建，在此列出三种新建索引的方法
 mysql 中添加索引的三种方法1.1 新建表中添加索引① 普通索引1234567create table t_dept(    no int not null primary key,    name varchar(20) null,    sex v">
-<meta property="og:updated_time" content="2016-04-06T09:56:14.115Z">
+<meta property="og:updated_time" content="2016-04-09T03:16:59.516Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mysql 中添加索引的三种方法">
 <meta name="twitter:description" content="在mysql中有多种索引，有普通索引，全文索引，唯一索引，多列索引，小伙伴们可以通过不同的应用场景来进行索引的新建，在此列出三种新建索引的方法
@@ -302,6 +302,7 @@ mysql 中添加索引的三种方法1.1 新建表中添加索引① 普通索引
 <p>② 唯一索引<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">create table t_dept(</span><br><span class="line">       no int not null primary key,</span><br><span class="line">       name varchar(20) null,</span><br><span class="line">       sex varchar(2) null,</span><br><span class="line">       info varchar(20) null,</span><br><span class="line">       unique index index_no(no)</span><br><span class="line">     ）</span><br></pre></td></tr></table></figure></p>
 <p>③ 全文索引<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">create table t_dept(</span><br><span class="line">       no int not null primary key,</span><br><span class="line">       name varchar(20) null,</span><br><span class="line">       sex varchar(2) null,</span><br><span class="line">       info varchar(20) null,</span><br><span class="line">       fulltext index index_no(no)</span><br></pre></td></tr></table></figure></p>
 <p>④ 多列索引<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">create table t_dept(</span><br><span class="line">       no int not null primary key,</span><br><span class="line">       name varchar(20) null,</span><br><span class="line">       sex varchar(2) null,</span><br><span class="line">       info varchar(20) null,</span><br><span class="line">       key index_no_name(no,name)</span><br><span class="line">     )</span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
 <h3 id="1-2-在已建表中添加索引"><a href="#1-2-在已建表中添加索引" class="headerlink" title="1.2 在已建表中添加索引"></a>1.2 在已建表中添加索引</h3><p>① 普通索引<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">create index index_name</span><br><span class="line">             on t_dept(name);</span><br></pre></td></tr></table></figure></p>
 <p>② 唯一索引<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">create unique index index_name</span><br><span class="line">              on t_dept(name);</span><br></pre></td></tr></table></figure></p>
 <p>③ 全文索引<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">create fulltext index index_name</span><br><span class="line">              on t_dept(name);</span><br></pre></td></tr></table></figure></p>
@@ -408,10 +409,10 @@ mysql 中添加索引的三种方法1.1 新建表中添加索引① 普通索引
       <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
-               src="/images/default_avatar.jpg"
+               src="/images/avatar.jpg"
                alt="鞠骞" />
           <p class="site-author-name" itemprop="name">鞠骞</p>
-          <p class="site-description motion-element" itemprop="description">互联网中的小兵</p>
+          <p class="site-description motion-element" itemprop="description">微移是一种生活，分享是一种态度!</p>
         </div>
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
@@ -444,6 +445,20 @@ mysql 中添加索引的三种方法1.1 新建表中添加索引① 普通索引
         
 
         <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/userandy" target="_blank">
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/userandy" target="_blank">
+                  
+                </a>
+              </span>
+            
           
         </div>
 
@@ -488,7 +503,7 @@ mysql 中添加索引的三种方法1.1 新建表中添加索引① 普通索引
       <div class="footer-inner">
         <div class="copyright" >
   
-  &copy; 
+  &copy;  2015 - 
   <span itemprop="copyrightYear">2016</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
