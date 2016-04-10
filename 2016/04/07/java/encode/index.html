@@ -59,20 +59,20 @@
 
 <meta name="description" content="在Java应用开发中，网络交互式是必备的，在下面，整理了一些自己在开发中遇到的乱码问题以及解决办法，这里使用HttpConnection 作为演示：
 Java中使用网络请求时的乱码处理方法一: 设置统一的编码格式设置统一的编码格式，常用的有 utf-8,gbk
-方法二: 在中文中使用统一的编码格式化将中文使用统一的编码格式进行转换12345678910 String strencoding = n">
+方法二: 在中文中使用统一的编码格式化将中文使用统一的编码格式进行转换1String strencoding = new String(s">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java中使用网络请求时的乱码处理">
 <meta property="og:url" content="http://yoursite.com/2016/04/07/java/encode/index.html">
 <meta property="og:site_name" content="随机bug的博客">
 <meta property="og:description" content="在Java应用开发中，网络交互式是必备的，在下面，整理了一些自己在开发中遇到的乱码问题以及解决办法，这里使用HttpConnection 作为演示：
 Java中使用网络请求时的乱码处理方法一: 设置统一的编码格式设置统一的编码格式，常用的有 utf-8,gbk
-方法二: 在中文中使用统一的编码格式化将中文使用统一的编码格式进行转换12345678910 String strencoding = n">
-<meta property="og:updated_time" content="2016-04-07T01:58:54.759Z">
+方法二: 在中文中使用统一的编码格式化将中文使用统一的编码格式进行转换1String strencoding = new String(s">
+<meta property="og:updated_time" content="2016-04-10T01:47:57.615Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java中使用网络请求时的乱码处理">
 <meta name="twitter:description" content="在Java应用开发中，网络交互式是必备的，在下面，整理了一些自己在开发中遇到的乱码问题以及解决办法，这里使用HttpConnection 作为演示：
 Java中使用网络请求时的乱码处理方法一: 设置统一的编码格式设置统一的编码格式，常用的有 utf-8,gbk
-方法二: 在中文中使用统一的编码格式化将中文使用统一的编码格式进行转换12345678910 String strencoding = n">
+方法二: 在中文中使用统一的编码格式化将中文使用统一的编码格式进行转换1String strencoding = new String(s">
 
 
 
@@ -302,8 +302,11 @@ Java中使用网络请求时的乱码处理方法一: 设置统一的编码格�
       
         <p>在Java应用开发中，网络交互式是必备的，在下面，整理了一些自己在开发中遇到的乱码问题以及解决办法，这里使用HttpConnection 作为演示：</p>
 <h2 id="Java中使用网络请求时的乱码处理"><a href="#Java中使用网络请求时的乱码处理" class="headerlink" title="Java中使用网络请求时的乱码处理"></a>Java中使用网络请求时的乱码处理</h2><h3 id="方法一-设置统一的编码格式"><a href="#方法一-设置统一的编码格式" class="headerlink" title="方法一: 设置统一的编码格式"></a>方法一: 设置统一的编码格式</h3><p>设置统一的编码格式，常用的有 utf-8,gbk</p>
-<h3 id="方法二-在中文中使用统一的编码格式化"><a href="#方法二-在中文中使用统一的编码格式化" class="headerlink" title="方法二: 在中文中使用统一的编码格式化"></a>方法二: 在中文中使用统一的编码格式化</h3><p>将中文使用统一的编码格式进行转换<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"> String strencoding = new String(str.getBytes(&quot;ISO-8859-1&quot;,&quot;utf-8&quot;));</span><br><span class="line">``` </span><br><span class="line">### 方法三: 编码与解码</span><br><span class="line">编码使用:</span><br><span class="line">``` </span><br><span class="line">URLEncoder.encode(“中文”,&quot;utf-8&quot;)</span><br><span class="line">``` </span><br><span class="line">解码时使用:</span><br><span class="line">``` </span><br><span class="line">URLDecoder.decode(&quot;中文&quot;,&quot;utf-8&quot;)</span><br></pre></td></tr></table></figure></p>
-<p>需要注意的是: 解码与编码需要使用统一的编码。</p>
+<h3 id="方法二-在中文中使用统一的编码格式化"><a href="#方法二-在中文中使用统一的编码格式化" class="headerlink" title="方法二: 在中文中使用统一的编码格式化"></a>方法二: 在中文中使用统一的编码格式化</h3><p>将中文使用统一的编码格式进行转换<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String strencoding = new String(str.getBytes(&quot;ISO-8859-1&quot;,&quot;utf-8&quot;));</span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<h3 id="方法三-编码与解码"><a href="#方法三-编码与解码" class="headerlink" title="方法三: 编码与解码"></a>方法三: 编码与解码</h3><p>编码使用:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">URLEncoder.encode(“中文”,&quot;utf-8&quot;)</span><br></pre></td></tr></table></figure></p>
+<p>解码时使用:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">URLDecoder.decode(&quot;中文&quot;,&quot;utf-8&quot;)</span><br></pre></td></tr></table></figure></p>
+<p>需要注意的是: 解码与编码需要使用统一的编码。<br><!--more--></p>
 <h3 id="方法四：-手动URLEncode-编码"><a href="#方法四：-手动URLEncode-编码" class="headerlink" title="方法四： 手动URLEncode 编码"></a>方法四： 手动URLEncode 编码</h3><p>如果前三步骤，仍然没有解决编码问题，可以尝试手动URLEncode编码，<br>例如:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://api.map.baidu.com/telematics/v3/local?keyWord=测试中文</span><br></pre></td></tr></table></figure></p>
 <p>此时的keyword中的值就是中文，可以将上述链接复制到浏览器上，先别急着敲回车，您就可以在浏览器的地址栏上面发现，”测试中文” 中文已经转换为URLEncode编码，如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://api.map.baidu.com/telematics/v3/local?keyWord=%E6%B5%8B%E8%AF%95%E4%B8%AD%E6%96%87</span><br></pre></td></tr></table></figure></p>
 <p>其中 %E6%B5%8B%E8%AF%95%E4%B8%AD%E6%96%87 就是 “测试中文”转换后的编码.</p>
@@ -338,6 +341,10 @@ Java中使用网络请求时的乱码处理方法一: 设置统一的编码格�
           </div>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/04/09/java/tomcatAddServices/" rel="prev" title="Tomcat 使用详解">
+                Tomcat 使用详解 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -409,7 +416,7 @@ Java中使用网络请求时的乱码处理方法一: 设置统一的编码格�
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">9</span>
+              <span class="site-state-item-count">10</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -474,7 +481,7 @@ Java中使用网络请求时的乱码处理方法一: 设置统一的编码格�
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Java中使用网络请求时的乱码处理"><span class="nav-number">1.</span> <span class="nav-text">Java中使用网络请求时的乱码处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#方法一-设置统一的编码格式"><span class="nav-number">1.1.</span> <span class="nav-text">方法一: 设置统一的编码格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法二-在中文中使用统一的编码格式化"><span class="nav-number">1.2.</span> <span class="nav-text">方法二: 在中文中使用统一的编码格式化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法四：-手动URLEncode-编码"><span class="nav-number">1.3.</span> <span class="nav-text">方法四： 手动URLEncode 编码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结"><span class="nav-number">1.4.</span> <span class="nav-text">小结</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Java中使用网络请求时的乱码处理"><span class="nav-number">1.</span> <span class="nav-text">Java中使用网络请求时的乱码处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#方法一-设置统一的编码格式"><span class="nav-number">1.1.</span> <span class="nav-text">方法一: 设置统一的编码格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法二-在中文中使用统一的编码格式化"><span class="nav-number">1.2.</span> <span class="nav-text">方法二: 在中文中使用统一的编码格式化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法三-编码与解码"><span class="nav-number">1.3.</span> <span class="nav-text">方法三: 编码与解码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法四：-手动URLEncode-编码"><span class="nav-number">1.4.</span> <span class="nav-text">方法四： 手动URLEncode 编码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结"><span class="nav-number">1.5.</span> <span class="nav-text">小结</span></a></li></ol></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
