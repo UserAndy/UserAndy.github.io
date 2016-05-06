@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="xml & json," />
 
 
 
@@ -57,15 +57,19 @@
 
 
 
-<meta name="description" content="互联网中的小兵">
-<meta property="og:type" content="website">
-<meta property="og:title" content="随机bug的博客">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="目前常用的数据传输格式主要有: xml 与 json，无论使用xml还是json 传输格式，在实际应用中，都需要将其与对象互相转换，也有很多相应的转换库，比如:xml 有dom4j, json有 jackson,Fastjson 今天为大家讲解的是Fastjson。
+1.1 Fastjson 起源fastjson 是一个Java语言编写的高性能功能完善的JSON库，是alibaba的开源项目，并且">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Fastjson 详解">
+<meta property="og:url" content="http://yoursite.com/2016/05/06/android/fastjson/index.html">
 <meta property="og:site_name" content="随机bug的博客">
-<meta property="og:description" content="互联网中的小兵">
+<meta property="og:description" content="目前常用的数据传输格式主要有: xml 与 json，无论使用xml还是json 传输格式，在实际应用中，都需要将其与对象互相转换，也有很多相应的转换库，比如:xml 有dom4j, json有 jackson,Fastjson 今天为大家讲解的是Fastjson。
+1.1 Fastjson 起源fastjson 是一个Java语言编写的高性能功能完善的JSON库，是alibaba的开源项目，并且">
+<meta property="og:updated_time" content="2016-05-06T07:45:49.310Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="随机bug的博客">
-<meta name="twitter:description" content="互联网中的小兵">
+<meta name="twitter:title" content="Fastjson 详解">
+<meta name="twitter:description" content="目前常用的数据传输格式主要有: xml 与 json，无论使用xml还是json 传输格式，在实际应用中，都需要将其与对象互相转换，也有很多相应的转换库，比如:xml 有dom4j, json有 jackson,Fastjson 今天为大家讲解的是Fastjson。
+1.1 Fastjson 起源fastjson 是一个Java语言编写的高性能功能完善的JSON库，是alibaba的开源项目，并且">
 
 
 
@@ -83,7 +87,7 @@
   };
 </script>
 
-  <title> 随机bug的博客 </title>
+  <title> Fastjson 详解 | 随机bug的博客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -104,9 +108,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left 
-   page-home 
- ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -213,9 +215,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
   
@@ -235,10 +237,7 @@
             
             
               
-                
-                <a class="post-title-link" href="/2016/05/06/android/fastjson/" itemprop="url">
-                  Fastjson 详解
-                </a>
+                Fastjson 详解
               
             
           </h1>
@@ -308,9 +307,7 @@
       
 
       
-        
-          
-            <p>目前常用的数据传输格式主要有: xml 与 json，无论使用xml还是json 传输格式，在实际应用中，都需要将其与对象互相转换，也有很多相应的转换库，比如:xml 有dom4j, json有 jackson,Fastjson 今天为大家讲解的是Fastjson。</p>
+        <p>目前常用的数据传输格式主要有: xml 与 json，无论使用xml还是json 传输格式，在实际应用中，都需要将其与对象互相转换，也有很多相应的转换库，比如:xml 有dom4j, json有 jackson,Fastjson 今天为大家讲解的是Fastjson。</p>
 <h3 id="1-1-Fastjson-起源"><a href="#1-1-Fastjson-起源" class="headerlink" title="1.1 Fastjson 起源"></a>1.1 Fastjson 起源</h3><p>fastjson 是一个Java语言编写的高性能功能完善的JSON库，是alibaba的开源项目，并且是目前Java语言中的最快的JSON库，接口简单易用等特点</p>
 <h3 id="1-2-Fastjson使用方法"><a href="#1-2-Fastjson使用方法" class="headerlink" title="1.2 Fastjson使用方法"></a>1.2 Fastjson使用方法</h3><p>这里通过简单的案例来进行讲解:<br>这里使用两个bean，School,Student 由于篇幅原因，省去set()以及get()方法。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public class School &#123;</span><br><span class="line"></span><br><span class="line">	private String id;</span><br><span class="line">	private String name;</span><br><span class="line">	private List&lt;Student&gt; list;</span><br><span class="line">    .....</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public class Student &#123;</span><br><span class="line">	private String id;</span><br><span class="line">	private String name;</span><br><span class="line">	private int age;</span><br><span class="line">	private Date time;</span><br><span class="line">	.....</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -334,534 +331,51 @@
 <h4 id="1-5-本文参考链接"><a href="#1-5-本文参考链接" class="headerlink" title="1.5 本文参考链接:"></a>1.5 本文参考链接:</h4><p><a href="https://github.com/alibaba/fastjson/wiki" target="_blank" rel="external">Fastjson 官方文档</a></p>
 <h4 id="1-6-小结"><a href="#1-6-小结" class="headerlink" title="1.6 小结"></a>1.6 小结</h4><p>以上就是本人在实际项目中对Fastjson 使用的一些小结。在实际应用中，也可灵活的根据自己的需求进行封装。</p>
 
-          
-        
       
     </div>
 
     <div>
       
+        
+      
     </div>
 
     <footer class="post-footer">
       
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/04/16/versionControl/myeclipseSvn/" itemprop="url">
-                  MyEclipse中集成SVN详解
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-04-16T21:56:00+08:00" content="2016-04-16">
-              2016-04-16
-            </time>
-          </span>
-
+        <div class="post-tags">
           
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/svn-git/" itemprop="url" rel="index">
-                    <span itemprop="name">svn & git</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
+            <a href="/tags/xml-json/" rel="tag">#xml & json</a>
           
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/04/16/versionControl/myeclipseSvn/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/16/versionControl/myeclipseSvn/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-		
-		
-          
-          
-				<span id="/2016/04/16/versionControl/myeclipseSvn/"class="leancloud_visitors"  data-flag-title="MyEclipse中集成SVN详解">
-        &nbsp; | &nbsp; 阅读次数
-        </span>
-		
-
         </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          <p>在实际开发过程中，团队协作，版本控制是非常重要的，目前比较流行的版本控制工具有:<a href="http://baike.baidu.com/link?url=LrhMpauYDeMrfEbMeBJ42DKPkWp7TSE2Ov5OtwnpRc9tHAFXIUdACE7K4dGFQGl3BGFzgUcl5DWZZtnSUnnhyq">SVN</a>和 <a href="http://baike.baidu.com/link?url=jOm3mxtQr3nSAVvSk7GxLhL9Aj5KtNUUpN5hLxQfzfZrj0BX6RfRiTBSlkQ1NCwGur3AZYGfaTUjSyKx6oAXe92M4VY0cuu7ZMuPbzIE0SC">Git</a>,而在Java开发中，最常用的开发工具是 MyEclipse，今天介绍大家如何在Myeclipse 中集成 SVN</p>
-<h2 id="MyEclipse中集成SVN详解"><a href="#MyEclipse中集成SVN详解" class="headerlink" title="MyEclipse中集成SVN详解"></a>MyEclipse中集成SVN详解</h2><h3 id="1-1-准备工作"><a href="#1-1-准备工作" class="headerlink" title="1.1 准备工作"></a>1.1 准备工作</h3><p>首先，我们需要下载SVN 的客户端，可以在SVN的官网进行下载:<br>① 在官网下载SVN 插件 (如:site-1.6.18)<br><a href="https://sourceforge.net/projects/win32svn/">Subversion</a><br><a href="https://tortoisesvn.net/downloads.html">Tortoisesvn</a><br>如果您需要安装SVN的服务器,则需要下载<br><a href="https://www.visualsvn.com/visualsvn/download/">VisualSVN-Server</a><br>也可以在以下链接下载完整的下载包<br><a href="http://pan.baidu.com/s/1miAfHig">百度云安装包列表</a><br>下载后,如下所示:<br><img src="/img/svn/svnEclipse.png" alt="下载后的列表"><br>其中:<br>site-1.6.18 表示 Myeclipse中的SVN插件<br>Setup-Subversion-1.6.16.msi 表示版本控制组件<br>TortoiseSVN-1.6.10.19898-win32-svn-1.6.12 表示SVN客户端组件(传说中的乌龟) 32位<br>TortoiseSVN-1.8.4.24972-x64-svn-1.8.5.msi SVN客户端组件(64位)<br>VisualSVN-Server-2.7.2.zip SVN 服务器<br>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/04/16/versionControl/myeclipseSvn/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/04/16/versionControl/myeclipseSvn/" rel="next" title="MyEclipse中集成SVN详解">
+                <i class="fa fa-chevron-left"></i> MyEclipse中集成SVN详解
+              </a>
+            
           </div>
-        
-      
-    </div>
 
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
+          <div class="post-nav-prev post-nav-item">
             
-            
-              
-                
-                <a class="post-title-link" href="/2016/04/09/java/tomcatAddServices/" itemprop="url">
-                  Tomcat 使用详解
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-04-09T19:48:00+08:00" content="2016-04-09">
-              2016-04-09
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/04/09/java/tomcatAddServices/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/09/java/tomcatAddServices/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-		
-		
-          
-          
-				<span id="/2016/04/09/java/tomcatAddServices/"class="leancloud_visitors"  data-flag-title="Tomcat 使用详解">
-        &nbsp; | &nbsp; 阅读次数
-        </span>
-		
-
+          </div>
         </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          <p>在Java Web的开发中，经常使用Tomcat作为 Web服务器，今天整理了一些本人在开发过程中使用Tomcat时的经验,遇到的问题以及解决办法。</p>
-<h2 id="Tomcat-使用详解"><a href="#Tomcat-使用详解" class="headerlink" title="Tomcat 使用详解"></a>Tomcat 使用详解</h2><h3 id="1-1-初识-Tomcat"><a href="#1-1-初识-Tomcat" class="headerlink" title="1.1 初识 Tomcat"></a>1.1 初识 Tomcat</h3><p>Tomcat是一个精简,优秀的Web服务器，可以在其官网下载使用，今天以 apache-tomcat-7.0.56 为例<br>其打开目录如下图所示:<br><img src="/img/server/dir.jpg" alt="Tomcat目录"></p>
-<p>其中各个目录的意义如下：<br>bin: 其中主要包括开启与关闭服务器，加载系统服务的文件。<br>conf: 包括Tomcat的配置文件,例如(服务器端口修改)。<br>lib: 包括Tomcat中的一些依赖库。<br>logs: Tomcat的日志文件夹（可以在这里看服务器的运行情况）。<br>temp: Tomcat临时文件所在的文件夹。<br>webapps: Tomcat部署项目文件夹。<br>work： Tomcat本地部署文件夹。</p>
-<p>其中 LICENSE,NOTICE,RELEASE-NOTES,RUNNING.txt 是开源授权的一些申明，以及版本的提示信息。<br>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/04/09/java/tomcatAddServices/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
-    
-      
 
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/04/07/java/encode/" itemprop="url">
-                  Java中使用网络请求时的乱码处理
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-04-07T09:23:00+08:00" content="2016-04-07">
-              2016-04-07
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/04/07/java/encode/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/07/java/encode/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-		
-		
-          
-          
-				<span id="/2016/04/07/java/encode/"class="leancloud_visitors"  data-flag-title="Java中使用网络请求时的乱码处理">
-        &nbsp; | &nbsp; 阅读次数
-        </span>
-		
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>在Java应用开发中，网络交互式是必备的，在下面，整理了一些自己在开发中遇到的乱码问题以及解决办法，这里使用HttpConnection 作为演示：</p>
-<h2 id="Java中使用网络请求时的乱码处理"><a href="#Java中使用网络请求时的乱码处理" class="headerlink" title="Java中使用网络请求时的乱码处理"></a>Java中使用网络请求时的乱码处理</h2><h3 id="方法一-设置统一的编码格式"><a href="#方法一-设置统一的编码格式" class="headerlink" title="方法一: 设置统一的编码格式"></a>方法一: 设置统一的编码格式</h3><p>设置统一的编码格式，常用的有 utf-8,gbk</p>
-<h3 id="方法二-在中文中使用统一的编码格式化"><a href="#方法二-在中文中使用统一的编码格式化" class="headerlink" title="方法二: 在中文中使用统一的编码格式化"></a>方法二: 在中文中使用统一的编码格式化</h3><p>将中文使用统一的编码格式进行转换<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String strencoding = new String(str.getBytes(&quot;ISO-8859-1&quot;,&quot;utf-8&quot;));</span><br></pre></td></tr></table></figure></p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/04/07/java/encode/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
+    <div class="post-spread">
       
     </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/04/06/database/mysqleindex/" itemprop="url">
-                  mysql 中添加索引的三种方法
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-04-06T17:43:00+08:00" content="2016-04-06">
-              2016-04-06
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/mysql/" itemprop="url" rel="index">
-                    <span itemprop="name">mysql</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/04/06/database/mysqleindex/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/06/database/mysqleindex/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-		
-		
-          
-          
-				<span id="/2016/04/06/database/mysqleindex/"class="leancloud_visitors"  data-flag-title="mysql 中添加索引的三种方法">
-        &nbsp; | &nbsp; 阅读次数
-        </span>
-		
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>在mysql中有多种索引，有普通索引，全文索引，唯一索引，多列索引，小伙伴们可以通过不同的应用场景来进行索引的新建，在此列出三种新建索引的方法</p>
-<h2 id="mysql-中添加索引的三种方法"><a href="#mysql-中添加索引的三种方法" class="headerlink" title="mysql 中添加索引的三种方法"></a>mysql 中添加索引的三种方法</h2><h3 id="1-1-新建表中添加索引"><a href="#1-1-新建表中添加索引" class="headerlink" title="1.1 新建表中添加索引"></a>1.1 新建表中添加索引</h3><p>① 普通索引<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">create table t_dept(</span><br><span class="line">    no int not null primary key,</span><br><span class="line">    name varchar(20) null,</span><br><span class="line">    sex varchar(2) null,</span><br><span class="line">    info varchar(20) null,</span><br><span class="line">    index index_no(no)</span><br><span class="line">  )</span><br></pre></td></tr></table></figure></p>
-<p>② 唯一索引<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">create table t_dept(</span><br><span class="line">       no int not null primary key,</span><br><span class="line">       name varchar(20) null,</span><br><span class="line">       sex varchar(2) null,</span><br><span class="line">       info varchar(20) null,</span><br><span class="line">       unique index index_no(no)</span><br><span class="line">     ）</span><br></pre></td></tr></table></figure></p>
-<p>③ 全文索引<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">create table t_dept(</span><br><span class="line">       no int not null primary key,</span><br><span class="line">       name varchar(20) null,</span><br><span class="line">       sex varchar(2) null,</span><br><span class="line">       info varchar(20) null,</span><br><span class="line">       fulltext index index_no(no)</span><br></pre></td></tr></table></figure></p>
-<p>④ 多列索引<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">create table t_dept(</span><br><span class="line">       no int not null primary key,</span><br><span class="line">       name varchar(20) null,</span><br><span class="line">       sex varchar(2) null,</span><br><span class="line">       info varchar(20) null,</span><br><span class="line">       key index_no_name(no,name)</span><br><span class="line">     )</span><br></pre></td></tr></table></figure></p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/04/06/database/mysqleindex/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-  </section>
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
-  </nav>
-
+  </div>
 
 
           </div>
@@ -869,6 +383,14 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/05/06/android/fastjson/"
+           data-title="Fastjson 详解" data-url="http://yoursite.com/2016/05/06/android/fastjson/">
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -888,8 +410,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.jpg"
@@ -955,6 +486,23 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-Fastjson-起源"><span class="nav-number">1.</span> <span class="nav-text">1.1 Fastjson 起源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-Fastjson使用方法"><span class="nav-number">2.</span> <span class="nav-text">1.2 Fastjson使用方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-1-bean转换为json"><span class="nav-number">2.1.</span> <span class="nav-text">1.2.1 bean转换为json</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-2-bean转换为json-指定日期格式"><span class="nav-number">2.2.</span> <span class="nav-text">1.2.2 bean转换为json(指定日期格式)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-3-对象中包含对象的转换为json数据"><span class="nav-number">2.3.</span> <span class="nav-text">1.2.3: 对象中包含对象的转换为json数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-4-对象json格式字符串转换为bean对象"><span class="nav-number">2.4.</span> <span class="nav-text">1.2.4: 对象json格式字符串转换为bean对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-5-集合json格式数据转换为-集合对象"><span class="nav-number">2.5.</span> <span class="nav-text">1.2.5: 集合json格式数据转换为 集合对象</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-Fastjson的封装工具类"><span class="nav-number">3.</span> <span class="nav-text">1.3 Fastjson的封装工具类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-Fastjson-在-Android-中的使用"><span class="nav-number">4.</span> <span class="nav-text">1.4 Fastjson 在 Android 中的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-1-通过-Gradle"><span class="nav-number">4.1.</span> <span class="nav-text">1.4.1: 通过 Gradle:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-2-通过jar："><span class="nav-number">4.2.</span> <span class="nav-text">1.4.2: 通过jar：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-5-本文参考链接"><span class="nav-number">4.3.</span> <span class="nav-text">1.5 本文参考链接:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-6-小结"><span class="nav-number">4.4.</span> <span class="nav-text">1.6 小结</span></a></li></ol></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
       
 
     </div>
@@ -1039,6 +587,167 @@
   
 
   
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.sidebar.display === 'post' || CONFIG.sidebar.display === 'always') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
 
   
 
