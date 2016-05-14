@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="版本控制工具," />
+  <meta name="keywords" content="Android," />
 
 
 
@@ -57,21 +57,22 @@
 
 
 
-<meta name="description" content="本文持续整理 在myeclipse下使用版本控制工具svn时的各种问题以及解决方案
-问题以及解决办法列表问题Error validating location: “org.tigris.subversion.javahl.ClientException:org.tigris.subversion.javahl.ClientException: Cannot negotiate authentica">
+<meta name="description" content="在日常的开发中,ListView中的item中通常会注册事件,来进行相应的交互,ListView也通常会同时注册,ItemLongClick与ItemClick方法。今天来讲解一下 ListView中ItemLongClick与ItemClick事件并存问题。
+ItemLongClick 与 ItemClick 并存在ListView中注册 ItemLongClick 方法的默认实现如下所示:12">
 <meta property="og:type" content="article">
-<meta property="og:title" content="myeclipse 中使用版本控制工具svn的坑">
-<meta property="og:url" content="http://yoursite.com/2014/12/02/svn/index.html">
+<meta property="og:title" content="ListView中ItemLongClick与ItemClick事件并存问题">
+<meta property="og:url" content="http://yoursite.com/2016/05/14/android/androidListViewEvent/index.html">
 <meta property="og:site_name" content="随机bug的博客">
-<meta property="og:description" content="本文持续整理 在myeclipse下使用版本控制工具svn时的各种问题以及解决方案
-问题以及解决办法列表问题Error validating location: “org.tigris.subversion.javahl.ClientException:org.tigris.subversion.javahl.ClientException: Cannot negotiate authentica">
-<meta property="og:image" content="http://yoursite.com/img/svn/myeclipse_svn.png">
-<meta property="og:updated_time" content="2016-03-25T15:17:16.006Z">
+<meta property="og:description" content="在日常的开发中,ListView中的item中通常会注册事件,来进行相应的交互,ListView也通常会同时注册,ItemLongClick与ItemClick方法。今天来讲解一下 ListView中ItemLongClick与ItemClick事件并存问题。
+ItemLongClick 与 ItemClick 并存在ListView中注册 ItemLongClick 方法的默认实现如下所示:12">
+<meta property="og:image" content="http://yoursite.com/img/android/event/error.gif">
+<meta property="og:image" content="http://yoursite.com/img/android/event/success.gif">
+<meta property="og:updated_time" content="2016-05-14T04:32:57.305Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="myeclipse 中使用版本控制工具svn的坑">
-<meta name="twitter:description" content="本文持续整理 在myeclipse下使用版本控制工具svn时的各种问题以及解决方案
-问题以及解决办法列表问题Error validating location: “org.tigris.subversion.javahl.ClientException:org.tigris.subversion.javahl.ClientException: Cannot negotiate authentica">
-<meta name="twitter:image" content="http://yoursite.com/img/svn/myeclipse_svn.png">
+<meta name="twitter:title" content="ListView中ItemLongClick与ItemClick事件并存问题">
+<meta name="twitter:description" content="在日常的开发中,ListView中的item中通常会注册事件,来进行相应的交互,ListView也通常会同时注册,ItemLongClick与ItemClick方法。今天来讲解一下 ListView中ItemLongClick与ItemClick事件并存问题。
+ItemLongClick 与 ItemClick 并存在ListView中注册 ItemLongClick 方法的默认实现如下所示:12">
+<meta name="twitter:image" content="http://yoursite.com/img/android/event/error.gif">
 
 
 
@@ -89,7 +90,7 @@
   };
 </script>
 
-  <title> myeclipse 中使用版本控制工具svn的坑 | 随机bug的博客 </title>
+  <title> ListView中ItemLongClick与ItemClick事件并存问题 | 随机bug的博客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -239,7 +240,7 @@
             
             
               
-                myeclipse 中使用版本控制工具svn的坑
+                ListView中ItemLongClick与ItemClick事件并存问题
               
             
           </h1>
@@ -251,8 +252,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2014-12-02T21:49:00+08:00" content="2014-12-02">
-              2014-12-02
+            <time itemprop="dateCreated" datetime="2016-05-14T11:02:00+08:00" content="2016-05-14">
+              2016-05-14
             </time>
           </span>
 
@@ -265,8 +266,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/svn-git/" itemprop="url" rel="index">
-                    <span itemprop="name">svn & git</span>
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
                   </a>
                 </span>
 
@@ -281,8 +282,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2014/12/02/svn/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/12/02/svn/" itemprop="commentsCount"></span>
+                <a href="/2016/05/14/android/androidListViewEvent/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/14/android/androidListViewEvent/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -293,7 +294,7 @@
 		
           
           
-				<span id="/2014/12/02/svn/"class="leancloud_visitors"  data-flag-title="myeclipse 中使用版本控制工具svn的坑">
+				<span id="/2016/05/14/android/androidListViewEvent/"class="leancloud_visitors"  data-flag-title="ListView中ItemLongClick与ItemClick事件并存问题">
         &nbsp; | &nbsp; 阅读次数
         </span>
 		
@@ -309,10 +310,15 @@
       
 
       
-        <p>本文持续整理 在myeclipse下使用版本控制工具svn时的各种问题以及解决方案</p>
-<h2 id="问题以及解决办法列表"><a href="#问题以及解决办法列表" class="headerlink" title="问题以及解决办法列表"></a>问题以及解决办法列表</h2><h4 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h4><p>Error validating location: “org.tigris.subversion.javahl.ClientException:<br>org.tigris.subversion.javahl.ClientException: Cannot negotiate authentication mechanism</p>
-<h4 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法:"></a>解决方法:</h4><p>在myeclipse 中选择<br>Window -&gt; Preference -&gt; Team -&gt; SVN and make sure there is an entry for SVN Interface.<br>设置成如图所示：<br><img src="/img/svn/myeclipse_svn.png" alt="图片"></p>
-<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>以上是小编在使用svn时，遇到的问题以及解决办法！</p>
+        <p>在日常的开发中,ListView中的item中通常会注册事件,来进行相应的交互,ListView也通常会同时注册,ItemLongClick与ItemClick方法。今天来讲解一下 ListView中ItemLongClick与ItemClick事件并存问题。</p>
+<h3 id="ItemLongClick-与-ItemClick-并存"><a href="#ItemLongClick-与-ItemClick-并存" class="headerlink" title="ItemLongClick 与 ItemClick 并存"></a>ItemLongClick 与 ItemClick 并存</h3><p>在ListView中注册 ItemLongClick 方法的默认实现如下所示:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">  public boolean onItemLongClick(AdapterView&lt;?&gt; parent, View view, int position, long id) &#123;</span><br><span class="line">      return false;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<p>其中onItemLongClick 中默认返回的false,false的含义是: 将事件传递下去,简单的说,onItemLongClick 执行方法后,则会执行ItemClick回调函数,如下图所示:<br><img src="/img/android/event/error.gif" alt="错误的"><br>将onItemLongClick 方法返回true,则会中断事件的传递,将不会执行ItemClick回调函数,<br>代码如下:</p>
+<pre><code>@Override
+  public boolean onItemLongClick(AdapterView&lt;?&gt; parent, View view, int position, long id) {
+      return true;
+  }
+</code></pre><p>如下图所示:<br><img src="/img/android/event/success.gif" alt="正确的"></p>
 
       
     </div>
@@ -327,7 +333,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/版本控制工具/" rel="tag">#版本控制工具</a>
+            <a href="/tags/Android/" rel="tag">#Android</a>
           
         </div>
       
@@ -336,17 +342,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2014/11/23/javacommon/" rel="next" title="Java 中必备的公共知识点">
-                <i class="fa fa-chevron-left"></i> Java 中必备的公共知识点
+              <a href="/2016/05/12/android/Vysor/" rel="next" title="Android模拟器之Vysor">
+                <i class="fa fa-chevron-left"></i> Android模拟器之Vysor
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2015/12/12/mobileIpAddress/" rel="prev" title="移动设备访问本地电脑web站点的方法">
-                移动设备访问本地电脑web站点的方法 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -372,8 +374,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2014/12/02/svn/"
-           data-title="myeclipse 中使用版本控制工具svn的坑" data-url="http://yoursite.com/2014/12/02/svn/">
+      <div class="ds-thread" data-thread-key="2016/05/14/android/androidListViewEvent/"
+           data-title="ListView中ItemLongClick与ItemClick事件并存问题" data-url="http://yoursite.com/2016/05/14/android/androidListViewEvent/">
       </div>
     
   </div>
@@ -483,7 +485,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#问题以及解决办法列表"><span class="nav-number">1.</span> <span class="nav-text">问题以及解决办法列表</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#问题"><span class="nav-number">1.0.1.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解决方法"><span class="nav-number">1.0.2.</span> <span class="nav-text">解决方法:</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">2.</span> <span class="nav-text">小结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#ItemLongClick-与-ItemClick-并存"><span class="nav-number">1.</span> <span class="nav-text">ItemLongClick 与 ItemClick 并存</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
