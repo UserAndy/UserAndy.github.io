@@ -1,0 +1,884 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="svn & git," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="在前面的博客中,教大家如何在MyEclipse中集成SVN,之前我们安装的只是SVN 的客户端，如果想要使用SVN,那么就少不了服务端，今天向大家介绍SVN服务端 VisualSVN Server的安装以及使用
+VisualSVN Server 详解准备工作首先，我们需要下载VisualSVN Server，可以在其官网进行下载① VisualSVN Server 官网下载VisualSVN Se">
+<meta property="og:type" content="article">
+<meta property="og:title" content="VisualSVN Server 详解">
+<meta property="og:url" content="http://yoursite.com/2016/05/27/versionControl/svnServer/index.html">
+<meta property="og:site_name" content="随机bug的博客">
+<meta property="og:description" content="在前面的博客中,教大家如何在MyEclipse中集成SVN,之前我们安装的只是SVN 的客户端，如果想要使用SVN,那么就少不了服务端，今天向大家介绍SVN服务端 VisualSVN Server的安装以及使用
+VisualSVN Server 详解准备工作首先，我们需要下载VisualSVN Server，可以在其官网进行下载① VisualSVN Server 官网下载VisualSVN Se">
+<meta property="og:image" content="http://yoursite.com/img/svn/svnServer/index.png">
+<meta property="og:image" content="http://yoursite.com/img/svn/svnServer/start.png">
+<meta property="og:image" content="http://yoursite.com/img/svn/svnServer/two.png">
+<meta property="og:image" content="http://yoursite.com/img/svn/svnServer/three.png">
+<meta property="og:image" content="http://yoursite.com/img/svn/svnServer/four.png">
+<meta property="og:image" content="http://yoursite.com/img/svn/svnServer/selectPath.png">
+<meta property="og:image" content="http://yoursite.com/img/svn/svnServer/installed.png">
+<meta property="og:image" content="http://yoursite.com/img/svn/svnServer/default.png">
+<meta property="og:image" content="http://yoursite.com/img/svn/svnServer/createRepository.png">
+<meta property="og:image" content="http://yoursite.com/img/svn/svnServer/type.png">
+<meta property="og:image" content="http://yoursite.com/img/svn/svnServer/repositoryname.png">
+<meta property="og:image" content="http://yoursite.com/img/svn/svnServer/selectstructure.png">
+<meta property="og:image" content="http://yoursite.com/img/svn/svnServer/selectPermission.png">
+<meta property="og:image" content="http://yoursite.com/img/svn/svnServer/finish.png">
+<meta property="og:image" content="http://yoursite.com/img/svn/svnServer/tipsCreateUser.png">
+<meta property="og:image" content="http://yoursite.com/img/svn/svnServer/createUser.png">
+<meta property="og:image" content="http://yoursite.com/img/svn/svnServer/creategroup.png">
+<meta property="og:image" content="http://yoursite.com/img/svn/svnServer/fenpei.png">
+<meta property="og:image" content="http://yoursite.com/img/svn/svnServer/managerpermission.png">
+<meta property="og:image" content="http://yoursite.com/img/svn/svnServer/permission.png">
+<meta property="og:updated_time" content="2016-05-27T11:47:34.291Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="VisualSVN Server 详解">
+<meta name="twitter:description" content="在前面的博客中,教大家如何在MyEclipse中集成SVN,之前我们安装的只是SVN 的客户端，如果想要使用SVN,那么就少不了服务端，今天向大家介绍SVN服务端 VisualSVN Server的安装以及使用
+VisualSVN Server 详解准备工作首先，我们需要下载VisualSVN Server，可以在其官网进行下载① VisualSVN Server 官网下载VisualSVN Se">
+<meta name="twitter:image" content="http://yoursite.com/img/svn/svnServer/index.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: undefined,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> VisualSVN Server 详解 | 随机bug的博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">随机bug的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">微移是一种心态！</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            时间轴
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-friendslinks">
+          <a href="/friendslinks" rel="section">
+            
+              <i class="menu-item-icon fa fa-question-circle fa-fw"></i> <br />
+            
+            小伙伴们
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                VisualSVN Server 详解
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-05-27T16:51:00+08:00" content="2016-05-27">
+              2016-05-27
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/svn-git/" itemprop="url" rel="index">
+                    <span itemprop="name">svn & git</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/05/27/versionControl/svnServer/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/27/versionControl/svnServer/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+		
+		
+          
+          
+				<span id="/2016/05/27/versionControl/svnServer/"class="leancloud_visitors"  data-flag-title="VisualSVN Server 详解">
+        &nbsp; | &nbsp; 阅读次数
+        </span>
+		
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在前面的博客中,教大家如何在MyEclipse中集成SVN,之前我们安装的只是SVN 的客户端，如果想要使用SVN,那么就少不了服务端，今天向大家介绍SVN服务端 VisualSVN Server的安装以及使用</p>
+<h2 id="VisualSVN-Server-详解"><a href="#VisualSVN-Server-详解" class="headerlink" title="VisualSVN Server 详解"></a>VisualSVN Server 详解</h2><h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><p>首先，我们需要下载VisualSVN Server，可以在其官网进行下载<br>① VisualSVN Server 官网下载<br><a href="https://www.visualsvn.com/server/download/" target="_blank" rel="external">VisualSVN Server</a><br>其官网如下所示:<br><img src="/img/svn/svnServer/index.png" alt="官网如图所示"><br>根据系统的版本下载不同的版本,进行安装!<br><a id="more"></a> </p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>目前VisualSVN Server 最新版本是:3.5.3<br>下载好后，我们打开如下图所示：<br><img src="/img/svn/svnServer/start.png" alt="开始界面"><br>我们继续下一步,如下图所示:<br><img src="/img/svn/svnServer/two.png" alt="选择版本"><br>点击下一步,在这里我们可以进行实际情况进行选择:<br>① VisualSVN Server and Administration Tools(VisualSVN Server 与管理员工具)<br>② Administration Tools Only(仅安装管理员工具)<br>我这里选择的是(VisualSVN Server and Administration Tools)如下图所示:<br><img src="/img/svn/svnServer/three.png" alt="选择版本"><br>继续点击下一步，在这里我们需要选择一下版本:<br>Standard Edition(标准版本)<br>Enterprise Edition(企业版本)<br>我们一般选择(Standard Edition)标准版本即可.<br><img src="/img/svn/svnServer/four.png" alt="选择版本"><br>接下来，我们选择其安装目录，以及仓库路径，设置端口(默认端口是:443)，以及选择是否使用https<br><img src="/img/svn/svnServer/selectPath.png" alt="选择路径"><br>最后，我们点击安装即可，安装完成后，接下来我们只需要稍等一会，就可以安装完成了。<br>如下图所示:<br><img src="/img/svn/svnServer/installed.png" alt="选择版本"> </p>
+<h3 id="目录讲解"><a href="#目录讲解" class="headerlink" title="目录讲解"></a>目录讲解</h3><p>我们通过上一步已经完成了VisualSVN Server的安装，现在相信你已经迫不及待的想来使用了，那么我们打开VisualSVN Server,如图所示:<br><img src="/img/svn/svnServer/default.png" alt="选择版本"><br>① Repositories(仓库):用于存放资源的。<br>② Users(用户): 用于用户的管理。<br>③ Groups(组)：表示用户组,(可以安装性质划分,比如:Android项目组，后台组等)<br>我们可以看到，还没有任何资源以及用户，组，接下来我们一一创建以及讲解,</p>
+<h3 id="创建资源"><a href="#创建资源" class="headerlink" title="创建资源"></a>创建资源</h3><p>我们通过目录的讲解，已经知道了各目录的作用，现在我们可以在 Repositories 下创建一个资源，右键新建，如下图所示:<br><img src="/img/svn/svnServer/createRepository.png" alt="新建资源"><br>在这里，我们可以选择:<br>① Create New Repository: 新建一个资源(仓库)。<br>② Import Existing Repository: 导入一个已经存在的仓库。<br>我们点击(Create New Repository)新建，如下图所示:<br><img src="/img/svn/svnServer/type.png" alt="选择"><br>在这里，选择类型，我们选择的是第一个，接下来next，在这里需要输入一个仓库的名称(名称建议用大小写字母，数字组成,最不推荐使用中文)，如下图所示:<br><img src="/img/svn/svnServer/repositoryname.png" alt="资源名称"><br>我们输入资源名称后，点击下一步，我们需要选择一下仓库的特征,如下图所示:<br><img src="/img/svn/svnServer/selectstructure.png" alt="选择"><br>我们选择(Empty repository)点击下一步,然后到了选择权限界面，如下图所示:<br><img src="/img/svn/svnServer/selectPermission.png" alt="选择"><br>① Nobody has access: 没有人可以访问。<br>② All subversion users have Read/Write access: 所有用户拥有读写权限。<br>③ Customize permissions:  自定义权限。<br>这里我们可以随便选择一个，后面可以修改，点击 Create,我们就已经创建成功，<br>如下图所示:<br><img src="/img/svn/svnServer/finish.png" alt="选择"><br>其中Repository URL 就是我们访问刚才新建仓库的链接。</p>
+<h3 id="创建用户"><a href="#创建用户" class="headerlink" title="创建用户"></a>创建用户</h3><p>我们创建好了仓库，是时候该创建用户了，看，我们没有创建用户，机智的VisualSVN Server已经在迫不及待的提示我们，如果需要访问该资源，则需要创建用户了。<br><img src="/img/svn/svnServer/tipsCreateUser.png" alt="选择"><br>好吧，我们开始创建用户，在Users(文件夹中)右键新建，如下图所示:<br><img src="/img/svn/svnServer/createUser.png" alt="选择"><br>在这里，我们输入账号和密码,点击创建即可。  </p>
+<h3 id="创建组"><a href="#创建组" class="headerlink" title="创建组"></a>创建组</h3><p>接下来，我们创建组,刚才添加用户,现在创建组，同时添加用户到组中，如下图所示:<br><img src="/img/svn/svnServer/creategroup.png" alt="选择"><br>在这里需要注意的是:<br>① 一个用户能同时在多个组中。<br>② 一个组中可以保护另外一个组。  </p>
+<h3 id="分配权限"><a href="#分配权限" class="headerlink" title="分配权限"></a>分配权限</h3><p>现在我们创建好了用户，以及组，现在该对仓库访问分配用户(用户组)以及权限了，我们右键刚才新建的项仓库，如下图所示:<br><img src="/img/svn/svnServer/fenpei.png" alt="选择"><br>进行分配，如下图所示:<br><img src="/img/svn/svnServer/managerpermission.png" alt="选择"><br>选择好用户或者用户组后，则可以进行权限的分配了，如下图所示：<br><img src="/img/svn/svnServer/permission.png" alt="选择"><br>这里有三个权限: 主要是:<br>① no access： 不可访问。<br>② Read Only:  只读权限。<br>③ Read/Write: 读写权限。<br>现在我们可以通过分配的账号来进行项目的访问，以及版本控制了，</p>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>版本控制在实际的项目开发中，显得尤为重要，特别是团队开发中，以上是对VisualSVN Server的全部讲解。后面，会继续讲解另外一个优秀的版本控制工具，Git的使用。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/svn-git/" rel="tag">#svn & git</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/05/14/android/androidListViewEvent/" rel="next" title="ListView中ItemLongClick与ItemClick事件并存问题">
+                <i class="fa fa-chevron-left"></i> ListView中ItemLongClick与ItemClick事件并存问题
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/05/27/versionControl/svnServer/"
+           data-title="VisualSVN Server 详解" data-url="http://yoursite.com/2016/05/27/versionControl/svnServer/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="鞠骞" />
+          <p class="site-author-name" itemprop="name">鞠骞</p>
+          <p class="site-description motion-element" itemprop="description">微移是一种生活，分享是一种态度!</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">15</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/userandy" target="_blank">
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/userandy" target="_blank">
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#VisualSVN-Server-详解"><span class="nav-number">1.</span> <span class="nav-text">VisualSVN Server 详解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#准备工作"><span class="nav-number">1.1.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-number">1.2.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#目录讲解"><span class="nav-number">1.3.</span> <span class="nav-text">目录讲解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建资源"><span class="nav-number">1.4.</span> <span class="nav-text">创建资源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建用户"><span class="nav-number">1.5.</span> <span class="nav-text">创建用户</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建组"><span class="nav-number">1.6.</span> <span class="nav-text">创建组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分配权限"><span class="nav-number">1.7.</span> <span class="nav-text">分配权限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结"><span class="nav-number">1.8.</span> <span class="nav-text">小结</span></a></li></ol></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">鞠骞</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+
+  
+
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.sidebar.display === 'post' || CONFIG.sidebar.display === 'always') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"andyhome"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+      <script src="/vendors/ua-parser-js/dist/ua-parser.min.js"></script>
+      <script src="/js/src/hook-duoshuo.js"></script>
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  <!-- custom analytics part create by xiamo -->
+<script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+<script>AV.initialize("DyeMW5P0VKGbQJVb25qWYYS7-gzGzoHsz", "05Ag2XCTCbcFb6qOo96UrplX");</script>
+<script>
+function showTime(Counter) {
+	var query = new AV.Query(Counter);
+	$(".leancloud_visitors").each(function() {
+		var url = $(this).attr("id").trim();
+		query.equalTo("url", url);
+		query.find({
+			success: function(results) {
+				if (results.length == 0) {
+					var content = $(document.getElementById(url)).text() + ': 0';
+					$(document.getElementById(url)).text(content);
+					return;
+				}
+				for (var i = 0; i < results.length; i++) {
+					var object = results[i];
+					var content = $(document.getElementById(url)).text() + ': ' + object.get('time');
+					$(document.getElementById(url)).text(content);
+				}
+			},
+			error: function(object, error) {
+				console.log("Error: " + error.code + " " + error.message);
+			}
+		});
+
+	});
+}
+
+function addCount(Counter) {
+	var Counter = AV.Object.extend("Counter");
+	url = $(".leancloud_visitors").attr('id').trim();
+	title = $(".leancloud_visitors").attr('data-flag-title').trim();
+	var query = new AV.Query(Counter);
+	query.equalTo("url", url);
+	query.find({
+		success: function(results) {
+			if (results.length > 0) {
+				var counter = results[0];
+				counter.fetchWhenSave(true);
+				counter.increment("time");
+				counter.save(null, {
+					success: function(counter) {
+						var content = $(document.getElementById(url)).text() + ': ' + counter.get('time');
+						$(document.getElementById(url)).text(content);
+					},
+					error: function(counter, error) {
+						console.log('Failed to save Visitor num, with error message: ' + error.message);
+					}
+				});
+			} else {
+				var newcounter = new Counter();
+				newcounter.set("title", title);
+				newcounter.set("url", url);
+				newcounter.set("time", 1);
+				newcounter.save(null, {
+					success: function(newcounter) {
+					    console.log("newcounter.get('time')="+newcounter.get('time'));
+						var content = $(document.getElementById(url)).text() + ': ' + newcounter.get('time');
+						$(document.getElementById(url)).text(content);
+					},
+					error: function(newcounter, error) {
+						console.log('Failed to create');
+					}
+				});
+			}
+		},
+		error: function(error) {
+			console.log('Error:' + error.code + " " + error.message);
+		}
+	});
+}
+$(function() {
+	var Counter = AV.Object.extend("Counter");
+	if ($('.leancloud_visitors').length == 1) {
+		addCount(Counter);
+	} else if ($('.post-title-link').length > 1) {
+		showTime(Counter);
+	}
+}); 
+</script>
+  
+</body>
+</html>
