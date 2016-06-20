@@ -1,0 +1,872 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Android,语音集成," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="上面一篇文章已经清楚的向大家介绍了Android集成科大讯飞语言SDK的一些准备工作，这篇文章则给大家介绍如何使用下载好的sdk,并提供一个简单的示例。首先看效果:完整代码已开源至github: https://github.com/UserAndy/testVoice
+1.1 添加资源在上一篇文章中，已经很详细的为大家介绍了下载sdk解压后的目录，这里不再重复，我们将其assets文件夹复制到项">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android 集成科大讯飞语言SDK(二)">
+<meta property="og:url" content="http://yoursite.com/2016/06/20/android/android_voice(2)/index.html">
+<meta property="og:site_name" content="随机bug的博客">
+<meta property="og:description" content="上面一篇文章已经清楚的向大家介绍了Android集成科大讯飞语言SDK的一些准备工作，这篇文章则给大家介绍如何使用下载好的sdk,并提供一个简单的示例。首先看效果:完整代码已开源至github: https://github.com/UserAndy/testVoice
+1.1 添加资源在上一篇文章中，已经很详细的为大家介绍了下载sdk解压后的目录，这里不再重复，我们将其assets文件夹复制到项">
+<meta property="og:image" content="http://yoursite.com/img/android/voice2/gif.gif">
+<meta property="og:image" content="http://yoursite.com/img/android/voice2/assets.png">
+<meta property="og:image" content="http://yoursite.com/img/android/voice2/showdir.png">
+<meta property="og:image" content="http://yoursite.com/img/android/voice2/libs.png">
+<meta property="og:image" content="http://yoursite.com/img/android/voice2/success.png">
+<meta property="og:updated_time" content="2016-06-20T15:29:51.339Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android 集成科大讯飞语言SDK(二)">
+<meta name="twitter:description" content="上面一篇文章已经清楚的向大家介绍了Android集成科大讯飞语言SDK的一些准备工作，这篇文章则给大家介绍如何使用下载好的sdk,并提供一个简单的示例。首先看效果:完整代码已开源至github: https://github.com/UserAndy/testVoice
+1.1 添加资源在上一篇文章中，已经很详细的为大家介绍了下载sdk解压后的目录，这里不再重复，我们将其assets文件夹复制到项">
+<meta name="twitter:image" content="http://yoursite.com/img/android/voice2/gif.gif">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: undefined,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> Android 集成科大讯飞语言SDK(二) | 随机bug的博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">随机bug的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">微移是一种心态！</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            时间轴
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-friendslinks">
+          <a href="/friendslinks" rel="section">
+            
+              <i class="menu-item-icon fa fa-question-circle fa-fw"></i> <br />
+            
+            小伙伴们
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Android 集成科大讯飞语言SDK(二)
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-06-20T13:04:00+08:00" content="2016-06-20">
+              2016-06-20
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/06/20/android/android_voice(2)/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/20/android/android_voice(2)/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+		
+		
+          
+          
+				<span id="/2016/06/20/android/android_voice(2)/"class="leancloud_visitors"  data-flag-title="Android 集成科大讯飞语言SDK(二)">
+        &nbsp; | &nbsp; 阅读次数
+        </span>
+		
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>上面一篇文章已经清楚的向大家介绍了Android集成科大讯飞语言SDK的一些准备工作，这篇文章则给大家介绍如何使用下载好的sdk,并提供一个简单的示例。首先看效果:<br><img src="/img/android/voice2/gif.gif" alt="效果"><br>完整代码已开源至github: <a href="https://github.com/UserAndy/testVoice" target="_blank" rel="external">https://github.com/UserAndy/testVoice</a></p>
+<h3 id="1-1-添加资源"><a href="#1-1-添加资源" class="headerlink" title="1.1 添加资源"></a>1.1 添加资源</h3><p>在上一篇文章中，已经很详细的为大家介绍了下载sdk解压后的目录，这里不再重复，我们将其assets文件夹复制到项目中(app-&gt;src-&gt;main-&gt;assets)，assets 文件夹如下图(1)所示，复制到的目录如下图(2)所示:<br><img src="/img/android/voice2/assets.png" alt="资源文件"><br>图(1) 资源文件夹<br><img src="/img/android/voice2/showdir.png" alt="目录文件夹"><br>图(2) 拷贝的目标目录<br><a id="more"></a></p>
+<h3 id="1-2-添加lib库"><a href="#1-2-添加lib库" class="headerlink" title="1.2 添加lib库"></a>1.2 添加lib库</h3><p>使用语言识别功能，就必须使用设备的录用功能，也就免不了使用lib，下载好的sdk也为我们准备好了，只需要拷贝就行，这里我们需要在(app-&gt;src-&gt;main)文件夹下，新建名为jniLibs的文件夹，并将其sdk下lib目录下的如下文件夹(如图(3))，复制到其目录下：<br><img src="/img/android/voice2/libs.png" alt="文件夹"><br>图(3) lib库文件<br>将Msc.jar 与Sunflower.jar 则添加到 libs文件夹中,添加后的目录如图(4)所示:<br><img src="/img/android/voice2/success.png" alt="添加完成的目录"><br>图(4) 添加完成后的界面 </p>
+<h3 id="1-3-添加权限"><a href="#1-3-添加权限" class="headerlink" title="1.3 添加权限"></a>1.3 添加权限</h3><p>使用语音识别是需要权限的，如录音权限，读取网络状态权限，在 AndroidManifest.xml 文件中添加如下权限:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--连接网络权限 --&gt;</span><br><span class="line">  &lt;uses-permission android:name=&quot;android.permission.INTERNET&quot;/&gt;</span><br><span class="line">  &lt;!--获取手机录音机使用权限，听写、识别、语义理解需要用到此权限  --&gt;</span><br><span class="line">  &lt;uses-permission android:name=&quot;android.permission.RECORD_AUDIO&quot;/&gt;</span><br><span class="line">  &lt;!--读取网络信息状态  --&gt;</span><br><span class="line">  &lt;uses-permission android:name=&quot;android.permission.ACCESS_NETWORK_STATE&quot;/&gt;</span><br><span class="line">  &lt;!--获取当前wifi状态  --&gt;</span><br><span class="line">  &lt;uses-permission android:name=&quot;android.permission.ACCESS_WIFI_STATE&quot;/&gt;</span><br><span class="line">  &lt;!--允许程序改变网络连接状态  --&gt;</span><br><span class="line">  &lt;uses-permission android:name=&quot;android.permission.CHANGE_NETWORK_STATE&quot;/&gt;</span><br><span class="line">  &lt;!--读取手机状态权限  --&gt;</span><br><span class="line">  &lt;uses-permission android:name=&quot;android.permission.READ_PHONE_STATE&quot;/&gt;</span><br><span class="line">  &lt;!--读取联系人权限  --&gt;</span><br><span class="line">  &lt;uses-permission android:name=&quot;android.permission.READ_CONTACTS&quot;/&gt;</span><br><span class="line">  &lt;!--外存储写权限 --&gt;</span><br><span class="line">  &lt;uses-permission android:name=&quot;android.permission.WRITE_EXTERNAL_STORAGE&quot;/&gt;</span><br><span class="line">  &lt;!--外存储读权限， --&gt;</span><br><span class="line">  &lt;uses-permission android:name=&quot;android.permission.READ_EXTERNAL_STORAGE&quot;/&gt;</span><br><span class="line">  &lt;!--配置权限，用来记录应用配置信息  --&gt;</span><br><span class="line">  &lt;uses-permission android:name=&quot;android.permission.WRITE_SETTINGS&quot;/&gt;</span><br></pre></td></tr></table></figure></p>
+<p>添加完成后，我们已经完成了大部分了，童鞋，坚持一下马上就能完成了，继续往下看吧!</p>
+<h3 id="1-4-语音集成基类"><a href="#1-4-语音集成基类" class="headerlink" title="1.4 语音集成基类"></a>1.4 语音集成基类</h3><p>在这里，通过官方提供的sdk中，提取并简单的封装了一个基类，在使用语音时，只需要继承下面基类即完成语音识别操作:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br></pre></td><td class="code"><pre><span class="line">   public class IatBasicActivity extends AppCompatActivity &#123;</span><br><span class="line"></span><br><span class="line">    public static final String PRIVATE_SETTING=&quot;com.iflytek.setting&quot;;           //缓存数据的名称</span><br><span class="line">    private static final String TAG = &quot;BasicIatActivity&quot;;</span><br><span class="line">    private EditText mContent;                          //显示内容</span><br><span class="line">    // 语音听写对象</span><br><span class="line">    private SpeechRecognizer mIat;</span><br><span class="line">    // 语音听写UI</span><br><span class="line">    private RecognizerDialog mIatDialog;</span><br><span class="line">    // 用HashMap存储听写结果</span><br><span class="line">    private HashMap&lt;String, String&gt; mIatResults = new LinkedHashMap&lt;String, String&gt;();</span><br><span class="line">    private SharedPreferences mSharedPreferences;</span><br><span class="line"></span><br><span class="line">    private Toast mToast;</span><br><span class="line">    // 引擎类型</span><br><span class="line">    private String mEngineType = SpeechConstant.TYPE_CLOUD;</span><br><span class="line"></span><br><span class="line">    int ret = 0; // 函数调用返回值</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</span><br><span class="line">        super.onCreate(savedInstanceState);</span><br><span class="line">        SpeechUtility.createUtility(this, SpeechConstant.APPID + &quot;=5763509a&quot;);</span><br><span class="line">        Log.d(TAG, &quot;onCreate---&gt;&quot;);</span><br><span class="line">        initIat();</span><br><span class="line">        //初始化组件   后期修改为，程序一进入的时候进行初始化</span><br><span class="line">        mToast = Toast.makeText(IatBasicActivity.this,&quot;&quot;,Toast.LENGTH_SHORT);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 显示toast</span><br><span class="line">     * @param content  待显示的内容</span><br><span class="line">     */</span><br><span class="line">    public void showTip(String content)&#123;</span><br><span class="line">        mToast.setText(content);</span><br><span class="line">        mToast.show();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 初始化 EditText 在需要调用语音接口中的类的初始化方法中调用该方法</span><br><span class="line">     *</span><br><span class="line">     * @param mContent</span><br><span class="line">     */</span><br><span class="line">    public void initIatData(EditText mContent) &#123;</span><br><span class="line">        this.mContent = mContent;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 初始化语音识别中的对象</span><br><span class="line">     */</span><br><span class="line">    private void initIat() &#123;</span><br><span class="line">        // 使用SpeechRecognizer对象，可根据回调消息自定义界面；</span><br><span class="line">        mIat = SpeechRecognizer.createRecognizer(this, mInitListener);</span><br><span class="line">        // 初始化听写Dialog，如果只使用有UI听写功能，无需创建SpeechRecognizer</span><br><span class="line">        // 使用UI听写功能，请根据sdk文件目录下的notice.txt,放置布局文件和图片资源</span><br><span class="line">        mIatDialog = new RecognizerDialog(this, mInitListener);</span><br><span class="line">        mSharedPreferences = getSharedPreferences(PRIVATE_SETTING,</span><br><span class="line">                Activity.MODE_PRIVATE);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 初始化监听器</span><br><span class="line">     */</span><br><span class="line">    private InitListener mInitListener = new InitListener() &#123;</span><br><span class="line">        @Override</span><br><span class="line">        public void onInit(int code) &#123;</span><br><span class="line">            Log.d(TAG, &quot;SpeechRecognizer init() code = &quot; + code);</span><br><span class="line">            if (code != ErrorCode.SUCCESS) &#123;</span><br><span class="line">                showTip(&quot;初始化失败，错误码：&quot; + code);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 听写UI监听器</span><br><span class="line">     */</span><br><span class="line">    private RecognizerDialogListener mRecognizerDialogListener = new RecognizerDialogListener() &#123;</span><br><span class="line">        public void onResult(RecognizerResult results, boolean isLast) &#123;</span><br><span class="line">            Log.d(TAG, results.getResultString());</span><br><span class="line">            printResult(results, mContent);</span><br><span class="line">            Log.d(TAG, results.getResultString());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        /**</span><br><span class="line">         * 识别回调错误.</span><br><span class="line">         */</span><br><span class="line">        public void onError(SpeechError error) &#123;</span><br><span class="line">            showTip(error.getPlainDescription(true));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    /**</span><br><span class="line">     * 听写监听器。</span><br><span class="line">     */</span><br><span class="line">    private RecognizerListener mRecognizerListener = new RecognizerListener() &#123;</span><br><span class="line"></span><br><span class="line">        @Override</span><br><span class="line">        public void onBeginOfSpeech() &#123;</span><br><span class="line">            // 此回调表示：sdk内部录音机已经准备好了，用户可以开始语音输入</span><br><span class="line">            showTip(&quot;开始说话&quot;);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        @Override</span><br><span class="line">        public void onError(SpeechError error) &#123;</span><br><span class="line">            // Tips：</span><br><span class="line">            // 错误码：10118(您没有说话)，可能是录音机权限被禁，需要提示用户打开应用的录音权限。</span><br><span class="line">            // 如果使用本地功能（语记）需要提示用户开启语记的录音权限。</span><br><span class="line">            showTip(error.getPlainDescription(true));</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        @Override</span><br><span class="line">        public void onEndOfSpeech() &#123;</span><br><span class="line">            // 此回调表示：检测到了语音的尾端点，已经进入识别过程，不再接受语音输入</span><br><span class="line">            showTip(&quot;结束说话&quot;);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        @Override</span><br><span class="line">        public void onResult(RecognizerResult results, boolean isLast) &#123;</span><br><span class="line">            Log.d(TAG, results.getResultString());</span><br><span class="line">            printResult(results, mContent);</span><br><span class="line">            Log.d(TAG, results.getResultString());</span><br><span class="line">            if (isLast) &#123;</span><br><span class="line">                // TODO 最后的结果</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        @Override</span><br><span class="line">        public void onVolumeChanged(int volume, byte[] data) &#123;</span><br><span class="line">            showTip(&quot;当前正在说话，音量大小：&quot; + volume);</span><br><span class="line">            Log.d(TAG, &quot;返回音频数据：&quot; + data.length);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        @Override</span><br><span class="line">        public void onEvent(int eventType, int arg1, int arg2, Bundle obj) &#123;</span><br><span class="line">            // 以下代码用于获取与云端的会话id，当业务出错时将会话id提供给技术支持人员，可用于查询会话日志，定位出错原因</span><br><span class="line">            // 若使用本地能力，会话id为null</span><br><span class="line">            //	if (SpeechEvent.EVENT_SESSION_ID == eventType) &#123;</span><br><span class="line">            //		String sid = obj.getString(SpeechEvent.KEY_EVENT_SESSION_ID);</span><br><span class="line">            //		Log.d(TAG, &quot;session id =&quot; + sid);</span><br><span class="line">            //	&#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 参数设置</span><br><span class="line">     * @param</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    public void setParam() &#123;</span><br><span class="line">        // 清空参数</span><br><span class="line">        mIat.setParameter(SpeechConstant.PARAMS, null);</span><br><span class="line">        // 设置听写引擎</span><br><span class="line">        mIat.setParameter(SpeechConstant.ENGINE_TYPE, mEngineType);</span><br><span class="line">        // 设置返回结果格式</span><br><span class="line">        mIat.setParameter(SpeechConstant.RESULT_TYPE, &quot;json&quot;);</span><br><span class="line">        String lag = mSharedPreferences.getString(&quot;iat_language_preference&quot;,</span><br><span class="line">                &quot;mandarin&quot;);</span><br><span class="line">        if (lag.equals(&quot;en_us&quot;)) &#123;</span><br><span class="line">            // 设置语言</span><br><span class="line">            mIat.setParameter(SpeechConstant.LANGUAGE, &quot;en_us&quot;);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            // 设置语言</span><br><span class="line">            mIat.setParameter(SpeechConstant.LANGUAGE, &quot;zh_cn&quot;);</span><br><span class="line">            // 设置语言区域</span><br><span class="line">            mIat.setParameter(SpeechConstant.ACCENT, lag);</span><br><span class="line">        &#125;</span><br><span class="line">        // 设置语音前端点:静音超时时间，即用户多长时间不说话则当做超时处理</span><br><span class="line">        mIat.setParameter(SpeechConstant.VAD_BOS, mSharedPreferences.getString(&quot;iat_vadbos_preference&quot;, &quot;4000&quot;));</span><br><span class="line"></span><br><span class="line">        // 设置语音后端点:后端点静音检测时间，即用户停止说话多长时间内即认为不再输入， 自动停止录音</span><br><span class="line">        mIat.setParameter(SpeechConstant.VAD_EOS, mSharedPreferences.getString(&quot;iat_vadeos_preference&quot;, &quot;1000&quot;));</span><br><span class="line"></span><br><span class="line">        // 设置标点符号,设置为&quot;0&quot;返回结果无标点,设置为&quot;1&quot;返回结果有标点</span><br><span class="line">        mIat.setParameter(SpeechConstant.ASR_PTT, mSharedPreferences.getString(&quot;iat_punc_preference&quot;, &quot;1&quot;));</span><br><span class="line"></span><br><span class="line">        // 设置音频保存路径，保存音频格式支持pcm、wav，设置路径为sd卡请注意WRITE_EXTERNAL_STORAGE权限</span><br><span class="line">        // 注：AUDIO_FORMAT参数语记需要更新版本才能生效</span><br><span class="line">        mIat.setParameter(SpeechConstant.AUDIO_FORMAT, &quot;wav&quot;);</span><br><span class="line">        mIat.setParameter(SpeechConstant.ASR_AUDIO_PATH, Environment.getExternalStorageDirectory() + &quot;/msc/iat.wav&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 触发点击事件时的方法</span><br><span class="line">     */</span><br><span class="line">    public void clickMethod() &#123;</span><br><span class="line">        mContent.setText(null);// 清空显示内容</span><br><span class="line">        mIatResults.clear();</span><br><span class="line">        // 设置参数</span><br><span class="line">        setParam();</span><br><span class="line">        boolean isShowDialog = mSharedPreferences.getBoolean(getString(R.string.pref_key_iat_show), true);</span><br><span class="line">        if (isShowDialog) &#123;</span><br><span class="line">            // 显示听写对话框</span><br><span class="line">            mIatDialog.setListener(mRecognizerDialogListener);</span><br><span class="line">            mIatDialog.show();</span><br><span class="line">            showTip(getString(R.string.text_begin));</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            // 不显示听写对话框</span><br><span class="line">            ret = mIat.startListening(mRecognizerListener);</span><br><span class="line">            if (ret != ErrorCode.SUCCESS) &#123;</span><br><span class="line">                Log.d(TAG, &quot;听写失败,错误码：&quot; + ret);</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                showTip(getString(R.string.text_begin));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 显示结果,并赋值到EditText文本框中</span><br><span class="line">     *</span><br><span class="line">     * @param results</span><br><span class="line">     * @param editText</span><br><span class="line">     */</span><br><span class="line">    private void printResult(RecognizerResult results, EditText editText) &#123;</span><br><span class="line">        String text = JsonParser.parseIatResult(results.getResultString());</span><br><span class="line"></span><br><span class="line">        String sn = null;</span><br><span class="line">        // 读取json结果中的sn字段</span><br><span class="line">        try &#123;</span><br><span class="line">            JSONObject resultJson = new JSONObject(results.getResultString());</span><br><span class="line">            sn = resultJson.optString(&quot;sn&quot;);</span><br><span class="line">        &#125; catch (JSONException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        mIatResults.put(sn, text);</span><br><span class="line"></span><br><span class="line">        StringBuffer resultBuffer = new StringBuffer();</span><br><span class="line">        for (String key : mIatResults.keySet()) &#123;</span><br><span class="line">            resultBuffer.append(mIatResults.get(key));</span><br><span class="line">        &#125;</span><br><span class="line">        String content = resultBuffer.toString();</span><br><span class="line">        Log.d(TAG, content);</span><br><span class="line">        content = content.replace(&quot;。&quot;, &quot;&quot;.trim());           //去掉最后面的 。</span><br><span class="line">        editText.setText(content);</span><br><span class="line">        editText.setSelection(content.length());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在使用时，在调用时，仅需要四个步骤:<br>① 修改appid<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SpeechUtility.createUtility(this, SpeechConstant.APPID + &quot;=5763509a&quot;);</span><br></pre></td></tr></table></figure></p>
+<p>将5763509a替换成您申请的appid.<br>② 继承 IatBasicActivity 类。<br>③ 在子类中 onCreate()方法 中调用:父类的 initIatData(EditText text); 其中 text是需要赋值的文本框。<br>④ 在触发事件中调用 调用 父类的 clickMethod()方法。  </p>
+<h3 id="1-6-调用示例"><a href="#1-6-调用示例" class="headerlink" title="1.6 调用示例"></a>1.6 调用示例</h3><p>这是一个简单的调用示例<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">public class MainActivity extends IatBasicActivity implements View.OnClickListener&#123;</span><br><span class="line"></span><br><span class="line">    private EditText mContent;</span><br><span class="line">    private Button mBtnVoice;</span><br><span class="line">    @Override</span><br><span class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</span><br><span class="line">        super.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);//5763509a</span><br><span class="line">        initView();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 初始化视图</span><br><span class="line">     */</span><br><span class="line">    private void initView()&#123;</span><br><span class="line">        mContent = (EditText)findViewById(R.id.et_content);</span><br><span class="line">        mBtnVoice =(Button)findViewById(R.id.btn_voice);</span><br><span class="line">        mBtnVoice.setOnClickListener(this);</span><br><span class="line">        //调用父类方法</span><br><span class="line">        initIatData(mContent);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void onClick(View v) &#123;</span><br><span class="line">        switch (v.getId())&#123;</span><br><span class="line">           case R.id.btn_voice:</span><br><span class="line">               //调用父类方法</span><br><span class="line">               clickMethod();</span><br><span class="line">            break;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="1-7-小结"><a href="#1-7-小结" class="headerlink" title="1.7 小结"></a>1.7 小结</h4><p>以上是集成科大讯飞语音识别的主要细节，省略了部分资源文件，完整的demo已开源至github,有兴趣的童鞋，可以直接从github下载，</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag">#Android</a>
+          
+            <a href="/tags/语音集成/" rel="tag">#语音集成</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/06/17/android/android_voice/" rel="next" title="Android 集成科大讯飞语言SDK(一)">
+                <i class="fa fa-chevron-left"></i> Android 集成科大讯飞语言SDK(一)
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/06/20/android/android_voice(2)/"
+           data-title="Android 集成科大讯飞语言SDK(二)" data-url="http://yoursite.com/2016/06/20/android/android_voice(2)/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="鞠骞" />
+          <p class="site-author-name" itemprop="name">鞠骞</p>
+          <p class="site-description motion-element" itemprop="description">微移是一种生活，分享是一种态度!</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">18</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/userandy" target="_blank">
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/userandy" target="_blank">
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-添加资源"><span class="nav-number">1.</span> <span class="nav-text">1.1 添加资源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-添加lib库"><span class="nav-number">2.</span> <span class="nav-text">1.2 添加lib库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-添加权限"><span class="nav-number">3.</span> <span class="nav-text">1.3 添加权限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-语音集成基类"><span class="nav-number">4.</span> <span class="nav-text">1.4 语音集成基类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-6-调用示例"><span class="nav-number">5.</span> <span class="nav-text">1.6 调用示例</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-7-小结"><span class="nav-number">5.1.</span> <span class="nav-text">1.7 小结</span></a></li></ol></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">鞠骞</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+
+  
+
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.sidebar.display === 'post' || CONFIG.sidebar.display === 'always') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"andyhome"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+      <script src="/vendors/ua-parser-js/dist/ua-parser.min.js"></script>
+      <script src="/js/src/hook-duoshuo.js"></script>
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  <!-- custom analytics part create by xiamo -->
+<script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+<script>AV.initialize("DyeMW5P0VKGbQJVb25qWYYS7-gzGzoHsz", "05Ag2XCTCbcFb6qOo96UrplX");</script>
+<script>
+function showTime(Counter) {
+	var query = new AV.Query(Counter);
+	$(".leancloud_visitors").each(function() {
+		var url = $(this).attr("id").trim();
+		query.equalTo("url", url);
+		query.find({
+			success: function(results) {
+				if (results.length == 0) {
+					var content = $(document.getElementById(url)).text() + ': 0';
+					$(document.getElementById(url)).text(content);
+					return;
+				}
+				for (var i = 0; i < results.length; i++) {
+					var object = results[i];
+					var content = $(document.getElementById(url)).text() + ': ' + object.get('time');
+					$(document.getElementById(url)).text(content);
+				}
+			},
+			error: function(object, error) {
+				console.log("Error: " + error.code + " " + error.message);
+			}
+		});
+
+	});
+}
+
+function addCount(Counter) {
+	var Counter = AV.Object.extend("Counter");
+	url = $(".leancloud_visitors").attr('id').trim();
+	title = $(".leancloud_visitors").attr('data-flag-title').trim();
+	var query = new AV.Query(Counter);
+	query.equalTo("url", url);
+	query.find({
+		success: function(results) {
+			if (results.length > 0) {
+				var counter = results[0];
+				counter.fetchWhenSave(true);
+				counter.increment("time");
+				counter.save(null, {
+					success: function(counter) {
+						var content = $(document.getElementById(url)).text() + ': ' + counter.get('time');
+						$(document.getElementById(url)).text(content);
+					},
+					error: function(counter, error) {
+						console.log('Failed to save Visitor num, with error message: ' + error.message);
+					}
+				});
+			} else {
+				var newcounter = new Counter();
+				newcounter.set("title", title);
+				newcounter.set("url", url);
+				newcounter.set("time", 1);
+				newcounter.save(null, {
+					success: function(newcounter) {
+					    console.log("newcounter.get('time')="+newcounter.get('time'));
+						var content = $(document.getElementById(url)).text() + ': ' + newcounter.get('time');
+						$(document.getElementById(url)).text(content);
+					},
+					error: function(newcounter, error) {
+						console.log('Failed to create');
+					}
+				});
+			}
+		},
+		error: function(error) {
+			console.log('Error:' + error.code + " " + error.message);
+		}
+	});
+}
+$(function() {
+	var Counter = AV.Object.extend("Counter");
+	if ($('.leancloud_visitors').length == 1) {
+		addCount(Counter);
+	} else if ($('.post-title-link').length > 1) {
+		showTime(Counter);
+	}
+}); 
+</script>
+  
+</body>
+</html>
