@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="svn & git," />
+  <meta name="keywords" content="Java,网络编程," />
 
 
 
@@ -57,40 +57,19 @@
 
 
 
-<meta name="description" content="在前面的博客中,教大家如何在MyEclipse中集成SVN,之前我们安装的只是SVN 的客户端，如果想要使用SVN,那么就少不了服务端，今天向大家介绍SVN服务端 VisualSVN Server的安装以及使用
-VisualSVN Server 详解准备工作首先，我们需要下载VisualSVN Server，可以在其官网进行下载① VisualSVN Server 官网下载VisualSVN Se">
+<meta name="description" content="随着互联网的普及，特别是移动互联网的到来，网络在其中承担了重要的角色，今天为大家讲解http协议。
+小叙http协议wiki OSI(网络七层模型)OSI(Open System Interconnection)是一个开放性的通信系统互连参考模型,该模型将网络通信的工作分为七层,分别是: 物理层，数据链路层, 网络层，传输层，会话层,表示层和应用层。① 物理层: 作为OSI模型中最低的一层，为传输">
 <meta property="og:type" content="article">
-<meta property="og:title" content="VisualSVN Server 详解">
-<meta property="og:url" content="http://yoursite.com/2016/05/27/versionControl/svnServer/index.html">
+<meta property="og:title" content="小叙http协议">
+<meta property="og:url" content="http://yoursite.com/2016/08/27/network/http/index.html">
 <meta property="og:site_name" content="随机bug的博客">
-<meta property="og:description" content="在前面的博客中,教大家如何在MyEclipse中集成SVN,之前我们安装的只是SVN 的客户端，如果想要使用SVN,那么就少不了服务端，今天向大家介绍SVN服务端 VisualSVN Server的安装以及使用
-VisualSVN Server 详解准备工作首先，我们需要下载VisualSVN Server，可以在其官网进行下载① VisualSVN Server 官网下载VisualSVN Se">
-<meta property="og:image" content="http://yoursite.com/img/svn/svnServer/index.png">
-<meta property="og:image" content="http://yoursite.com/img/svn/svnServer/start.png">
-<meta property="og:image" content="http://yoursite.com/img/svn/svnServer/two.png">
-<meta property="og:image" content="http://yoursite.com/img/svn/svnServer/three.png">
-<meta property="og:image" content="http://yoursite.com/img/svn/svnServer/four.png">
-<meta property="og:image" content="http://yoursite.com/img/svn/svnServer/selectPath.png">
-<meta property="og:image" content="http://yoursite.com/img/svn/svnServer/installed.png">
-<meta property="og:image" content="http://yoursite.com/img/svn/svnServer/default.png">
-<meta property="og:image" content="http://yoursite.com/img/svn/svnServer/createRepository.png">
-<meta property="og:image" content="http://yoursite.com/img/svn/svnServer/type.png">
-<meta property="og:image" content="http://yoursite.com/img/svn/svnServer/repositoryname.png">
-<meta property="og:image" content="http://yoursite.com/img/svn/svnServer/selectstructure.png">
-<meta property="og:image" content="http://yoursite.com/img/svn/svnServer/selectPermission.png">
-<meta property="og:image" content="http://yoursite.com/img/svn/svnServer/finish.png">
-<meta property="og:image" content="http://yoursite.com/img/svn/svnServer/tipsCreateUser.png">
-<meta property="og:image" content="http://yoursite.com/img/svn/svnServer/createUser.png">
-<meta property="og:image" content="http://yoursite.com/img/svn/svnServer/creategroup.png">
-<meta property="og:image" content="http://yoursite.com/img/svn/svnServer/fenpei.png">
-<meta property="og:image" content="http://yoursite.com/img/svn/svnServer/managerpermission.png">
-<meta property="og:image" content="http://yoursite.com/img/svn/svnServer/permission.png">
-<meta property="og:updated_time" content="2016-05-27T11:47:34.291Z">
+<meta property="og:description" content="随着互联网的普及，特别是移动互联网的到来，网络在其中承担了重要的角色，今天为大家讲解http协议。
+小叙http协议wiki OSI(网络七层模型)OSI(Open System Interconnection)是一个开放性的通信系统互连参考模型,该模型将网络通信的工作分为七层,分别是: 物理层，数据链路层, 网络层，传输层，会话层,表示层和应用层。① 物理层: 作为OSI模型中最低的一层，为传输">
+<meta property="og:updated_time" content="2016-08-28T19:06:12.856Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="VisualSVN Server 详解">
-<meta name="twitter:description" content="在前面的博客中,教大家如何在MyEclipse中集成SVN,之前我们安装的只是SVN 的客户端，如果想要使用SVN,那么就少不了服务端，今天向大家介绍SVN服务端 VisualSVN Server的安装以及使用
-VisualSVN Server 详解准备工作首先，我们需要下载VisualSVN Server，可以在其官网进行下载① VisualSVN Server 官网下载VisualSVN Se">
-<meta name="twitter:image" content="http://yoursite.com/img/svn/svnServer/index.png">
+<meta name="twitter:title" content="小叙http协议">
+<meta name="twitter:description" content="随着互联网的普及，特别是移动互联网的到来，网络在其中承担了重要的角色，今天为大家讲解http协议。
+小叙http协议wiki OSI(网络七层模型)OSI(Open System Interconnection)是一个开放性的通信系统互连参考模型,该模型将网络通信的工作分为七层,分别是: 物理层，数据链路层, 网络层，传输层，会话层,表示层和应用层。① 物理层: 作为OSI模型中最低的一层，为传输">
 
 
 
@@ -108,7 +87,7 @@ VisualSVN Server 详解准备工作首先，我们需要下载VisualSVN Server�
   };
 </script>
 
-  <title> VisualSVN Server 详解 | 随机bug的博客 </title>
+  <title> 小叙http协议 | 随机bug的博客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -258,7 +237,7 @@ VisualSVN Server 详解准备工作首先，我们需要下载VisualSVN Server�
             
             
               
-                VisualSVN Server 详解
+                小叙http协议
               
             
           </h1>
@@ -270,8 +249,8 @@ VisualSVN Server 详解准备工作首先，我们需要下载VisualSVN Server�
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-05-27T16:51:00+08:00" content="2016-05-27">
-              2016-05-27
+            <time itemprop="dateCreated" datetime="2016-08-27T11:04:05+08:00" content="2016-08-27">
+              2016-08-27
             </time>
           </span>
 
@@ -284,8 +263,8 @@ VisualSVN Server 详解准备工作首先，我们需要下载VisualSVN Server�
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/svn-git/" itemprop="url" rel="index">
-                    <span itemprop="name">svn & git</span>
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
                   </a>
                 </span>
 
@@ -300,8 +279,8 @@ VisualSVN Server 详解准备工作首先，我们需要下载VisualSVN Server�
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/05/27/versionControl/svnServer/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/27/versionControl/svnServer/" itemprop="commentsCount"></span>
+                <a href="/2016/08/27/network/http/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/27/network/http/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -312,7 +291,7 @@ VisualSVN Server 详解准备工作首先，我们需要下载VisualSVN Server�
 		
           
           
-				<span id="/2016/05/27/versionControl/svnServer/"class="leancloud_visitors"  data-flag-title="VisualSVN Server 详解">
+				<span id="/2016/08/27/network/http/"class="leancloud_visitors"  data-flag-title="小叙http协议">
         &nbsp; | &nbsp; 阅读次数
         </span>
 		
@@ -328,15 +307,55 @@ VisualSVN Server 详解准备工作首先，我们需要下载VisualSVN Server�
       
 
       
-        <p>在前面的博客中,教大家如何在MyEclipse中集成SVN,之前我们安装的只是SVN 的客户端，如果想要使用SVN,那么就少不了服务端，今天向大家介绍SVN服务端 VisualSVN Server的安装以及使用</p>
-<h2 id="VisualSVN-Server-详解"><a href="#VisualSVN-Server-详解" class="headerlink" title="VisualSVN Server 详解"></a>VisualSVN Server 详解</h2><h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><p>首先，我们需要下载VisualSVN Server，可以在其官网进行下载<br>① VisualSVN Server 官网下载<br><a href="https://www.visualsvn.com/server/download/" target="_blank" rel="external">VisualSVN Server</a><br>其官网如下所示:<br><img src="/img/svn/svnServer/index.png" alt="官网如图所示"><br>根据系统的版本下载不同的版本,进行安装!<br><a id="more"></a> </p>
-<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>目前VisualSVN Server 最新版本是:3.5.3<br>下载好后，我们打开如下图所示：<br><img src="/img/svn/svnServer/start.png" alt="开始界面"><br>我们继续下一步,如下图所示:<br><img src="/img/svn/svnServer/two.png" alt="选择版本"><br>点击下一步,在这里我们可以进行实际情况进行选择:<br>① VisualSVN Server and Administration Tools(VisualSVN Server 与管理员工具)<br>② Administration Tools Only(仅安装管理员工具)<br>我这里选择的是(VisualSVN Server and Administration Tools)如下图所示:<br><img src="/img/svn/svnServer/three.png" alt="选择版本"><br>继续点击下一步，在这里我们需要选择一下版本:<br>Standard Edition(标准版本)<br>Enterprise Edition(企业版本)<br>我们一般选择(Standard Edition)标准版本即可.<br><img src="/img/svn/svnServer/four.png" alt="选择版本"><br>接下来，我们选择其安装目录，以及仓库路径，设置端口(默认端口是:443)，以及选择是否使用https<br><img src="/img/svn/svnServer/selectPath.png" alt="选择路径"><br>最后，我们点击安装即可，安装完成后，接下来我们只需要稍等一会，就可以安装完成了。<br>如下图所示:<br><img src="/img/svn/svnServer/installed.png" alt="选择版本"> </p>
-<h3 id="目录讲解"><a href="#目录讲解" class="headerlink" title="目录讲解"></a>目录讲解</h3><p>我们通过上一步已经完成了VisualSVN Server的安装，现在相信你已经迫不及待的想来使用了，那么我们打开VisualSVN Server,如图所示:<br><img src="/img/svn/svnServer/default.png" alt="选择版本"><br>① Repositories(仓库):用于存放资源的。<br>② Users(用户): 用于用户的管理。<br>③ Groups(组)：表示用户组,(可以安装性质划分,比如:Android项目组，后台组等)<br>我们可以看到，还没有任何资源以及用户，组，接下来我们一一创建以及讲解,</p>
-<h3 id="创建资源"><a href="#创建资源" class="headerlink" title="创建资源"></a>创建资源</h3><p>我们通过目录的讲解，已经知道了各目录的作用，现在我们可以在 Repositories 下创建一个资源，右键新建，如下图所示:<br><img src="/img/svn/svnServer/createRepository.png" alt="新建资源"><br>在这里，我们可以选择:<br>① Create New Repository: 新建一个资源(仓库)。<br>② Import Existing Repository: 导入一个已经存在的仓库。<br>我们点击(Create New Repository)新建，如下图所示:<br><img src="/img/svn/svnServer/type.png" alt="选择"><br>在这里，选择类型，我们选择的是第一个，接下来next，在这里需要输入一个仓库的名称(名称建议用大小写字母，数字组成,最不推荐使用中文)，如下图所示:<br><img src="/img/svn/svnServer/repositoryname.png" alt="资源名称"><br>我们输入资源名称后，点击下一步，我们需要选择一下仓库的特征,如下图所示:<br><img src="/img/svn/svnServer/selectstructure.png" alt="选择"><br>我们选择(Empty repository)点击下一步,然后到了选择权限界面，如下图所示:<br><img src="/img/svn/svnServer/selectPermission.png" alt="选择"><br>① Nobody has access: 没有人可以访问。<br>② All subversion users have Read/Write access: 所有用户拥有读写权限。<br>③ Customize permissions:  自定义权限。<br>这里我们可以随便选择一个，后面可以修改，点击 Create,我们就已经创建成功，<br>如下图所示:<br><img src="/img/svn/svnServer/finish.png" alt="选择"><br>其中Repository URL 就是我们访问刚才新建仓库的链接。</p>
-<h3 id="创建用户"><a href="#创建用户" class="headerlink" title="创建用户"></a>创建用户</h3><p>我们创建好了仓库，是时候该创建用户了，看，我们没有创建用户，机智的VisualSVN Server已经在迫不及待的提示我们，如果需要访问该资源，则需要创建用户了。<br><img src="/img/svn/svnServer/tipsCreateUser.png" alt="选择"><br>好吧，我们开始创建用户，在Users(文件夹中)右键新建，如下图所示:<br><img src="/img/svn/svnServer/createUser.png" alt="选择"><br>在这里，我们输入账号和密码,点击创建即可。  </p>
-<h3 id="创建组"><a href="#创建组" class="headerlink" title="创建组"></a>创建组</h3><p>接下来，我们创建组,刚才添加用户,现在创建组，同时添加用户到组中，如下图所示:<br><img src="/img/svn/svnServer/creategroup.png" alt="选择"><br>在这里需要注意的是:<br>① 一个用户能同时在多个组中。<br>② 一个组中可以保护另外一个组。  </p>
-<h3 id="分配权限"><a href="#分配权限" class="headerlink" title="分配权限"></a>分配权限</h3><p>现在我们创建好了用户，以及组，现在该对仓库访问分配用户(用户组)以及权限了，我们右键刚才新建的项仓库，如下图所示:<br><img src="/img/svn/svnServer/fenpei.png" alt="选择"><br>进行分配，如下图所示:<br><img src="/img/svn/svnServer/managerpermission.png" alt="选择"><br>选择好用户或者用户组后，则可以进行权限的分配了，如下图所示：<br><img src="/img/svn/svnServer/permission.png" alt="选择"><br>这里有三个权限: 主要是:<br>① no access： 不可访问。<br>② Read Only:  只读权限。<br>③ Read/Write: 读写权限。<br>现在我们可以通过分配的账号来进行项目的访问，以及版本控制了，</p>
-<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>版本控制在实际的项目开发中，显得尤为重要，特别是团队开发中，以上是对VisualSVN Server的全部讲解。后面，会继续讲解另外一个优秀的版本控制工具，Git的使用。</p>
+        <p>随着互联网的普及，特别是移动互联网的到来，网络在其中承担了重要的角色，今天为大家讲解http协议。</p>
+<h2 id="小叙http协议"><a href="#小叙http协议" class="headerlink" title="小叙http协议"></a>小叙http协议</h2><h3 id="wiki-OSI-网络七层模型"><a href="#wiki-OSI-网络七层模型" class="headerlink" title="wiki OSI(网络七层模型)"></a>wiki OSI(网络七层模型)</h3><p>OSI(Open System Interconnection)是一个开放性的通信系统互连参考模型,该模型将网络通信的工作分为七层,分别是: <a href="https://zh.wikipedia.org/wiki/%E7%89%A9%E7%90%86%E5%B1%82" target="_blank" rel="external">物理层</a>，<a href="https://zh.wikipedia.org/wiki/%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82" target="_blank" rel="external">数据链路层</a>, <a href="https://zh.wikipedia.org/wiki/%E7%BD%91%E7%BB%9C%E5%B1%82" target="_blank" rel="external">网络层</a>，<a href="https://zh.wikipedia.org/wiki/%E4%BC%A0%E8%BE%93%E5%B1%82" target="_blank" rel="external">传输层</a>，<a href="https://zh.wikipedia.org/wiki/%E4%BC%9A%E8%AF%9D%E5%B1%82" target="_blank" rel="external">会话层</a>,<a href="https://zh.wikipedia.org/wiki/%E8%A1%A8%E7%A4%BA%E5%B1%82" target="_blank" rel="external">表示层</a>和<a href="">应用层</a>。<br>① 物理层: 作为OSI模型中最低的一层，为传输数据所需要的数据链路提供服务，也就是说，物理层确保原始数据能够在各种物理媒介上传输,常见协议有: Bluetooth物理层,USB物理层等。<br>② 数据链路层:  作为OSI模型的第二层,位于物理层与网络层之间, 常见的数据链路层协议有:异步传输模式，帧中继等。<br>③ 网络层: 作为OSI模型的第三层，网络层提供路由和寻址的功能，使两终端系统能够互连且决定最佳路径，并具有一定的拥塞控制和流量控制的能力，TCP/IP协议体系中的网络层功能由IP协议规定和实现，也称为IP层。<a id="more"></a><br>④ 传输层: 该层协议为应用程序提供端到端之间的通信服务，它提供面向连接的数据流支持，可靠性，流量控制，多路复用等功能，在OSI模型中称为第4层(L4),最著名的TCP/IP传输协议为传输控制协议，而无连接的用户数据报协议（UDP）用于简单消息传输。<br>⑤ 会话层: 位于OSI模型的第5层,主要为两个会话层实体进行会话(Session),而进行的对话连接的管理服务。会话层为客户端的应用程序提供了打开,关闭和管理会话的机制。会话层常见的协议有:RPC(远程过程调用）RTCP(实时传输控制协议)。<br>⑥ 表示层: 为不同终端的上层用户提供数据和信息正确的羽凡表示变换方法。 如文本文件的ASCII格式或者数字的1S或2S补码形式。具有表示层功能的协议有: HTTP/HTML,FTP,Telnet等。表示层中最常见的应用场景为:数据语法转换，语法表示，连接管理，数据处理(数据加解密，数据解压缩，数据编解码)。<br>⑦ 应用层: 作为OSI模型的第七层，应用层直接和应用程序接口并提供常见的网络应用服务，也向表示层发出请求。应用层常见的协议例子有:FTP,DHCP(动态主机配置协议),HTTP,SSH等。  </p>
+<h3 id="http请求URL详解"><a href="#http请求URL详解" class="headerlink" title="http请求URL详解"></a>http请求URL详解</h3><p>对于用户来说，通过在地址栏通过输入网址，则能展示网页，却不知道在这整个过程中发生了什么，现在为大家讲解一些http请求中URL的一些知识，以下列URL为例:<a href="http://www.baidu.com?key=name&amp;fname=zz" target="_blank" rel="external">http://www.baidu.com?key=name&amp;fname=zz</a>。  </p>
+<pre><code>public static void main(String[] args) {
+        try {
+            URL url = new URL(&quot;http://www.baidu.com?key=name&amp;fname=zz&quot;);
+            System.out.println(&quot;authority :&quot; + url.getAuthority()); 
+            System.out.println(&quot;query :&quot; + url.getQuery());
+            System.out.println(&quot;userInfo :&quot; + url.getUserInfo()); 
+            System.out.println(&quot;host :&quot; + url.getHost()); 
+            System.out.println(&quot;getProtocol :&quot; + url.getProtocol());
+            System.out.println(&quot;getPath :&quot; + url.getPath()); 
+            System.out.println(&quot;getRef :&quot; + url.getRef());
+            System.out.println(&quot;toExternalForm :&quot; + url.toExternalForm());
+            System.out.println(&quot;getFile :&quot; + url.getFile()); 
+            System.out.println(&quot;getDefaultPort :&quot; + url.getDefaultPort()); 
+            System.out.println(&quot;getPort :&quot;+url.getPort());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+    }
+</code></pre><p>执行后的结果为:    </p>
+<pre><code>authority :www.baidu.com  
+query :key=name&amp;fname=zz  
+userInfo :null  
+host :www.baidu.com  
+getProtocol :http  
+getPath :  
+getRef :null  
+toExternalForm :http://www.baidu.com?key=name&amp;fname=zz  
+getFile :?key=name&amp;fname=zz  
+getDefaultPort :80  
+getPort :-1
+</code></pre><p>这里需要注意的是: 如果访问的URL为<a href="http://www.baidu.com?key=name&amp;fname=zz" target="_blank" rel="external">https://www.baidu.com?key=name&amp;fname=zz</a>，其结果为:  </p>
+<pre><code>authority :www.baidu.com  
+query :key=name&amp;fname=zz  
+userInfo :null  
+host :www.baidu.com  
+getProtocol :https  
+getPath :  
+getRef :null  
+toExternalForm :https://www.baidu.com?key=name&amp;fname=zz  
+getFile :?key=name&amp;fname=zz  
+getDefaultPort :443  
+getPort :-1
+</code></pre><p>通过上述结果,我们可以查看到:Protocol(协议的不同),DefaultProt(默认端口)不同，也为我们更加深刻的理解URL组成:<br><strong>URL由: Protocol(协议)+Host(主机)+Port(端口)+Query组成。</strong><br><a href="https://www.baidu.com?key=name&amp;fname=zz" target="_blank" rel="external">https://www.baidu.com?key=name&amp;fname=zz</a>: Protocol(协议)为:https 默认端口为:443。<br><a href="http://www.baidu.com?key=name&amp;fname=zz" target="_blank" rel="external">http://www.baidu.com?key=name&amp;fname=zz</a>:Protocol(协议)为:http 默认端口为:80。  </p>
+<h3 id="常见HTTP状态码"><a href="#常见HTTP状态码" class="headerlink" title="常见HTTP状态码"></a>常见HTTP状态码</h3><p>HTTP状态码(HTTP Status Code)是用于表示网页服务器HTTP响应状态的3位数字代码,我们可以通过服务器响应的状态码,来知晓请求的状态。常见的状态码如下所述:<br><strong>1xx消息</strong> : 该类型状态码,表示请求已经被接受,需要继续处理，这类相应的知识临时的响应，只包含状态行和某些可选的响应头信息，并以空行结束，一般情况下(某些试验条件除外)，服务器不会向客户端发送1xx响应，常见的有:<br>100(Continue)<br>101(Switching Protocols）<br>102(Processing)表示处理将被继续执行。<br><strong>2xx消息</strong>: 这类型的状态码，代表请求已成功被服务器接收，理解，并接受。常见的状态码有:<br>&emsp;200（OK）：请求已成功，请求所希望的响应头或数据体响应返回。<br>&emsp;201(Created): 请求已被实现，而且有一个新的资源已经依据请求的需要而创建，且其URI已经随Location头信息返回。假如需要的资源无法及时创建的话，应当返回’202 Accepted’。<br>&emsp;202(Accepted): 服务器已接受请求，但尚未处理，正如它可能被拒绝一样，最终该请求可能会也可能不会被执行。<br><strong>3xx消息(重定向)</strong>:主要表示该请求已被服务器接收，服务器有多个可选择的URL或者链接，常见的状态码有:<br>300(Multiple Choices):被请求的资源有一系列可供选择的回馈信息,用户或者浏览器能够自行选择一个首选地址进行重定向。<br>301(Moved Permanently):被请求的资源已永久移动到新位置。<br>302(Found):请求的资源现在临时从不同的URI响应请求,由于这样的重定向是临时的。客户端应当继续向原有地址发送以后的请求。<br><strong>4xx消息(客户端)</strong>:这类状态码代表了客户端请求存在某种错误，妨碍了服务器的处理。常见的状态码有:<br>400(Bad Request): 由于包含语法错误,当前请求无法被服务端识别。未修改之前，不应该重复提交。<br>401(Unauthorized): 当前请求需要用户验证。<br>402(Payment Required): 预留状态码,暂时没使用到。<br>403(Forbidden): 服务器已经理解请求,但是其拒绝请求它。<br>404(Not Found): 资源未找到，请求的资源未在服务器中发现。<br>405(Method Not Allowed):请求行中指定的请求方法不能被用于请求相应的资源。<br><strong>5xx消息(服务端)</strong>：该类状态码代表了服务端在处理请求过程中有错误或者异常状态发生。常见状态码有:<br>500(Internal Server Error):服务端发生了未曾预料的状况。导致它无法完成请求。<br>501(Not Implemented):服务器不支持当前请求所需要的某个功能。<br>502(Bad Gateway)：作为网关或者服务器尝试执行请求时，从上游服务器接收到无效的响应。<br>503(Service Unavailable):由于临时的服务器维护或者过载导致不能接受处理该请求，这个状态是临时的，并且在一段时间之后，会进行恢复。<br>504(Gateway Timeout):服务器在执行请求时,请求超时。<br>505(HTTP Version Not Supported):服务器不支持,或者拒绝支持在请求中使用的HTTP版本。<br>更多HTTP状态码请参考: <a href="https://zh.wikipedia.org/wiki/HTTP%E7%8A%B6%E6%80%81%E7%A0%81" target="_blank" rel="external">https://zh.wikipedia.org/wiki/HTTP状态码</a> </p>
+<h3 id="HTTP-amp-HTTPS的异同"><a href="#HTTP-amp-HTTPS的异同" class="headerlink" title="HTTP&amp;HTTPS的异同"></a>HTTP&amp;HTTPS的异同</h3><p>HTTP已经谈到了，现在谈谈HTTPS,HTTPS开发的主要目的是:为了提供对网络服务器的身份认证，保护交换数据的隐私与完整性。该协议最初由网景(Netscape)公司在1994年首次提出，随后扩展到互联网上。<br>区别:<br>① URL&amp;默认端口不同: HTTP的URL由”<a href="http://&quot;起始且默认使用端口80端口，HTTPS的URL由&quot;https://&quot;起始且默认使用端口为443。" target="_blank" rel="external">http://&quot;起始且默认使用端口80端口，HTTPS的URL由&quot;https://&quot;起始且默认使用端口为443。</a><br>② 安全性不同: HTTP是不安全的，攻击者能够通过监听或者攻击可以获取用户的一些敏感信息。HTTPS的设计就是防止监听或者攻击，在报文中的任何东西都被加密，包括所有报头。<br>HTTPS常见应用场景: 敏感账户，支付类应用，资金类应用。</p>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>上面整理了理论性知识OSI模型，对HTTPS请求中url的一些详解,也列出了一些常见的HTTPS状态码，对于需要熟悉网络模块，编写网络模块的一些必备基础知识,只有巩固了基础，才能高筑大楼。</p>
 
       
     </div>
@@ -351,7 +370,9 @@ VisualSVN Server 详解准备工作首先，我们需要下载VisualSVN Server�
       
         <div class="post-tags">
           
-            <a href="/tags/svn-git/" rel="tag">#svn & git</a>
+            <a href="/tags/Java/" rel="tag">#Java</a>
+          
+            <a href="/tags/网络编程/" rel="tag">#网络编程</a>
           
         </div>
       
@@ -360,17 +381,13 @@ VisualSVN Server 详解准备工作首先，我们需要下载VisualSVN Server�
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/05/14/android/androidListViewEvent/" rel="next" title="ListView中ItemLongClick与ItemClick事件并存问题">
-                <i class="fa fa-chevron-left"></i> ListView中ItemLongClick与ItemClick事件并存问题
+              <a href="/2016/08/09/android/wechat/redpack/" rel="next" title="微信支付之现金红包">
+                <i class="fa fa-chevron-left"></i> 微信支付之现金红包
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/06/01/android/genymotion/" rel="prev" title="Genymotion 常见错误及解决办法">
-                Genymotion 常见错误及解决办法 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -396,8 +413,8 @@ VisualSVN Server 详解准备工作首先，我们需要下载VisualSVN Server�
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/05/27/versionControl/svnServer/"
-           data-title="VisualSVN Server 详解" data-url="http://yoursite.com/2016/05/27/versionControl/svnServer/">
+      <div class="ds-thread" data-thread-key="2016/08/27/network/http/"
+           data-title="小叙http协议" data-url="http://yoursite.com/2016/08/27/network/http/">
       </div>
     
   </div>
@@ -507,7 +524,7 @@ VisualSVN Server 详解准备工作首先，我们需要下载VisualSVN Server�
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#VisualSVN-Server-详解"><span class="nav-number">1.</span> <span class="nav-text">VisualSVN Server 详解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#准备工作"><span class="nav-number">1.1.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-number">1.2.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#目录讲解"><span class="nav-number">1.3.</span> <span class="nav-text">目录讲解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建资源"><span class="nav-number">1.4.</span> <span class="nav-text">创建资源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建用户"><span class="nav-number">1.5.</span> <span class="nav-text">创建用户</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建组"><span class="nav-number">1.6.</span> <span class="nav-text">创建组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分配权限"><span class="nav-number">1.7.</span> <span class="nav-text">分配权限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结"><span class="nav-number">1.8.</span> <span class="nav-text">小结</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#小叙http协议"><span class="nav-number">1.</span> <span class="nav-text">小叙http协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#wiki-OSI-网络七层模型"><span class="nav-number">1.1.</span> <span class="nav-text">wiki OSI(网络七层模型)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#http请求URL详解"><span class="nav-number">1.2.</span> <span class="nav-text">http请求URL详解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常见HTTP状态码"><span class="nav-number">1.3.</span> <span class="nav-text">常见HTTP状态码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP-amp-HTTPS的异同"><span class="nav-number">1.4.</span> <span class="nav-text">HTTP&HTTPS的异同</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结"><span class="nav-number">1.5.</span> <span class="nav-text">小结</span></a></li></ol></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
