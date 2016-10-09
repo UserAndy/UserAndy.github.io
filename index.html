@@ -236,6 +236,144 @@
             
               
                 
+                <a class="post-title-link" href="/2016/10/08/android/Linux/ubuntuSvn/" itemprop="url">
+                  Ubuntu中安装SVN服务器
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-10-08T22:29:17+08:00" content="2016-10-08">
+              2016-10-08
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Linux/SVN/" itemprop="url" rel="index">
+                    <span itemprop="name">SVN</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/10/08/android/Linux/ubuntuSvn/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/08/android/Linux/ubuntuSvn/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+		
+		
+          
+          
+				<span id="/2016/10/08/android/Linux/ubuntuSvn/"class="leancloud_visitors"  data-flag-title="Ubuntu中安装SVN服务器">
+        &nbsp; | &nbsp; 阅读次数
+        </span>
+		
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>今天为大家讲解如何在Ubuntu中安装SVN(subversion)服务器,以及小结自己在安装时的一些坑，<br>看完本篇文章后，你应该懂得:<br>① 如何在Ubuntu中安装SVN服务器。<br>② 如何创建一个仓库。<br>③ 在Ubuntu中如何查看以及重启SVN服务器。</p>
+<h4 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h4><p>为了更形象的讲解，本文使用的是VMware虚拟机安装讲解,<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ubuntu-14.04.2</span><br></pre></td></tr></table></figure></p>
+<h4 id="安装SVN"><a href="#安装SVN" class="headerlink" title="安装SVN"></a>安装SVN</h4><p>在Ubuntu系统中安装SVN服务器，我们使用以下命令即可<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install subversion</span><br></pre></td></tr></table></figure></p>
+<p>安装成功后，我们可以通过以下命令，检测subversion是否安装成功。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">svn --version</span><br></pre></td></tr></table></figure></p>
+<p><img src="/img/linux/svn/checkversion.png" alt="效果"><br>如上图所示，则表示安装成功，并显示为其版本号。<br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/10/08/android/Linux/ubuntuSvn/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/09/03/android/Linux/command/" itemprop="url">
                   Linux常用命令
                 </a>
@@ -310,7 +448,7 @@
       
         
           <p>今天为大家整理一些常见的Linux命令，Linux现在应用场景比较多，如Android其实内置的也是一个Linux系统，服务器，大数据，云计算等，都是使用Linux,程序员中也有不少的开发机也是使用Linux,下面这些命令都是比较基本的，</p>
-<h4 id="用户管理"><a href="#用户管理" class="headerlink" title="用户管理"></a>用户管理</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo passwd root  //修改root用户的密码    </span><br><span class="line">su username 	  //切换用户，其中username表示用户名,默认为root用户 </span><br><span class="line">sudo useradd &quot;username&quot;  //添加用户(如果当前为root用户,则直接useradd &quot;username&quot;)</span><br></pre></td></tr></table></figure>
+<h4 id="用户-用户组管理"><a href="#用户-用户组管理" class="headerlink" title="用户/用户组管理"></a>用户/用户组管理</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">sudo passwd root  //修改root用户的密码    </span><br><span class="line">su username 	  //切换用户，其中username表示用户名,默认为root用户 </span><br><span class="line">sudo useradd &quot;username&quot;  //添加用户(如果当前为root用户,则直接useradd &quot;username&quot;)   </span><br><span class="line">userdel &quot;username&quot; 		 //删除用户 </span><br><span class="line">groupadd &quot;groupname&quot;     //添加名称为&quot;groupname&quot;的分组(可通过 tail -10 /etc/group查看用户组)  </span><br><span class="line">groupadd -g 504 &quot;groupname&quot; //添加名称为&quot;groupname&quot;的分组,gid为504,&quot;groupname”为组名称。  </span><br><span class="line">groupdel &quot;groupname&quot;     //删除分组    </span><br><span class="line">passwd 					 //修改当前用户的登录密码    </span><br><span class="line">passwd &quot;username&quot;        //修改指定名称为username的用户名    </span><br><span class="line">su 						 //切换用户，默认为root用户  </span><br><span class="line">su -					     //切换用户并设置连同用户的环境变量一同切换过来</span><br></pre></td></tr></table></figure>
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/09/03/android/Linux/command/#more" rel="contents">
               阅读全文 &raquo;
@@ -718,129 +856,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/06/20/android/android_voice(2)/" itemprop="url">
-                  Android 集成科大讯飞语言SDK(二)
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-06-20T13:04:00+08:00" content="2016-06-20">
-              2016-06-20
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index">
-                    <span itemprop="name">Android</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/06/20/android/android_voice(2)/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/20/android/android_voice(2)/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-		
-		
-          
-          
-				<span id="/2016/06/20/android/android_voice(2)/"class="leancloud_visitors"  data-flag-title="Android 集成科大讯飞语言SDK(二)">
-        &nbsp; | &nbsp; 阅读次数
-        </span>
-		
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>上面一篇文章已经清楚的向大家介绍了Android集成科大讯飞语言SDK的一些准备工作，这篇文章则给大家介绍如何使用下载好的sdk,并提供一个简单的示例。首先看效果:<br><img src="/img/android/voice2/gif.gif" alt="效果"><br>完整代码已开源至github: <a href="https://github.com/UserAndy/testVoice"><strong>https://github.com/UserAndy/testVoice</strong></a></p>
-<h3 id="1-1-添加资源"><a href="#1-1-添加资源" class="headerlink" title="1.1 添加资源"></a>1.1 添加资源</h3><p>在上一篇文章中，已经很详细的为大家介绍了下载sdk解压后的目录，这里不再重复，我们将其assets文件夹复制到项目中(app-&gt;src-&gt;main-&gt;assets)，assets 文件夹如下图(1)所示，复制到的目录如下图(2)所示:<br><img src="/img/android/voice2/assets.png" alt="资源文件"><br>图(1) 资源文件夹<br><img src="/img/android/voice2/showdir.png" alt="目录文件夹"><br>图(2) 拷贝的目标目录<br>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/06/20/android/android_voice(2)/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -886,7 +901,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">22</span>
+              <span class="site-state-item-count">23</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -894,7 +909,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">9</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -903,7 +918,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-count">13</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
