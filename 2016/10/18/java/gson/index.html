@@ -1,0 +1,886 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="xml & json," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="小伙伴们,还记得之前的[Fastjson 详解]吗？同样，目前JSON的解释库繁多，也系统通过不同的库的学习，了解不同的实现思维与方式，今天为大家介绍另外一款非常优秀的Gson解析库-Gson。希望小伙伴们，能够通过该篇文章了解到以下内容:① Gson起源。② Gson的使用方式。③ Gson的基本使用(数组,集合,bean)。④ Gson的格式化输出等。
+1.1 Gson 起源Gson来自于Go">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JSON 利器之 Gson (一)">
+<meta property="og:url" content="http://yoursite.com/2016/10/18/java/gson/index.html">
+<meta property="og:site_name" content="随机bug的博客">
+<meta property="og:description" content="小伙伴们,还记得之前的[Fastjson 详解]吗？同样，目前JSON的解释库繁多，也系统通过不同的库的学习，了解不同的实现思维与方式，今天为大家介绍另外一款非常优秀的Gson解析库-Gson。希望小伙伴们，能够通过该篇文章了解到以下内容:① Gson起源。② Gson的使用方式。③ Gson的基本使用(数组,集合,bean)。④ Gson的格式化输出等。
+1.1 Gson 起源Gson来自于Go">
+<meta property="og:updated_time" content="2016-10-20T17:30:20.866Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JSON 利器之 Gson (一)">
+<meta name="twitter:description" content="小伙伴们,还记得之前的[Fastjson 详解]吗？同样，目前JSON的解释库繁多，也系统通过不同的库的学习，了解不同的实现思维与方式，今天为大家介绍另外一款非常优秀的Gson解析库-Gson。希望小伙伴们，能够通过该篇文章了解到以下内容:① Gson起源。② Gson的使用方式。③ Gson的基本使用(数组,集合,bean)。④ Gson的格式化输出等。
+1.1 Gson 起源Gson来自于Go">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: undefined,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> JSON 利器之 Gson (一) | 随机bug的博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">随机bug的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">微移是一种心态！</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            时间轴
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-friendslinks">
+          <a href="/friendslinks" rel="section">
+            
+              <i class="menu-item-icon fa fa-question-circle fa-fw"></i> <br />
+            
+            小伙伴们
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                JSON 利器之 Gson (一)
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-10-18T21:56:00+08:00" content="2016-10-18">
+              2016-10-18
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/xml-json/" itemprop="url" rel="index">
+                    <span itemprop="name">xml & json</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/10/18/java/gson/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/18/java/gson/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+		
+		
+          
+          
+				<span id="/2016/10/18/java/gson/"class="leancloud_visitors"  data-flag-title="JSON 利器之 Gson (一)">
+        &nbsp; | &nbsp; 阅读次数
+        </span>
+		
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>小伙伴们,还记得之前的[<a href="http://www.andyqian.com/2016/05/06/android/fastjson/" target="_blank" rel="external">Fastjson 详解</a>]吗？同样，目前JSON的解释库繁多，也系统通过不同的库的学习，了解不同的实现思维与方式，今天为大家介绍另外一款非常优秀的Gson解析库-<a href="https://github.com/google/gson/" target="_blank" rel="external">Gson</a>。希望小伙伴们，能够通过该篇文章了解到以下内容:<br>① Gson起源。<br>② Gson的使用方式。<br>③ Gson的基本使用(数组,集合,bean)。<br>④ Gson的格式化输出等。</p>
+<h3 id="1-1-Gson-起源"><a href="#1-1-Gson-起源" class="headerlink" title="1.1 Gson 起源"></a>1.1 Gson 起源</h3><p>Gson来自于Google，主要用来序列化Java对象为JSON字符串，或者反序列化JSON字符串成Java对象。其github地址为:<a href="https://github.com/google/gson/" target="_blank" rel="external">https://github.com/google/gson/</a><br><a id="more"></a></p>
+<h3 id="1-2-引入方式"><a href="#1-2-引入方式" class="headerlink" title="1.2 引入方式"></a>1.2 引入方式</h3><h4 id="1-2-1-通过Maven添加"><a href="#1-2-1-通过Maven添加" class="headerlink" title="1.2.1 通过Maven添加"></a>1.2.1 通过Maven添加</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependencies&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">      &lt;groupId&gt;com.google.code.gson&lt;/groupId&gt;</span><br><span class="line">      &lt;artifactId&gt;gson&lt;/artifactId&gt;</span><br><span class="line">      &lt;version&gt;2.7&lt;/version&gt;</span><br><span class="line">      &lt;scope&gt;compile&lt;/scope&gt;</span><br><span class="line">    &lt;/dependency&gt;</span><br><span class="line">&lt;/dependencies&gt;</span><br></pre></td></tr></table></figure>
+<p>其中2.7为当前的最新版本号,选择自己项目合适的版本号</p>
+<h4 id="1-2-2-通过Gradle添加"><a href="#1-2-2-通过Gradle添加" class="headerlink" title="1.2.2 通过Gradle添加"></a>1.2.2 通过Gradle添加</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">compile &apos;com.google.code.gson:gson:2.7&apos;</span><br></pre></td></tr></table></figure>
+<h4 id="1-2-3-通过jar方式添加"><a href="#1-2-3-通过jar方式添加" class="headerlink" title="1.2.3 通过jar方式添加"></a>1.2.3 通过jar方式添加</h4><p>通过以下链接下载jar <a href="https://repo1.maven.org/maven2/com/google/code/gson/gson/" target="_blank" rel="external">Gson lib库</a> </p>
+<h3 id="1-3-基本使用"><a href="#1-3-基本使用" class="headerlink" title="1.3 基本使用"></a>1.3 基本使用</h3><h4 id="1-3-1-基本使用"><a href="#1-3-1-基本使用" class="headerlink" title="1.3.1 基本使用"></a>1.3.1 基本使用</h4><p>序列化:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Gson gson = new Gson();</span><br><span class="line">gson.toJson(1);            // ==&gt; 1</span><br><span class="line">gson.toJson(&quot;abcd&quot;);       // ==&gt; &quot;abcd&quot;</span><br><span class="line">gson.toJson(new Long(10)); // ==&gt; 10</span><br><span class="line">int[] values = &#123; 1 &#125;;</span><br><span class="line">gson.toJson(values);       // ==&gt; [1]</span><br></pre></td></tr></table></figure></p>
+<p>反序列化:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">int one = gson.fromJson(&quot;1&quot;, int.class);</span><br><span class="line">Integer one = gson.fromJson(&quot;1&quot;, Integer.class);</span><br><span class="line">Long one = gson.fromJson(&quot;1&quot;, Long.class);</span><br><span class="line">Boolean false = gson.fromJson(&quot;false&quot;, Boolean.class);</span><br><span class="line">String str = gson.fromJson(&quot;\&quot;abc\&quot;&quot;, String.class);</span><br><span class="line">String[] anotherStr = gson.fromJson(&quot;[\&quot;abc\&quot;]&quot;, String[].class);</span><br></pre></td></tr></table></figure></p>
+<h4 id="1-3-2-数组"><a href="#1-3-2-数组" class="headerlink" title="1.3.2 数组"></a>1.3.2 数组</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">	 * 序列化数组</span><br><span class="line">	 */</span><br><span class="line">	@Test</span><br><span class="line">	public void testSerilzableGsonArray()&#123;</span><br><span class="line">		Gson gson = new Gson();</span><br><span class="line">		int[] ints = &#123;1, 2, 3, 4, 5&#125;;</span><br><span class="line">		String[] strings = &#123;&quot;abc&quot;, &quot;def&quot;, &quot;ghi&quot;&#125;;</span><br><span class="line">		System.out.println(gson.toJson(ints));     // ==&gt; [1,2,3,4,5]</span><br><span class="line">		System.out.println(gson.toJson(strings));  // ==&gt; [&quot;abc&quot;, &quot;def&quot;, &quot;ghi&quot;]</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>反序列化:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 反序列化数组</span><br><span class="line"> */</span><br><span class="line">@Test</span><br><span class="line">public void testDecSerilzableGsonArray()&#123;</span><br><span class="line">	Gson gson = new Gson();</span><br><span class="line">	int[] ints2 = gson.fromJson(&quot;[1,2,3,4,5]&quot;, int[].class); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="1-3-1-集合对象"><a href="#1-3-1-集合对象" class="headerlink" title="1.3.1 集合对象"></a>1.3.1 集合对象</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 序列化集合</span><br><span class="line"> */</span><br><span class="line">@Test</span><br><span class="line">public void testSeriazableCollection()&#123;</span><br><span class="line">	Gson gson = new Gson();</span><br><span class="line">	List&lt;String&gt; list = new ArrayList&lt;String&gt;();</span><br><span class="line">	list.add(&quot;12&quot;);</span><br><span class="line">	list.add(&quot;13&quot;);</span><br><span class="line">	list.add(&quot;14&quot;);</span><br><span class="line">	String jsonData = gson.toJson(list);</span><br><span class="line">	System.out.println(jsonData);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>结果为:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&quot;12&quot;,&quot;13&quot;,&quot;14&quot;]</span><br></pre></td></tr></table></figure></p>
+<p>反序列化:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">public void testDecSeriazableCollection()&#123;</span><br><span class="line">	Gson gson = new Gson();</span><br><span class="line">	Type collectionType = new TypeToken&lt;List&lt;Integer&gt;&gt;()&#123;&#125;.getType();</span><br><span class="line">	String jsonData = &quot;[&apos;12&apos;,&apos;13&apos;,&apos;14&apos;]&quot;;</span><br><span class="line">	List&lt;Integer&gt; ints2 = gson.fromJson(jsonData, collectionType);</span><br><span class="line">	for(Integer item:ints2)&#123;</span><br><span class="line">		System.out.print(item+&quot;,&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>结果为:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">12,13,14,</span><br></pre></td></tr></table></figure></p>
+<h4 id="1-3-2-带日期Bean对象"><a href="#1-3-2-带日期Bean对象" class="headerlink" title="1.3.2 带日期Bean对象"></a>1.3.2 带日期Bean对象</h4><p>我们在这里方便测试,新建bean，命名为User,其属性结构如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public class User &#123;</span><br><span class="line"></span><br><span class="line">	private String name = &quot;&quot;;</span><br><span class="line">	private int age = 0;</span><br><span class="line">	private Date createTime; </span><br><span class="line"></span><br><span class="line">	public User() &#123;</span><br><span class="line">		super();</span><br><span class="line">	&#125;</span><br><span class="line">	.........</span><br></pre></td></tr></table></figure></p>
+<p>为了篇幅，此处省去set与get方法，首先该User类中，有三个属性，其中有string类型的name,有int类型的age,有java.util.Date类型的createTime。分别会给出序列化与反序列化后的结果对象，(一切不以代码讲解的都是耍流氓…);代码如下:<br>① 使用默认日期转换方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">	 * 显示默认格式的日期</span><br><span class="line">	 */</span><br><span class="line">	@Test</span><br><span class="line">	public void testUserDefaultFormat()&#123;</span><br><span class="line">		User user = new User();</span><br><span class="line">		user.setAge(10);</span><br><span class="line">		user.setCreateTime(new Date());</span><br><span class="line">		user.setName(&quot;andyqian&quot;);</span><br><span class="line">		Gson gson = new Gson();</span><br><span class="line">		String jsonData = gson.toJson(user);</span><br><span class="line">		System.out.println(jsonData);</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure></p>
+<p>返回结果:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;name&quot;:&quot;andyqian&quot;,&quot;age&quot;:10,&quot;createTime&quot;:&quot;Oct 21, 2016 12:13:39 AM&quot;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>咦，日期是转换出来了，但是这个并不是我们想得到的，我们一般的需求是需要将Date日期格式转换指定的日期格式转换出来，如: 2016-10-21 00:20:18，那么，既然有这个需求，就让Gson来解决，代码如下:<br>指定日期转换格式:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"> @Test</span><br><span class="line">public void testUser()&#123;</span><br><span class="line">	User user = new User();</span><br><span class="line">	user.setAge(10);</span><br><span class="line">	user.setCreateTime(new Date());</span><br><span class="line">	user.setName(&quot;andyqian&quot;);</span><br><span class="line">	Gson gson = new GsonBuilder().setDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;).create();</span><br><span class="line">	String jsonData = gson.toJson(user);</span><br><span class="line">	System.out.println(jsonData);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>返回结果:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;name&quot;:&quot;andyqian&quot;,&quot;age&quot;:10,&quot;createTime&quot;:&quot;2016-10-21 00:21:37&quot;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>看，Gson帮我们实现了，在这里需要简单的讲解一下,这里我们使用到了GsonBuilder对象，其中的setDateFormat()方法，在该方法中设置了日期的转换格式，这里采用的是: yyyy-MM-dd HH:mm:ss,可根据实际需要来进行书写。<br>我们上面中的返回结果作为我们的反序列化参数:<br>反序列化方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"> /**</span><br><span class="line"> * 将带日期格式的字符串转换为对象</span><br><span class="line"> */</span><br><span class="line">@Test</span><br><span class="line">public void testUserFormJsonData()&#123;</span><br><span class="line">	String jsonData = testFrom();</span><br><span class="line">	Gson gson = new GsonBuilder().setDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;).create();</span><br><span class="line">	User user = gson.fromJson(jsonData,User.class);</span><br><span class="line">	System.out.println(&quot;age: &quot;+user.getAge());</span><br><span class="line">	System.out.println(&quot;createTime:&quot;+user.getCreateTime());</span><br><span class="line">	System.out.println(&quot;name:&quot;+user.getName());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>反序列化结果:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">age: 10</span><br><span class="line">name:andyqian</span><br><span class="line">createTime:Fri Oct 21 00:29:03 CST 2016</span><br></pre></td></tr></table></figure></p>
+<h3 id="1-34-嵌套使用"><a href="#1-34-嵌套使用" class="headerlink" title="1.34 嵌套使用"></a>1.34 嵌套使用</h3><p>以上几种方式都是比较基本的，在实际项目中，其复杂度，远远超过上面的基本操作，那么,我们在这里模拟一个稍复杂的对象嵌套使用。我们采用了两个类，Company,以及Employee类，其中一个Company中包括多个Employee,具体如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * @site:  www.andyqian.com </span><br><span class="line"> * @email: andytohome@gmai.com</span><br><span class="line"> * @author andy</span><br><span class="line"> */</span><br><span class="line">public class Company &#123;</span><br><span class="line"></span><br><span class="line">	private String companyName; //</span><br><span class="line">	private Date createTime;</span><br><span class="line">	private String address;</span><br><span class="line">	private List&lt;Employee&gt; list;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>职员类:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * @site:  www.andyqian.com </span><br><span class="line"> * @email: andytohome@gmai.com</span><br><span class="line"> * @author andy</span><br><span class="line"> */</span><br><span class="line">public class Employee&#123;</span><br><span class="line"></span><br><span class="line">	private String name;</span><br><span class="line">	private int age;</span><br><span class="line">	private Date birthday;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>序列化:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">	public void testList()&#123;</span><br><span class="line">		List&lt;Employee&gt; list = new ArrayList&lt;Employee&gt;();</span><br><span class="line">		list.add(new Employee(&quot;张三&quot;,10,new Date()));</span><br><span class="line">		list.add(new Employee(&quot;李四&quot;,20,new Date()));</span><br><span class="line">		list.add(new Employee(&quot;王五&quot;,30,new Date()));</span><br><span class="line">		//</span><br><span class="line">		Company company = new Company();</span><br><span class="line">		company.setAddress(&quot;上海&quot;);</span><br><span class="line">		company.setCompanyName(&quot;xxx科技有限公司&quot;);</span><br><span class="line">		company.setCreateTime(new Date());</span><br><span class="line">		company.setList(list);</span><br><span class="line">		Gson gson = new GsonBuilder().setDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;).create();</span><br><span class="line">		String data = gson.toJson(company);</span><br><span class="line">		System.out.println(data);</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure></p>
+<p>其结果如下所示:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;companyName&quot;:&quot;xxx科技有限公司&quot;,&quot;createTime&quot;:&quot;2016-10-21 00:56:22&quot;,&quot;address&quot;:&quot;上海&quot;,&quot;list&quot;:[&#123;&quot;name&quot;:&quot;张三&quot;,&quot;age&quot;:10,&quot;birthday&quot;:&quot;2016-10-21 00:56:22&quot;&#125;,&#123;&quot;name&quot;:&quot;李四&quot;,&quot;age&quot;:20,&quot;birthday&quot;:&quot;2016-10-21 00:56:22&quot;&#125;,&#123;&quot;name&quot;:&quot;王五&quot;,&quot;age&quot;:30,&quot;birthday&quot;:&quot;2016-10-21 00:56:22&quot;&#125;]&#125;</span><br></pre></td></tr></table></figure></p>
+<p>我们发现已经操作成功</p>
+<h3 id="1-3-5-格式化输出"><a href="#1-3-5-格式化输出" class="headerlink" title="1.3.5 格式化输出"></a>1.3.5 格式化输出</h3><p>我们通过1.3.4看到，如果数据量复杂时，默认返回的JSON字符串是紧凑型的，对结构的构成是非常不容易理解的，那么，此刻，我们想得到的是格式化输出后的JSON数据，怎么来实现呢？…….别急，Gson早已经为我们考虑到了，只需一个方法就可以实现,如下:<br>测试方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">	public void testList()&#123;</span><br><span class="line">		List&lt;Employee&gt; list = new ArrayList&lt;Employee&gt;();</span><br><span class="line">		list.add(new Employee(&quot;张三&quot;,10,new Date()));</span><br><span class="line">		list.add(new Employee(&quot;李四&quot;,20,new Date()));</span><br><span class="line">		list.add(new Employee(&quot;王五&quot;,30,new Date()));</span><br><span class="line">		//</span><br><span class="line">		Company company = new Company();</span><br><span class="line">		company.setAddress(&quot;上海&quot;);</span><br><span class="line">		company.setCompanyName(&quot;xxx科技有限公司&quot;);</span><br><span class="line">		company.setCreateTime(new Date());</span><br><span class="line">		company.setList(list);</span><br><span class="line">		Gson gson = new GsonBuilder().setDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;).create();</span><br><span class="line">		String data = gson.toJson(company);</span><br><span class="line">		System.out.println(data);</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure></p>
+<p>默认返回(紧凑型):<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Gson gson = new GsonBuilder().setDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;).create();</span><br></pre></td></tr></table></figure></p>
+<p>返回结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;companyName&quot;:&quot;xxx科技有限公司&quot;,&quot;createTime&quot;:&quot;2016-10-21 00:56:22&quot;,&quot;address&quot;:&quot;上海&quot;,&quot;list&quot;:[&#123;&quot;name&quot;:&quot;张三&quot;,&quot;age&quot;:10,&quot;birthday&quot;:&quot;2016-10-21 00:56:22&quot;&#125;,&#123;&quot;name&quot;:&quot;李四&quot;,&quot;age&quot;:20,&quot;birthday&quot;:&quot;2016-10-21 00:56:22&quot;&#125;,&#123;&quot;name&quot;:&quot;王五&quot;,&quot;age&quot;:30,&quot;birthday&quot;:&quot;2016-10-21 00:56:22&quot;&#125;]&#125;</span><br></pre></td></tr></table></figure></p>
+<p>格式型(setPrettyPrinting())<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Gson gson = new GsonBuilder().setDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;).setPrettyPrinting().create();</span><br></pre></td></tr></table></figure></p>
+<p>返回结果:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;companyName&quot;: &quot;xxx科技有限公司&quot;,</span><br><span class="line">  &quot;createTime&quot;: &quot;2016-10-21 01:01:46&quot;,</span><br><span class="line">  &quot;address&quot;: &quot;上海&quot;,</span><br><span class="line">  &quot;list&quot;: [</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;name&quot;: &quot;张三&quot;,</span><br><span class="line">      &quot;age&quot;: 10,</span><br><span class="line">      &quot;birthday&quot;: &quot;2016-10-21 01:01:46&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;name&quot;: &quot;李四&quot;,</span><br><span class="line">      &quot;age&quot;: 20,</span><br><span class="line">      &quot;birthday&quot;: &quot;2016-10-21 01:01:46&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;name&quot;: &quot;王五&quot;,</span><br><span class="line">      &quot;age&quot;: 30,</span><br><span class="line">      &quot;birthday&quot;: &quot;2016-10-21 01:01:46&quot;</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在这里，我们得益于GsonBuilder对象中的setPrettyPrinting()方法。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/xml-json/" rel="tag">#xml & json</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/10/08/android/Linux/ubuntuSvn/" rel="next" title="Ubuntu中安装SVN服务器">
+                <i class="fa fa-chevron-left"></i> Ubuntu中安装SVN服务器
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/10/18/java/gson/"
+           data-title="JSON 利器之 Gson (一)" data-url="http://yoursite.com/2016/10/18/java/gson/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="鞠骞" />
+          <p class="site-author-name" itemprop="name">鞠骞</p>
+          <p class="site-description motion-element" itemprop="description">微移是一种生活，分享是一种态度!</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">24</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/userandy" target="_blank">
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/userandy" target="_blank">
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-Gson-起源"><span class="nav-number">1.</span> <span class="nav-text">1.1 Gson 起源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-引入方式"><span class="nav-number">2.</span> <span class="nav-text">1.2 引入方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-1-通过Maven添加"><span class="nav-number">2.1.</span> <span class="nav-text">1.2.1 通过Maven添加</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-2-通过Gradle添加"><span class="nav-number">2.2.</span> <span class="nav-text">1.2.2 通过Gradle添加</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-3-通过jar方式添加"><span class="nav-number">2.3.</span> <span class="nav-text">1.2.3 通过jar方式添加</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-基本使用"><span class="nav-number">3.</span> <span class="nav-text">1.3 基本使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-1-基本使用"><span class="nav-number">3.1.</span> <span class="nav-text">1.3.1 基本使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-2-数组"><span class="nav-number">3.2.</span> <span class="nav-text">1.3.2 数组</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-1-集合对象"><span class="nav-number">3.3.</span> <span class="nav-text">1.3.1 集合对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-2-带日期Bean对象"><span class="nav-number">3.4.</span> <span class="nav-text">1.3.2 带日期Bean对象</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-34-嵌套使用"><span class="nav-number">4.</span> <span class="nav-text">1.34 嵌套使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-5-格式化输出"><span class="nav-number">5.</span> <span class="nav-text">1.3.5 格式化输出</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">鞠骞</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+
+  
+
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.sidebar.display === 'post' || CONFIG.sidebar.display === 'always') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"andyhome"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+      <script src="/vendors/ua-parser-js/dist/ua-parser.min.js"></script>
+      <script src="/js/src/hook-duoshuo.js"></script>
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  <!-- custom analytics part create by xiamo -->
+<script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+<script>AV.initialize("DyeMW5P0VKGbQJVb25qWYYS7-gzGzoHsz", "05Ag2XCTCbcFb6qOo96UrplX");</script>
+<script>
+function showTime(Counter) {
+	var query = new AV.Query(Counter);
+	$(".leancloud_visitors").each(function() {
+		var url = $(this).attr("id").trim();
+		query.equalTo("url", url);
+		query.find({
+			success: function(results) {
+				if (results.length == 0) {
+					var content = $(document.getElementById(url)).text() + ': 0';
+					$(document.getElementById(url)).text(content);
+					return;
+				}
+				for (var i = 0; i < results.length; i++) {
+					var object = results[i];
+					var content = $(document.getElementById(url)).text() + ': ' + object.get('time');
+					$(document.getElementById(url)).text(content);
+				}
+			},
+			error: function(object, error) {
+				console.log("Error: " + error.code + " " + error.message);
+			}
+		});
+
+	});
+}
+
+function addCount(Counter) {
+	var Counter = AV.Object.extend("Counter");
+	url = $(".leancloud_visitors").attr('id').trim();
+	title = $(".leancloud_visitors").attr('data-flag-title').trim();
+	var query = new AV.Query(Counter);
+	query.equalTo("url", url);
+	query.find({
+		success: function(results) {
+			if (results.length > 0) {
+				var counter = results[0];
+				counter.fetchWhenSave(true);
+				counter.increment("time");
+				counter.save(null, {
+					success: function(counter) {
+						var content = $(document.getElementById(url)).text() + ': ' + counter.get('time');
+						$(document.getElementById(url)).text(content);
+					},
+					error: function(counter, error) {
+						console.log('Failed to save Visitor num, with error message: ' + error.message);
+					}
+				});
+			} else {
+				var newcounter = new Counter();
+				newcounter.set("title", title);
+				newcounter.set("url", url);
+				newcounter.set("time", 1);
+				newcounter.save(null, {
+					success: function(newcounter) {
+					    console.log("newcounter.get('time')="+newcounter.get('time'));
+						var content = $(document.getElementById(url)).text() + ': ' + newcounter.get('time');
+						$(document.getElementById(url)).text(content);
+					},
+					error: function(newcounter, error) {
+						console.log('Failed to create');
+					}
+				});
+			}
+		},
+		error: function(error) {
+			console.log('Error:' + error.code + " " + error.message);
+		}
+	});
+}
+$(function() {
+	var Counter = AV.Object.extend("Counter");
+	if ($('.leancloud_visitors').length == 1) {
+		addCount(Counter);
+	} else if ($('.post-title-link').length > 1) {
+		showTime(Counter);
+	}
+}); 
+</script>
+  
+</body>
+</html>
