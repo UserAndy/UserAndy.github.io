@@ -236,6 +236,130 @@
             
               
                 
+                <a class="post-title-link" href="/2015/12/24/sqlserver/" itemprop="url">
+                  windows系统无法安装SQLServer2005的两种解决方法
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-12-24T02:21:00+08:00" content="2015-12-24">
+              2015-12-24
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Sqlserver/" itemprop="url" rel="index">
+                    <span itemprop="name">Sqlserver</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/12/24/sqlserver/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/24/sqlserver/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+		
+		
+          
+          
+				<span id="/2015/12/24/sqlserver/"class="leancloud_visitors"  data-flag-title="windows系统无法安装SQLServer2005的两种解决方法">
+        &nbsp; | &nbsp; 阅读次数
+        </span>
+		
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>最近遇到童鞋谈论说,windows下重新安装SqlServer2005总是不成功,大多数是因为以前安装过，卸载后出现的问题，(以下解决方案适用于:重新安装不成功)</p>
+<h2 id="两种解决方法"><a href="#两种解决方法" class="headerlink" title="两种解决方法"></a>两种解决方法</h2><h3 id="方法一-清理注册表"><a href="#方法一-清理注册表" class="headerlink" title="方法一: 清理注册表"></a>方法一: 清理注册表</h3><p>打开windows注册表，在注册表中查找一下信息，并进行删除<br>[-HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\MSSQLServer]<br>[-HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Microsoft SQL Server]<br>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Search]<br>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\MSSQLSERVER]<br>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\MSSQLServerADHelper]<br>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SQLSERVERAGENT]<br>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\MSFtpsvc]<br>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\MSSCNTRS]<br>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\MSSEARCH]<br>[-HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\MSSGatherer]<br>[-HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\MSSGTHRSVC]<br>[-HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\mssindex]<br>也可以下载,通过 Windows Installer Clean UP 将里面将所有关于SQL的全部删除并重启再进行安装，</p>
+<h3 id="方法二-清理注册表"><a href="#方法二-清理注册表" class="headerlink" title="方法二: 清理注册表"></a>方法二: 清理注册表</h3><p>哈哈，你没看错，还是清理注册表，但是是不同的位置哦</p>
+<p>在这个路径里：<br>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Contro\Session Manager<br>点Session Manager 然后在右边有一个叫PendingFileRenameOperations的名，删之，重启电脑，再安装即可，</p>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结:"></a>小结:</h3><p>以上，就是重新安装sqlserver 2005失败的解决办法！希望能够帮到您!</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2015/12/22/JavaEnvironment/" itemprop="url">
                   windows下java环境配置
                 </a>
@@ -729,188 +853,11 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2014/10/21/androidClick/" itemprop="url">
-                  android 中按钮绑定事件的多种方法
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2014-10-21T12:23:00+08:00" content="2014-10-21">
-              2014-10-21
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index">
-                    <span itemprop="name">Android</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2014/10/21/androidClick/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/10/21/androidClick/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-		
-		
-          
-          
-				<span id="/2014/10/21/androidClick/"class="leancloud_visitors"  data-flag-title="android 中按钮绑定事件的多种方法">
-        &nbsp; | &nbsp; 阅读次数
-        </span>
-		
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>在android开发中，经常会进行事件的绑定，来进行用户交互，今天小结一下android中事件绑定常用的几种方法</p>
-<h2 id="Android中按钮绑定事件的几种方法"><a href="#Android中按钮绑定事件的几种方法" class="headerlink" title="Android中按钮绑定事件的几种方法"></a>Android中按钮绑定事件的几种方法</h2><h3 id="在xml中注册-onclick方法"><a href="#在xml中注册-onclick方法" class="headerlink" title="在xml中注册 onclick方法"></a>在xml中注册 onclick方法</h3><p>① xml文件中<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">   &lt;Button </span><br><span class="line">   android:id=&quot;@+id/startBtn&quot;</span><br><span class="line">   android:layout_width=&quot;wrap_content&quot;</span><br><span class="line">   android:layout_height=&quot;wrap_content&quot;</span><br><span class="line">   android:onClick=&quot;startClick&quot;</span><br><span class="line">   android:text=&quot;开始按钮&quot;</span><br><span class="line">/&gt;</span><br></pre></td></tr></table></figure></p>
-<p>② java 代码中</p>
-<pre><code> public void startClick(View view){
-Toast.makeText(getApplicationContext(),&quot;在xml文件中绑定的方法&quot;,0).show();
-}
-</code></pre><p>③ 在xml中的onclick方法名应该与 java代码中的 方法名一致</p>
-<h3 id="在类中实现-View-OnClickListener接口"><a href="#在类中实现-View-OnClickListener接口" class="headerlink" title="在类中实现 View.OnClickListener接口"></a>在类中实现 View.OnClickListener接口</h3><p>① xml文件: </p>
-<pre><code> &lt;Button 
-   android:id=&quot;@+id/startBtn&quot;
-   android:layout_width=&quot;wrap_content&quot;
-   android:layout_height=&quot;wrap_content&quot;
-   android:text=&quot;开始按钮&quot;
-/&gt;
-</code></pre><p>② java代码</p>
-<pre><code>   public class myListener implements OnClickListener{
-   //在初始化方法(如 onCreate())中添加
-mbtn.setOnClickListener(this);
-
-public void onClick(View view){
-//具体实现的方法
-}
- }
-</code></pre><h3 id="使用内部类来监听事件的响应"><a href="#使用内部类来监听事件的响应" class="headerlink" title="使用内部类来监听事件的响应"></a>使用内部类来监听事件的响应</h3><p>① xml文件</p>
-<pre><code>&lt;Button 
-   android:id=&quot;@+id/startBtn&quot;
-   android:layout_width=&quot;wrap_content&quot;
-   android:layout_height=&quot;wrap_content&quot;
-   android:text=&quot;开始按钮&quot;
-/&gt;
-</code></pre><p>② java 代码</p>
-<pre><code> public class myListener extends Activity{
-
-//在初始化方法(如 onCreate 中添加)
-mbtn.setOnClickListener(new mclicklistener());
-//
-private class mclicklistener implements OnClickListener{
-public void onClick(View view){
-   //具体的点击实现响应方法
-}
-}
-}
-</code></pre><h3 id="使用匿名内部类来监听事件的响应"><a href="#使用匿名内部类来监听事件的响应" class="headerlink" title="使用匿名内部类来监听事件的响应"></a>使用匿名内部类来监听事件的响应</h3><p>① xml 文件</p>
-<pre><code>  &lt;Button 
-       android:id=&quot;@+id/startBtn&quot;
-       android:layout_width=&quot;wrap_content&quot;
-       android:layout_height=&quot;wrap_content&quot;
-       android:text=&quot;开始按钮&quot;
- /&gt;
-② java 代码
-public class myListener extends Activity{
-     mbtn.setOnClickListener(new OnClickListener(){
-             public void onClick(View view){
-                           //具体的点击实现响应方法
-             }
-      })
-}
-</code></pre><h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>上述就是Android中 几种常用的事件绑定的方法，在项目中，可根据实际情况选择绑定方法!</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span>
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -951,7 +898,7 @@ public class myListener extends Activity{
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">25</span>
+              <span class="site-state-item-count">26</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -959,7 +906,7 @@ public class myListener extends Activity{
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">10</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -968,7 +915,7 @@ public class myListener extends Activity{
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-count">14</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
