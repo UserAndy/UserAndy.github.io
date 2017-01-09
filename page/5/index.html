@@ -236,8 +236,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/01/09/java/shiro/shiroNote01/" itemprop="url">
-                  Shiro笔记之简介
+                <a class="post-title-link" href="/2016/04/06/database/mysqleindex/" itemprop="url">
+                  mysql 中添加索引的三种方法
                 </a>
               
             
@@ -250,8 +250,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-01-09T10:38:00+08:00" content="2016-01-09">
-              2016-01-09
+            <time itemprop="dateCreated" datetime="2016-04-06T17:43:00+08:00" content="2016-04-06">
+              2016-04-06
             </time>
           </span>
 
@@ -264,20 +264,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Java/Shiro/" itemprop="url" rel="index">
-                    <span itemprop="name">Shiro</span>
+                  <a href="/categories/mysql/" itemprop="url" rel="index">
+                    <span itemprop="name">mysql</span>
                   </a>
                 </span>
 
@@ -292,8 +280,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/01/09/java/shiro/shiroNote01/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/09/java/shiro/shiroNote01/" itemprop="commentsCount"></span>
+                <a href="/2016/04/06/database/mysqleindex/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/06/database/mysqleindex/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -304,7 +292,7 @@
 		
           
           
-				<span id="/2016/01/09/java/shiro/shiroNote01/"class="leancloud_visitors"  data-flag-title="Shiro笔记之简介">
+				<span id="/2016/04/06/database/mysqleindex/"class="leancloud_visitors"  data-flag-title="mysql 中添加索引的三种方法">
         &nbsp; | &nbsp; 阅读次数
         </span>
 		
@@ -321,15 +309,13 @@
 
       
         
-          <p><strong>Shiro笔记之简介</strong></p>
-<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>之前一直有使用Shiro，却没有深入理解，造成过一段时间后又忘记了,又得从重新找资料,学习再使用,决定记录下来,好记性不如烂笔头.</p>
-<h4 id="Shiro是什么"><a href="#Shiro是什么" class="headerlink" title="Shiro是什么?"></a>Shiro是什么?</h4><p>在Shiro官网是这么描述的:</p>
-<blockquote>
-<p>Apache Shiro™ is a powerful and easy-to-use Java security framework that performs authentication, authorization, cryptography, and session management. With Shiro’s easy-to-understand API, you can quickly and easily secure any application – from the smallest mobile applications to the largest web and enterprise applications.</p>
-</blockquote>
-<p>Apache Shiro是一个功能强大且易于使用的Java安全框架,进行授权,认证,加密以及session管理,Shrio API通俗易懂,你可以轻松快速的使用到任何的应用程序中,包括小的移动应用程序,大的web应用程序以及企业应用程序中.<br>
+          <p>在mysql中有多种索引，有普通索引，全文索引，唯一索引，多列索引，小伙伴们可以通过不同的应用场景来进行索引的新建，在此列出三种新建索引的方法</p>
+<h2 id="mysql-中添加索引的三种方法"><a href="#mysql-中添加索引的三种方法" class="headerlink" title="mysql 中添加索引的三种方法"></a>mysql 中添加索引的三种方法</h2><h3 id="1-1-新建表中添加索引"><a href="#1-1-新建表中添加索引" class="headerlink" title="1.1 新建表中添加索引"></a>1.1 新建表中添加索引</h3><p>① 普通索引<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">create table t_dept(</span><br><span class="line">    no int not null primary key,</span><br><span class="line">    name varchar(20) null,</span><br><span class="line">    sex varchar(2) null,</span><br><span class="line">    info varchar(20) null,</span><br><span class="line">    index index_no(no)</span><br><span class="line">  )</span><br></pre></td></tr></table></figure></p>
+<p>② 唯一索引<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">create table t_dept(</span><br><span class="line">       no int not null primary key,</span><br><span class="line">       name varchar(20) null,</span><br><span class="line">       sex varchar(2) null,</span><br><span class="line">       info varchar(20) null,</span><br><span class="line">       unique index index_no(no)</span><br><span class="line">     ）</span><br></pre></td></tr></table></figure></p>
+<p>③ 全文索引<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">create table t_dept(</span><br><span class="line">       no int not null primary key,</span><br><span class="line">       name varchar(20) null,</span><br><span class="line">       sex varchar(2) null,</span><br><span class="line">       info varchar(20) null,</span><br><span class="line">       fulltext index index_no(no)</span><br></pre></td></tr></table></figure></p>
+<p>④ 多列索引<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">create table t_dept(</span><br><span class="line">       no int not null primary key,</span><br><span class="line">       name varchar(20) null,</span><br><span class="line">       sex varchar(2) null,</span><br><span class="line">       info varchar(20) null,</span><br><span class="line">       key index_no_name(no,name)</span><br><span class="line">     )</span><br></pre></td></tr></table></figure></p>
           <div class="post-more-link text-center">
-            <a class="btn" href="/2016/01/09/java/shiro/shiroNote01/#more" rel="contents">
+            <a class="btn" href="/2016/04/06/database/mysqleindex/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -376,8 +362,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/01/02/life/2016/" itemprop="url">
-                  2016年总结
+                <a class="post-title-link" href="/2016/04/05/database/mysqlerrInfo/" itemprop="url">
+                  mysql 数据库中常见的小问题
                 </a>
               
             
@@ -390,8 +376,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-01-02T17:20:00+08:00" content="2016-01-02">
-              2016-01-02
+            <time itemprop="dateCreated" datetime="2016-04-05T16:23:00+08:00" content="2016-04-05">
+              2016-04-05
             </time>
           </span>
 
@@ -404,8 +390,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Life/" itemprop="url" rel="index">
-                    <span itemprop="name">Life</span>
+                  <a href="/categories/mysql/" itemprop="url" rel="index">
+                    <span itemprop="name">mysql</span>
                   </a>
                 </span>
 
@@ -420,8 +406,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/01/02/life/2016/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/02/life/2016/" itemprop="commentsCount"></span>
+                <a href="/2016/04/05/database/mysqlerrInfo/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/05/database/mysqlerrInfo/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -432,7 +418,7 @@
 		
           
           
-				<span id="/2016/01/02/life/2016/"class="leancloud_visitors"  data-flag-title="2016年总结">
+				<span id="/2016/04/05/database/mysqlerrInfo/"class="leancloud_visitors"  data-flag-title="mysql 数据库中常见的小问题">
         &nbsp; | &nbsp; 阅读次数
         </span>
 		
@@ -450,39 +436,18 @@
       
         
           
-            <p><strong>我的2016年</strong></p>
-<p>2016年，我认为是一个比较失败的一年，<br>在这一年中，我浪费了不少机会，也失去了不少机会，</p>
-<h4 id="失去-amp-不足："><a href="#失去-amp-不足：" class="headerlink" title="失去&amp;不足："></a>失去&amp;不足：</h4><ol>
-<li>在有多个选择时，有做出好的选择.(ps: 工作，生活均有)</li>
-<li>做事情有些纠结，执行力不够，</li>
-<li>做事情效率低,主要原因是方法，思维不正确，不专一而致。</li>
-<li>没能坚持每周分享一篇博客，</li>
-</ol>
-<h4 id="收获"><a href="#收获" class="headerlink" title="收获:"></a>收获:</h4><p>在过去的2016年，也有一些成长，</p>
-<ol>
-<li>获得了驾照</li>
-<li>开始写原创博客，</li>
-<li>开源了自己的第一个开源项目.  </li>
-<li>开始看书，涉及专业以及不专业的书籍(以下是2016年的书单)<blockquote>
-<p>《淘宝技术这十年》<br>《逻辑思维：成大事这不纠结》<br>《微信帝国》</p>
-</blockquote>
-</li>
-</ol>
-<h4 id="小结"><a href="#小结" class="headerlink" title="小结:"></a>小结:</h4><p> 在过去的2016年里，经历了不少事情，主要从生活，技术这两方面来进行总结.<br>生活上： </p>
-<ol>
-<li>在面对选择的时候，眼光应该往后看几年，应该更加注重以后的发展,(如:在之前的offer选择时，就因为一点薪资，浪费了一些比较好的机会，)</li>
-<li>不与别人进行薪资上的攀比，盲目的攀比只能让自己陷于尴尬的局面  </li>
-<li>沟通能力不强，一些自己知道，理解的东西却不能通过更加清晰的思路表达出来，</li>
-</ol>
-<p>技术上：</p>
-<ol>
-<li>不专一，什么多想学，执行力却不够</li>
-<li>没有看一本专业书籍，对一些基础知识掌握不扎实</li>
-<li>技术上没有新的突破</li>
-</ol>
-<p>总结: 对过去的2016年是不满意的，用几个字来概括的话就是，’纠结’，‘不专一’，‘选择错误’。</p>
-<p>在2017年，我相信会更好，同时也会加大力度维护公众号，博客。坚持分享!</p>
-<p>PS:祝大家2017年新年快乐!</p>
+            <p>在使用mysql数据库中，出现一些问题，在此特意将这些问题以及解决办法列出来。</p>
+<h2 id="mysql数据库中使用时的问题"><a href="#mysql数据库中使用时的问题" class="headerlink" title="mysql数据库中使用时的问题"></a>mysql数据库中使用时的问题</h2><h3 id="1-1-空格引来的烦恼"><a href="#1-1-空格引来的烦恼" class="headerlink" title="1.1 空格引来的烦恼"></a>1.1 空格引来的烦恼</h3><p>出现原因:  在看似正常的数据中，按照正确的查询语句，始终得不到预期的效果，如下图所示<br><img src="/img/database/error01.jpg" alt="选择安装包"></p>
+<p>例如:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from tbl_member where telephone=&apos;15608464487&apos;</span><br></pre></td></tr></table></figure></p>
+<p>执行后，执行结果总是空。经过测试，在上述表中，telephone记录中保存的根本就不是 “15608464487” 而是 “ 15608464487” (注意15608464487前面有空格)，</p>
+<p>解决方法:<br>① 使用 trim()函数去除空格:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sql示例： update tbl_member set telephone=telephone(trim(mid))</span><br></pre></td></tr></table></figure></p>
+<p>② 使用 replace()函数进行替换：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sql示例:  update tbl_member set telephone = replace(telephone,&quot;	&quot;,&quot;&quot;)</span><br></pre></td></tr></table></figure></p>
+<p>③ 如果出现其它特殊字符导致，也可以采用上述两种方法进行数据的清洗工作。</p>
+<h3 id="1-2-数据中文乱码"><a href="#1-2-数据中文乱码" class="headerlink" title="1.2 数据中文乱码"></a>1.2 数据中文乱码</h3><p>乱码问题是程序员常见的问题之一，我也相信每个程序员对乱码特别敏感。同样在mysql中也出现中文乱码，<br>①: 设置数据库编码,设置方法如下:<br><img src="/img/database/ecode.jpg" alt="设置数据库编码"></p>
+<p>也可以使用代码的形式来进行修改,代码如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">alter database student</span><br><span class="line">default character set utf8</span><br><span class="line">default collate utf8_general_ci;</span><br></pre></td></tr></table></figure></p>
+<p>其中 student 为数据库名称<br>②：设置表结构编码，代码设置语句如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">alter table tbl_user</span><br><span class="line">engine=innodb</span><br><span class="line">default character set utf8;</span><br></pre></td></tr></table></figure></p>
+<p>③：(如果使用jdbc连接)在连接数据库中的连接中设置 characterEncoding以及 useUnicode。<br>设置方法如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jdbc.url=jdbc:mysql://127.0.0.1:3306/wechatmall?useUnicode=true&amp;characterEncoding=utf8</span><br></pre></td></tr></table></figure></p>
+<h3 id="1-3-小结"><a href="#1-3-小结" class="headerlink" title="1.3 小结"></a>1.3 小结</h3><p>以上就是在开发中遇到的一些小问题，以及解决办法。在后续的开发中，还会继续完善。</p>
 
           
         
