@@ -1,0 +1,1020 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Java,pdf," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="PDF生成方案之iText前言有一段时间没有更新了,最近有点懒了,在此立下flag，督促自己能够常更新吧,话不多说，进入主题，今天介绍的是电子凭证(pdf)生成的解决方案,会从几个常用的工具来介绍，也会对比一下几者之间的性能。
+iText是什么?在官网中 http://itextpdf.com/描述:
+
+iText, the world’s preferred PDF library,iText">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PDF生成方案之iText">
+<meta property="og:url" content="http://yoursite.com/2017/05/31/java/tools/iText/index.html">
+<meta property="og:site_name" content="鞠骞的博客">
+<meta property="og:description" content="PDF生成方案之iText前言有一段时间没有更新了,最近有点懒了,在此立下flag，督促自己能够常更新吧,话不多说，进入主题，今天介绍的是电子凭证(pdf)生成的解决方案,会从几个常用的工具来介绍，也会对比一下几者之间的性能。
+iText是什么?在官网中 http://itextpdf.com/描述:
+
+iText, the world’s preferred PDF library,iText">
+<meta property="og:image" content="http://yoursite.com/img/java/iText/helloword.png">
+<meta property="og:image" content="http://yoursite.com/img/java/iText/chinese.png">
+<meta property="og:image" content="http://yoursite.com/img/java/iText/table.png">
+<meta property="og:image" content="http://yoursite.com/img/java/iText/image.png">
+<meta property="og:image" content="http://yoursite.com/img/java/iText/project.png">
+<meta property="og:image" content="http://yoursite.com/img/java/iText/xmlFont.png">
+<meta property="og:image" content="http://yoursite.com/img/java/iText/feemarker.png">
+<meta property="og:image" content="http://img.blog.csdn.net/20170401092446529?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMDY5NTc5NA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:updated_time" content="2017-05-29T18:16:51.887Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="PDF生成方案之iText">
+<meta name="twitter:description" content="PDF生成方案之iText前言有一段时间没有更新了,最近有点懒了,在此立下flag，督促自己能够常更新吧,话不多说，进入主题，今天介绍的是电子凭证(pdf)生成的解决方案,会从几个常用的工具来介绍，也会对比一下几者之间的性能。
+iText是什么?在官网中 http://itextpdf.com/描述:
+
+iText, the world’s preferred PDF library,iText">
+<meta name="twitter:image" content="http://yoursite.com/img/java/iText/helloword.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: undefined,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> PDF生成方案之iText | 鞠骞的博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">鞠骞的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">微移是一种心态！</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            时间轴
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-friendslinks">
+          <a href="/friendslinks" rel="section">
+            
+              <i class="menu-item-icon fa fa-question-circle fa-fw"></i> <br />
+            
+            小伙伴们
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                PDF生成方案之iText
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-05-31T09:42:00+08:00" content="2017-05-31">
+              2017-05-31
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Java/pdf/" itemprop="url" rel="index">
+                    <span itemprop="name">pdf</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/05/31/java/tools/iText/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/05/31/java/tools/iText/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+		
+		
+          
+          
+				<span id="/2017/05/31/java/tools/iText/"class="leancloud_visitors"  data-flag-title="PDF生成方案之iText">
+        &nbsp; | &nbsp; 阅读次数
+        </span>
+		
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="PDF生成方案之iText"><a href="#PDF生成方案之iText" class="headerlink" title="PDF生成方案之iText"></a>PDF生成方案之iText</h3><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>有一段时间没有更新了,最近有点懒了,在此立下flag，督促自己能够常更新吧,话不多说，进入主题，今天介绍的是电子凭证(pdf)生成的解决方案,会从几个常用的工具来介绍，也会对比一下几者之间的性能。</p>
+<h3 id="iText是什么"><a href="#iText是什么" class="headerlink" title="iText是什么?"></a>iText是什么?</h3><p>在官网中 <a href="http://itextpdf.com/" target="_blank" rel="external">http://itextpdf.com/</a>描述:</p>
+<blockquote>
+<p>iText, the world’s preferred PDF library,iText is a software developer toolkit that allows users to integrate PDF functionalities within their applications, processes or products</p>
+</blockquote>
+<p>iText，是世界上首选的PDF库，iText是一个软件开发人员工具包,允许用户将PDF功能集成到其他应用程序，流程或者产品中。<br>其特点有:</p>
+<ol>
+<li>支持表格</li>
+<li>图片，</li>
+<li>定制字体</li>
+<li>支持合并pdf 等。 <a id="more"></a>  
+</li>
+</ol>
+<h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><p>在使用iTex时,我们需要添加Maven依赖,如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">     &lt;groupId&gt;com.itextpdf&lt;/groupId&gt;</span><br><span class="line">     &lt;artifactId&gt;itextpdf&lt;/artifactId&gt;</span><br><span class="line">     &lt;version&gt;5.5.11&lt;/version&gt;</span><br><span class="line">   &lt;/dependency&gt;</span><br></pre></td></tr></table></figure></p>
+<h3 id="入门实例"><a href="#入门实例" class="headerlink" title="入门实例"></a>入门实例</h3><p>代码:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">  * 生成pdf文件</span><br><span class="line">  */</span><br><span class="line"> @Test</span><br><span class="line"> public void testCreatePdf()&#123;</span><br><span class="line">     try&#123;</span><br><span class="line">     // 1. new Document</span><br><span class="line">     Document document = new Document();</span><br><span class="line">     PdfWriter.getInstance(document, new FileOutputStream(DEST));</span><br><span class="line">     // 2. 打开document</span><br><span class="line">     document.open();</span><br><span class="line">     // 3. 添加内容</span><br><span class="line">     document.add(new Paragraph(&quot;hello world！&quot;));</span><br><span class="line">     // 4. 关闭 (如果未关闭则会生成无效的pdf文件)</span><br><span class="line">     document.close();</span><br><span class="line">     &#125;catch(DocumentException ex)&#123;</span><br><span class="line">         ex.printStackTrace();</span><br><span class="line">     &#125;catch (FileNotFoundException ex)&#123;</span><br><span class="line">         ex.printStackTrace();</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></p>
+<p>效果:<br><img src="/img/java/iText/helloword.png" alt="helloWorld"></p>
+<h3 id="iText字体"><a href="#iText字体" class="headerlink" title="iText字体"></a>iText字体</h3><p>iText内置支持多种字体,我们可以通过FontFactory类找到iText的内置字体:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Courier;</span><br><span class="line">Courier-Bold;</span><br><span class="line">Courier-Oblique;</span><br><span class="line">Courier-BoldOblique;</span><br><span class="line">Helvetica;</span><br><span class="line">Helvetica-Bold;</span><br><span class="line">Helvetica-Oblique;</span><br><span class="line">Helvetica-BoldOblique;</span><br><span class="line">Symbol;</span><br><span class="line">Times;</span><br><span class="line">Times-Roman;</span><br><span class="line">Times-Bold;</span><br><span class="line">Times-Italic;</span><br><span class="line">Times-BoldItalic;</span><br><span class="line">ZapfDingbats;</span><br></pre></td></tr></table></figure></p>
+<p>同样，iText也允许自定义字体,itext默认字体不支持中文，这时,我们就可以通过自定义字体来解决这个问题,代码如下所示:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">    public void testChineseFontPdf()&#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            //1. new document</span><br><span class="line">            Document document = new Document();</span><br><span class="line">            PdfWriter.getInstance(document, new FileOutputStream(&quot;/tmp/pdf/2017/1.pdf&quot;));</span><br><span class="line">            //2. open document</span><br><span class="line">            document.open();</span><br><span class="line">            BaseFont bf = BaseFont.createFont(path()+&quot;fonts/SIMKAI.TTF&quot;, BaseFont.IDENTITY_H,BaseFont.EMBEDDED);</span><br><span class="line">            //3. 注册字体</span><br><span class="line">            Font font = new Font(bf,30);</span><br><span class="line">            //3. 添加段落,并设置字体</span><br><span class="line">            document.add(new Paragraph(&quot;hello world(中文,)&quot;,font));</span><br><span class="line">            //4. close document</span><br><span class="line">            document.close();</span><br><span class="line">        &#125;catch(FileNotFoundException ex)&#123;</span><br><span class="line">            ex.printStackTrace();</span><br><span class="line">        &#125;catch(DocumentException ex)&#123;</span><br><span class="line">            ex.printStackTrace();</span><br><span class="line">        &#125;catch(IOException ex)&#123;</span><br><span class="line">            ex.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line"> /**</span><br><span class="line">     * 获取资源的路径</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    private String path()&#123;</span><br><span class="line">        String path = this.getClass().getResource(&quot;/&quot;).getPath();</span><br><span class="line">        return path;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>效果如下:<br><img src="/img/java/iText/chinese.png" alt="中文"></p>
+<h3 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h3><p>通常我们会在pdf文件中生成表格,来展示数据,在iText中也是非常方便的，代码如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">    * 生成表格</span><br><span class="line">    */</span><br><span class="line">   @Test</span><br><span class="line">   public void testTablePdf()&#123;</span><br><span class="line">       try &#123;</span><br><span class="line">           //1.new document</span><br><span class="line">           Document document = new Document();</span><br><span class="line">           PdfWriter.getInstance(document,new FileOutputStream(&quot;/tmp/pdf/2017/1.pdf&quot;));</span><br><span class="line">           //2 open document</span><br><span class="line">           document.open();</span><br><span class="line">           //3.添加pdf tables 3表示列数，</span><br><span class="line">           PdfPTable pdfPTable = new PdfPTable(3);</span><br><span class="line">           // cell表示单元格,(12表示12个单元格,3列，12个单元格就形成来一个4行3列的表格)</span><br><span class="line">           for (int i = 0; i &lt; 12; i++) &#123;</span><br><span class="line">               pdfPTable.addCell(&quot;cell&quot; + i);</span><br><span class="line">           &#125;</span><br><span class="line">           document.add(pdfPTable);</span><br><span class="line">           //4. 关闭document</span><br><span class="line">           document.close();</span><br><span class="line">       &#125;catch(DocumentException ex)&#123;</span><br><span class="line">           ex.printStackTrace();</span><br><span class="line">       &#125;catch(FileNotFoundException ex)&#123;</span><br><span class="line">           ex.printStackTrace();</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
+<p>生成效果如下所示:<br><img src="/img/java/iText/table.png" alt="表格"></p>
+<h3 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h3><p>代码:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">  * 生成image</span><br><span class="line">  */</span><br><span class="line"> @Test</span><br><span class="line"> public void testImagePdf()&#123;</span><br><span class="line">     try &#123;</span><br><span class="line">         //1.new document</span><br><span class="line">         Document document = new Document();</span><br><span class="line">         PdfWriter.getInstance(document,new FileOutputStream(&quot;/tmp/pdf/2017/1.pdf&quot;));</span><br><span class="line">         //2 open document</span><br><span class="line">         document.open();</span><br><span class="line">         document.add(new Paragraph(&quot;Hello world!&quot;));</span><br><span class="line">         //3.添加image</span><br><span class="line">         Image image = Image.getInstance(path()+&quot;/images/timg.jpg&quot;);</span><br><span class="line">         image.scaleAbsolute(PageSize.A4.rotate());</span><br><span class="line">         document.add(image);</span><br><span class="line">         //4. 关闭document</span><br><span class="line">         document.close();</span><br><span class="line">     &#125;catch(DocumentException ex)&#123;</span><br><span class="line">         ex.printStackTrace();</span><br><span class="line">     &#125;catch(FileNotFoundException ex)&#123;</span><br><span class="line">         ex.printStackTrace();</span><br><span class="line">     &#125;catch (IOException ex)&#123;</span><br><span class="line">         ex.printStackTrace();</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></p>
+<p>效果:<br><img src="/img/java/iText/image.png" alt="表格"></p>
+<h3 id="html转换pdf"><a href="#html转换pdf" class="headerlink" title="html转换pdf"></a>html转换pdf</h3><p>我们在实际项目中,需要将html格式的文档转换为pdf工具,在iText中，默认是不直接支持html格式文档的,我们可以借助com.itextpdf.tool来生成<br>首先添加maven<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;com.itextpdf.tool&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;xmlworker&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;5.5.11&lt;/version&gt;</span><br><span class="line">  &lt;/dependency&gt;</span><br></pre></td></tr></table></figure></p>
+<p>代码如下所示:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * author: andy</span><br><span class="line"> * date: 17-5-30</span><br><span class="line"> * blog: www.andyqian.com</span><br><span class="line"> * version: 0.0.1</span><br><span class="line"> * description: 生成html格式內容的工具類</span><br><span class="line"> */</span><br><span class="line">public class CreateHtmlPdfTest &#123;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * html内容路径</span><br><span class="line">     */</span><br><span class="line">    private static final String HTML_PATH= &quot;/html/helloworld.html&quot;;</span><br><span class="line">    private static final String FONT_PATH=&quot;/fonts/SIMKAI.TTF&quot;;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 生成pdf格式的內容</span><br><span class="line">     */</span><br><span class="line">    @Test</span><br><span class="line">    public void testHtml()&#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            //1. new document</span><br><span class="line">            Document document = new Document();</span><br><span class="line">            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(&quot;/tmp/pdf/2017/1.pdf&quot;));</span><br><span class="line">            //2.open document</span><br><span class="line">            document.open();</span><br><span class="line">            //3. 设置字体</span><br><span class="line">            XMLWorkerFontProvider xmlWorkerFontProvider = new XMLWorkerFontProvider(XMLWorkerFontProvider.DONTLOOKFORFONTS);</span><br><span class="line">            xmlWorkerFontProvider.register(getContextPath()+FONT_PATH);</span><br><span class="line">            //4. 文件</span><br><span class="line">            FileInputStream fileInputStream = new FileInputStream(getContextPath()+HTML_PATH);</span><br><span class="line">            XMLWorkerHelper.getInstance().parseXHtml(writer, document,fileInputStream, Charset.forName(&quot;UTF-8&quot;),xmlWorkerFontProvider);</span><br><span class="line">            //3. close document</span><br><span class="line">            document.close();</span><br><span class="line">        &#125;catch(Exception ex)&#123;</span><br><span class="line">            ex.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 获取上下文路径</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    private String getContextPath()&#123;</span><br><span class="line">        return this.getClass().getResource(&quot;/&quot;).getPath();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>html代码内容:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;/&gt;</span><br><span class="line">    &lt;title&gt;标题&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;style&gt;</span><br><span class="line">    *&#123;</span><br><span class="line">        font-family: KaiTi_GB2312;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    hello world! XMLWorkerHelper [这是带有中文的html格式内容]</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure></p>
+<p>代码结构为:<br><img src="/img/java/iText/project.png" alt="项目结构"><br>效果如下所示:<br><img src="/img/java/iText/xmlFont.png" alt="带中文的html"></p>
+<h4 id="7-iText-Freemarker"><a href="#7-iText-Freemarker" class="headerlink" title="7.iText+Freemarker"></a>7.iText+Freemarker</h4><p>首先添加Freemarker Maven依赖如下所示:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">     &lt;groupId&gt;org.freemarker&lt;/groupId&gt;</span><br><span class="line">     &lt;artifactId&gt;freemarker&lt;/artifactId&gt;</span><br><span class="line">     &lt;version&gt;2.3.23&lt;/version&gt;</span><br><span class="line">   &lt;/dependency&gt;</span><br></pre></td></tr></table></figure></p>
+<p>代码如下所示:</p>
+<pre><code>/**
+ * author: andy
+ * date: 17-5-30
+ * blog: www.andyqian.com
+ * version: 0.0.1
+ * description: 通过feemarker工具类生成pdf
+ */
+public class CreateFeemarkerPdfTest {
+
+    private static final String FONT_PATH=&quot;/fonts/SIMKAI.TTF&quot;;
+
+    private static final String HTML_PATH=&quot;/html/feemarker.html&quot;;
+
+    @Test
+    public void testCreatePdf(){
+            try {
+                //1. new document
+                Document document = new Document();
+                PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(&quot;/tmp/pdf/2017/1.pdf&quot;));
+                //2.open document
+                document.open();
+                //3. 设置字体
+                XMLWorkerFontProvider xmlWorkerFontProvider = new XMLWorkerFontProvider(XMLWorkerFontProvider.DONTLOOKFORFONTS);
+                xmlWorkerFontProvider.register(getContextPath()+FONT_PATH);
+
+                //4. 设置模板内容
+                Map&lt;String,Object&gt; params = new HashMap&lt;String,Object&gt;();
+                params.put(&quot;name&quot;,&quot;鞠骞&quot;);
+                params.put(&quot;career&quot;,&quot;软件开发&quot;);
+                params.put(&quot;blog&quot;,&quot;http://www.andyqian.com&quot;);
+                String content = getFreeMarkerText(htmlContent(),params);
+                //4. 文件
+                InputStream inputStream = new ByteArrayInputStream(content.getBytes());
+                XMLWorkerHelper.getInstance().parseXHtml(writer, document,inputStream, Charset.forName(&quot;UTF-8&quot;),xmlWorkerFontProvider);
+                //3. close document
+                document.close();
+            }catch(Exception ex){
+                ex.printStackTrace();
+            }
+        }
+
+    /**
+     * 获取上下文路径
+     * @return
+     */
+    private String getContextPath(){
+        return this.getClass().getResource(&quot;/&quot;).getPath();
+    }
+
+    /**
+     * freemarker模板方法
+     * @param templateTxt 模板文本
+     * @param map  模板参数
+     * @return
+     * @throws Exception
+     */
+    public static String getFreeMarkerText(String templateTxt, Map&lt;String, Object&gt; map) throws Exception {
+        String result = null;
+        Configuration config = new Configuration(Configuration.VERSION_2_3_23);
+        try {
+            StringTemplateLoader e = new StringTemplateLoader();
+            e.putTemplate(&quot;t&quot;, templateTxt);
+            config.setTemplateLoader(e);
+            config.setDefaultEncoding(&quot;UTF-8&quot;);
+            Template template = config.getTemplate(&quot;t&quot;, &quot;UTF-8&quot;);
+            StringWriter out = new StringWriter();
+            template.process(map, out);
+            result = out.toString();
+            return result;
+        } catch (IOException iex) {
+            throw new Exception(&quot;获取freemark模版出错&quot;, iex);
+        } catch (TemplateException ex) {
+            throw new Exception(&quot;freemark模版处理异常&quot;, ex);
+        }
+    }
+
+    /**
+     * 获取html内容
+     * @return
+     */
+    private String htmlContent(){
+        String result = &quot;&quot;;
+        try {
+            FileInputStream fileInputStream = new FileInputStream(getContextPath() + HTML_PATH);
+            int len=0;
+            byte[] array = new byte[1024];
+            StringBuffer stringBuffer = new StringBuffer();
+            while((len=fileInputStream.read(array))!=-1){
+                stringBuffer.append(new String(array,0,len));
+            }
+            result = stringBuffer.toString();
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+        return result;
+    }
+}
+</code></pre><p>效果如下：<br><img src="/img/java/iText/feemarker.png" alt="freemarker"></p>
+<h4 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h4><ol>
+<li><a href="http://developers.itextpdf.com/developers-home" target="_blank" rel="external">http://developers.itextpdf.com/developers-home</a></li>
+<li><a href="http://itextpdf.com/" target="_blank" rel="external">http://itextpdf.com/</a> </li>
+</ol>
+<h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><p>本文从iText最基本的用法，分别介绍从表格,图片,HTML,Feemarker来介绍iText，希望能够帮助到你。</p>
+<hr>
+<center><img src="http://img.blog.csdn.net/20170401092446529?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMDY5NTc5NA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></center><br><center>扫码关注，一起进步<br><center>个人博客: <a href="http://www.andyqian.com" target="_blank" rel="external">http://www.andyqian.com</a></center>
+
+<hr>
+</center>
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag">#Java</a>
+          
+            <a href="/tags/pdf/" rel="tag">#pdf</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/04/22/java/tools/Lombok详解/" rel="next" title="Lombok使用详解">
+                <i class="fa fa-chevron-left"></i> Lombok使用详解
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/05/31/java/tools/iText/"
+           data-title="PDF生成方案之iText" data-url="http://yoursite.com/2017/05/31/java/tools/iText/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="鞠骞" />
+          <p class="site-author-name" itemprop="name">鞠骞</p>
+          <p class="site-description motion-element" itemprop="description">微移是一种生活，分享是一种态度!</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">31</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/userandy" target="_blank">
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/userandy" target="_blank">
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#PDF生成方案之iText"><span class="nav-number">1.</span> <span class="nav-text">PDF生成方案之iText</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">2.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#iText是什么"><span class="nav-number">3.</span> <span class="nav-text">iText是什么?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#准备工作"><span class="nav-number">4.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#入门实例"><span class="nav-number">5.</span> <span class="nav-text">入门实例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#iText字体"><span class="nav-number">6.</span> <span class="nav-text">iText字体</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#表格"><span class="nav-number">7.</span> <span class="nav-text">表格</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图片"><span class="nav-number">8.</span> <span class="nav-text">图片</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#html转换pdf"><span class="nav-number">9.</span> <span class="nav-text">html转换pdf</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#7-iText-Freemarker"><span class="nav-number">9.1.</span> <span class="nav-text">7.iText+Freemarker</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参考资料"><span class="nav-number">9.2.</span> <span class="nav-text">参考资料</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#小结"><span class="nav-number">9.3.</span> <span class="nav-text">小结</span></a></li></ol></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">鞠骞</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+
+  
+
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.sidebar.display === 'post' || CONFIG.sidebar.display === 'always') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"andyhome"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+      <script src="/lib/ua-parser-js/dist/ua-parser.min.js"></script>
+      <script src="/js/src/hook-duoshuo.js"></script>
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  <!-- custom analytics part create by xiamo -->
+<script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+<script>AV.initialize("DyeMW5P0VKGbQJVb25qWYYS7-gzGzoHsz", "05Ag2XCTCbcFb6qOo96UrplX");</script>
+<script>
+function showTime(Counter) {
+	var query = new AV.Query(Counter);
+	$(".leancloud_visitors").each(function() {
+		var url = $(this).attr("id").trim();
+		query.equalTo("url", url);
+		query.find({
+			success: function(results) {
+				if (results.length == 0) {
+					var content = $(document.getElementById(url)).text() + ': 0';
+					$(document.getElementById(url)).text(content);
+					return;
+				}
+				for (var i = 0; i < results.length; i++) {
+					var object = results[i];
+					var content = $(document.getElementById(url)).text() + ': ' + object.get('time');
+					$(document.getElementById(url)).text(content);
+				}
+			},
+			error: function(object, error) {
+				console.log("Error: " + error.code + " " + error.message);
+			}
+		});
+
+	});
+}
+
+function addCount(Counter) {
+	var Counter = AV.Object.extend("Counter");
+	url = $(".leancloud_visitors").attr('id').trim();
+	title = $(".leancloud_visitors").attr('data-flag-title').trim();
+	var query = new AV.Query(Counter);
+	query.equalTo("url", url);
+	query.find({
+		success: function(results) {
+			if (results.length > 0) {
+				var counter = results[0];
+				counter.fetchWhenSave(true);
+				counter.increment("time");
+				counter.save(null, {
+					success: function(counter) {
+						var content = $(document.getElementById(url)).text() + ': ' + counter.get('time');
+						$(document.getElementById(url)).text(content);
+					},
+					error: function(counter, error) {
+						console.log('Failed to save Visitor num, with error message: ' + error.message);
+					}
+				});
+			} else {
+				var newcounter = new Counter();
+				newcounter.set("title", title);
+				newcounter.set("url", url);
+				newcounter.set("time", 1);
+				newcounter.save(null, {
+					success: function(newcounter) {
+					    console.log("newcounter.get('time')="+newcounter.get('time'));
+						var content = $(document.getElementById(url)).text() + ': ' + newcounter.get('time');
+						$(document.getElementById(url)).text(content);
+					},
+					error: function(newcounter, error) {
+						console.log('Failed to create');
+					}
+				});
+			}
+		},
+		error: function(error) {
+			console.log('Error:' + error.code + " " + error.message);
+		}
+	});
+}
+$(function() {
+	var Counter = AV.Object.extend("Counter");
+	if ($('.leancloud_visitors').length == 1) {
+		addCount(Counter);
+	} else if ($('.post-title-link').length > 1) {
+		showTime(Counter);
+	}
+}); 
+</script>
+  
+</body>
+</html>
