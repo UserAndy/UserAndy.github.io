@@ -1,0 +1,1067 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Java,Quartz," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="前言&amp;nbsp;&amp;nbsp;在很多公司,特别是互联网公司,需要在指定的时间进行一些跑批任务来完成业务实现,Java中实现定时的方式有很多中,其中可自己实现,也有比较成熟的框架,如: Quartz,今天来介绍一下Quartz的使用,
+简述
+&amp;nbsp;&amp;nbsp;Quartz is a richly featured, open source job scheduling library that">
+<meta property="og:type" content="article">
+<meta property="og:title" content="说说Quartz Scheduler任务调度框架">
+<meta property="og:url" content="http://yoursite.com/2017/06/21/java/tools/Quartz/index.html">
+<meta property="og:site_name" content="鞠骞的博客">
+<meta property="og:description" content="前言&amp;nbsp;&amp;nbsp;在很多公司,特别是互联网公司,需要在指定的时间进行一些跑批任务来完成业务实现,Java中实现定时的方式有很多中,其中可自己实现,也有比较成熟的框架,如: Quartz,今天来介绍一下Quartz的使用,
+简述
+&amp;nbsp;&amp;nbsp;Quartz is a richly featured, open source job scheduling library that">
+<meta property="og:image" content="http://yoursite.com/img/java/quartz/triggerClass.png">
+<meta property="og:image" content="http://yoursite.com/img/java/quartz/triggerImpl.png">
+<meta property="og:image" content="http://yoursite.com/img/java/quartz/show.gif">
+<meta property="og:image" content="http://img.blog.csdn.net/20170401092446529?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMDY5NTc5NA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:updated_time" content="2017-06-21T15:32:55.957Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="说说Quartz Scheduler任务调度框架">
+<meta name="twitter:description" content="前言&amp;nbsp;&amp;nbsp;在很多公司,特别是互联网公司,需要在指定的时间进行一些跑批任务来完成业务实现,Java中实现定时的方式有很多中,其中可自己实现,也有比较成熟的框架,如: Quartz,今天来介绍一下Quartz的使用,
+简述
+&amp;nbsp;&amp;nbsp;Quartz is a richly featured, open source job scheduling library that">
+<meta name="twitter:image" content="http://yoursite.com/img/java/quartz/triggerClass.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: undefined,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 说说Quartz Scheduler任务调度框架 | 鞠骞的博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">鞠骞的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">微移是一种心态！</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            时间轴
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-friendslinks">
+          <a href="/friendslinks" rel="section">
+            
+              <i class="menu-item-icon fa fa-question-circle fa-fw"></i> <br />
+            
+            小伙伴们
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                说说Quartz Scheduler任务调度框架
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-06-21T20:42:00+08:00" content="2017-06-21">
+              2017-06-21
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Java/Quartz/" itemprop="url" rel="index">
+                    <span itemprop="name">Quartz</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/06/21/java/tools/Quartz/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/06/21/java/tools/Quartz/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+		
+		
+          
+          
+				<span id="/2017/06/21/java/tools/Quartz/"class="leancloud_visitors"  data-flag-title="说说Quartz Scheduler任务调度框架">
+        &nbsp; | &nbsp; 阅读次数
+        </span>
+		
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>&nbsp;&nbsp;在很多公司,特别是互联网公司,需要在指定的时间进行一些跑批任务来完成业务实现,Java中实现定时的方式有很多中,其中可自己实现,也有比较成熟的框架,如: <a href="http://www.quartz-scheduler.org/" target="_blank" rel="external">Quartz</a>,今天来介绍一下Quartz的使用,</p>
+<h3 id="简述"><a href="#简述" class="headerlink" title="简述"></a>简述</h3><blockquote>
+<p>&nbsp;&nbsp;Quartz is a richly featured, open source job scheduling library that can be integrated within virtually any Java application - from the smallest stand-alone application to the largest e-commerce system. Quartz can be used to create simple or complex schedules for executing tens, hundreds, or even tens-of-thousands of jobs; jobs whose tasks are defined as standard Java components that may execute virtually anything you may program them to do. The Quartz Scheduler includes many enterprise-class features, such as support for JTA transactions and clustering.  </p>
+</blockquote>
+<p>&nbsp;&nbsp;Quartz是一个功能丰富的开源作业框架,可以集成到几乎任何的Java应用程序中,从最小的独立应用程序或最大的电商系统,Quartz可用于创建数十,数百甚至数十万个简单的作业或复杂的计划,任务定义为标准的Java组件业务,可以执行几乎任何可以对其进行编程的任务,Quartz Scheduler包含许多企业级功能,例如: 支持JTA事务和集群。</p>
+<h3 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h3><ul>
+<li>支持集群,故障转移</li>
+<li>精确可控的任务调度</li>
+<li>事务支持等   </li>
+</ul>
+<p>更多功能请参考: <a href="http://www.quartz-scheduler.org/overview/features.html" target="_blank" rel="external">http://www.quartz-scheduler.org/overview/features.html</a><br><a id="more"></a></p>
+<h3 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h3><p>该项目使用intellij IDE+Maven作为开发开发工具。<br>quartz maven依赖:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- quartz start--&gt;</span><br><span class="line"> &lt;dependency&gt;</span><br><span class="line">   &lt;groupId&gt;org.quartz-scheduler&lt;/groupId&gt;</span><br><span class="line">   &lt;artifactId&gt;quartz&lt;/artifactId&gt;</span><br><span class="line">   &lt;version&gt;2.3.0&lt;/version&gt;</span><br><span class="line"> &lt;/dependency&gt;</span><br><span class="line"> &lt;dependency&gt;</span><br><span class="line">   &lt;groupId&gt;org.quartz-scheduler&lt;/groupId&gt;</span><br><span class="line">   &lt;artifactId&gt;quartz-jobs&lt;/artifactId&gt;</span><br><span class="line">   &lt;version&gt;2.3.0&lt;/version&gt;</span><br><span class="line"> &lt;/dependency&gt;</span><br><span class="line"> &lt;!--quartz end--&gt;</span><br></pre></td></tr></table></figure></p>
+<p>quartz中使用slf4j作为日志工具。<br>log maven依赖为:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--log start--&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">      &lt;groupId&gt;org.slf4j&lt;/groupId&gt;</span><br><span class="line">      &lt;artifactId&gt;slf4j-api&lt;/artifactId&gt;</span><br><span class="line">      &lt;version&gt;1.7.25&lt;/version&gt;</span><br><span class="line">    &lt;/dependency&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">      &lt;groupId&gt;org.apache.logging.log4j&lt;/groupId&gt;</span><br><span class="line">      &lt;artifactId&gt;log4j-core&lt;/artifactId&gt;</span><br><span class="line">      &lt;version&gt;2.8.2&lt;/version&gt;</span><br><span class="line">    &lt;/dependency&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">      &lt;groupId&gt;org.slf4j&lt;/groupId&gt;</span><br><span class="line">      &lt;artifactId&gt;slf4j-log4j12&lt;/artifactId&gt;</span><br><span class="line">      &lt;version&gt;1.7.25&lt;/version&gt;</span><br><span class="line">      &lt;scope&gt;test&lt;/scope&gt;</span><br><span class="line">    &lt;/dependency&gt;</span><br><span class="line">    &lt;!--log end--&gt;</span><br></pre></td></tr></table></figure></p>
+<h3 id="简单job实现"><a href="#简单job实现" class="headerlink" title="简单job实现"></a>简单job实现</h3><p>有了环境准备,接下来，我们就可以来用一用quartz了,首先,我们写一个job类,实现job接口,实现job接口中的execute方法,在真实环境中,在该方法中一般进行一些业务逻辑的处理,(在本例中,直接打印日志,方便查看有执行)。<br>Myjob类代码:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * @createTime: 2017年06月20日</span><br><span class="line"> * @author: juyuqian</span><br><span class="line"> * @version: 0.0.1</span><br><span class="line"> * 描述: job任务</span><br><span class="line"> */</span><br><span class="line">public class MyJob implements Job &#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException &#123;</span><br><span class="line">        System.out.println(&quot;执行execute...........&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>有了任务,就需要有调用job的地方,在本例中,通过main函数的方式来演示任何调用job任务:<br>代码如下所示:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * @createTime: 2017年06月20日</span><br><span class="line"> * @author: juyuqian</span><br><span class="line"> * @version: 0.0.1</span><br><span class="line"> * 描述:</span><br><span class="line"> */</span><br><span class="line">public class MainQuartzSimple &#123;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 执行job数据</span><br><span class="line">     * @param args</span><br><span class="line">     */</span><br><span class="line">    public static void main(String[] args)&#123;</span><br><span class="line">        try&#123;</span><br><span class="line">            //1.获取scheduler 实例</span><br><span class="line">            Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();</span><br><span class="line">            //2.设置job信息,以及触发器信息</span><br><span class="line">            JobDetail jobDetail = JobBuilder.newJob(MyJob.class).withIdentity(&quot;andyqian001&quot;,&quot;group1&quot;).build();</span><br><span class="line">            Trigger trigger = TriggerBuilder.newTrigger().withIdentity(&quot;trigger1&quot;,&quot;group1&quot;).startNow().withSchedule(simpleSchedule()</span><br><span class="line">                    .withIntervalInSeconds(2).repeatForever()).build();</span><br><span class="line">            scheduler.scheduleJob(jobDetail, trigger);</span><br><span class="line">            //3.开始任务调度</span><br><span class="line">            scheduler.start();</span><br><span class="line">            //4. 关闭scheduler.shutdown();</span><br><span class="line">        &#125;catch(SchedulerException ex)&#123;</span><br><span class="line">            ex.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ol>
+<li>首先通过StdSchedulerFactory工厂获取一个默认的Scheduler实例</li>
+<li>设置JobDetail,注意JobDetail是接口,通过JobBuilder建造者获取一个JobDetail对象. 这里Trigger是一个接口,在Quartz中默认有若干实现类,<br>其中Trigger的实现类有:</li>
+<li>CalendarIntervalTrigger()</li>
+<li>MutableTrigger</li>
+<li>SimpleTrigger</li>
+<li>CoreTrigger</li>
+<li>CronTrigger (通过cron表达式触发)</li>
+<li>DaliyTimeIntervalTrigger<br>如下图所示:<br><img src="/img/java/quartz/triggerClass.png" alt="实现类"><br>其类图如下所示:<br><img src="/img/java/quartz/triggerImpl.png" alt="实现类"></li>
+<li><p>开启任务调度<br>效果如下:<br><img src="/img/java/quartz/show.gif" alt="效果"></p>
+<h3 id="CronTrigger使用"><a href="#CronTrigger使用" class="headerlink" title="CronTrigger使用"></a>CronTrigger使用</h3><p>在这里Job沿用MyJob中的实现方法,<br>CronTrigger代码如下:</p>
+<pre><code>/**
+* @createTime: 2017年06月20日
+* @author: juyuqian
+* @version: 0.0.1
+* 描述:
+*/
+public class QuartzDataSimple02 {
+
+ /**
+  * test job的数据信息
+  */
+ public static void main(String[] args){
+     try{
+         //1. 获取任务调度
+         Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
+         //2. 设置jobDetail以及cronTrigger触发器
+         JobDetail jobDetail = JobBuilder.newJob(MyJob.class).withIdentity(&quot;andyqian002&quot;,&quot;group1&quot;).build();
+         CronTriggerImpl cronTrigger = new CronTriggerImpl();
+         cronTrigger.setName(&quot;group1&quot;);
+         cronTrigger.setCronExpression(&quot;0/2 * * * * ?&quot;);
+         scheduler.scheduleJob(jobDetail, cronTrigger);
+         //3.开启
+         scheduler.start();
+     }catch(SchedulerException ex){
+         ex.printStackTrace();
+     }catch(ParseException ex){
+         ex.printStackTrace();
+     }
+ }
+}
+</code></pre><p>这一段代码中涉及到了Cron表达式,现在没明白没关系,跑起来,效果和 <strong>简单job实现</strong> 的实现是一样的,到这里，我们已经能够简单的使用Quartz了,休息一下,我们一起来看看[0/2 <em> </em> <em> </em> ?]表达式是如何构成的。</p>
+<h3 id="Cron表达式"><a href="#Cron表达式" class="headerlink" title="Cron表达式"></a>Cron表达式</h3><p>Cron表达式由6个必选字段与1个可选字段组成,以空格为分隔符,其分别为:  </p>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">字段</th>
+<th style="text-align:center">含义</th>
+<th style="text-align:center">是否必须</th>
+<th style="text-align:center">可选值</th>
+<th style="text-align:center">允许的特殊字符</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">seconds</td>
+<td style="text-align:center">秒</td>
+<td style="text-align:center">必选</td>
+<td style="text-align:center">0-59</td>
+<td style="text-align:center">, - * /</td>
+</tr>
+<tr>
+<td style="text-align:center">minutes</td>
+<td style="text-align:center">分</td>
+<td style="text-align:center">必选</td>
+<td style="text-align:center">0-59</td>
+<td style="text-align:center">, - * /</td>
+</tr>
+<tr>
+<td style="text-align:center">hours</td>
+<td style="text-align:center">时</td>
+<td style="text-align:center">必选</td>
+<td style="text-align:center">0-23</td>
+<td style="text-align:center">, - * /</td>
+</tr>
+<tr>
+<td style="text-align:center">daysOfMonth</td>
+<td style="text-align:center">天</td>
+<td style="text-align:center">必选</td>
+<td style="text-align:center">1-31</td>
+<td style="text-align:center">, - * ? / L W</td>
+</tr>
+<tr>
+<td style="text-align:center">months</td>
+<td style="text-align:center">月</td>
+<td style="text-align:center">必选</td>
+<td style="text-align:center">0-11 or JAN-DEC</td>
+<td style="text-align:center">, - * /</td>
+</tr>
+<tr>
+<td style="text-align:center">daysOfWeek</td>
+<td style="text-align:center">周中的某天</td>
+<td style="text-align:center">必选</td>
+<td style="text-align:center">1-7 or SUN-SAT</td>
+<td style="text-align:center">, - * ? / L #</td>
+</tr>
+<tr>
+<td style="text-align:center">years</td>
+<td style="text-align:center">年</td>
+<td style="text-align:center">可选</td>
+<td style="text-align:center">1970-2199</td>
+<td style="text-align:center">, - * /</td>
+</tr>
+</tbody>
+</table>
+<p>其中years字段为可选字段,其余均为必选字段。<br>下表中为特殊字符的含义:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">符号</th>
+<th style="text-align:center">解释</th>
+<th style="text-align:center">表达式</th>
+<th style="text-align:center">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">*</td>
+<td style="text-align:center">所有值</td>
+<td style="text-align:center">10 <em> </em> <em> </em> ?</td>
+<td style="text-align:center">如果*在minutes字段上为每分钟执行</td>
+</tr>
+<tr>
+<td style="text-align:center">?</td>
+<td style="text-align:center">表示某一值</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">表示每月的某一天,每周的某一天</td>
+</tr>
+<tr>
+<td style="text-align:center">-</td>
+<td style="text-align:center">指定范围</td>
+<td style="text-align:center">0 0 10-12 <em> </em> ?</td>
+<td style="text-align:center">表示10,11,12点均执行</td>
+</tr>
+<tr>
+<td style="text-align:center">,</td>
+<td style="text-align:center">与的关系</td>
+<td style="text-align:center">0 0 10,11,12 <em> </em> ?</td>
+<td style="text-align:center">表示10,11,12点均执行,与0 0 10-12 <em> </em> ?等价</td>
+</tr>
+<tr>
+<td style="text-align:center">/</td>
+<td style="text-align:center">指定增量</td>
+<td style="text-align:center">0/10 <em> </em> <em> </em> ?</td>
+<td style="text-align:center">表示每10秒执行一次,执行秒为:[ 0,10,20,30]</td>
+</tr>
+<tr>
+<td style="text-align:center">L</td>
+<td style="text-align:center">最后一天</td>
+<td style="text-align:center">0 10 0 L * ?</td>
+<td style="text-align:center">每月的最后一天凌晨12点10执行一次</td>
+</tr>
+<tr>
+<td style="text-align:center">#</td>
+<td style="text-align:center">第几个星期几</td>
+<td style="text-align:center">0 0 0 ? * 3 # 3</td>
+<td style="text-align:center">每月的第3个星期2执行凌晨12点整执行一次</td>
+</tr>
+<tr>
+<td style="text-align:center">W</td>
+<td style="text-align:center">最近的一个工作日</td>
+<td style="text-align:center">0 0 0 15W * ?</td>
+<td style="text-align:center">在15号最近的一个工作日执行</td>
+</tr>
+</tbody>
+</table>
+<p>注意事项:<br>0 0 0 15W * ? 表示15号最近的一个工作日执行,如果15号是星期日,则为下周一执行,如果15号为星期六,执行时间为周五</p>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>以上是Quartz Scheduler框架的使用,其中包括Cron表达是的介绍,你懂了吗？(PS:应该问自己懂了吗？记录这篇文章就是自己容易忘记Cron表达式的书写,自己记录一篇,快忘记了就过来瞅瞅,这就是我写博客的初衷!)</p>
+<h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><ul>
+<li>官网: <a href="http://www.quartz-scheduler.org/" target="_blank" rel="external">http://www.quartz-scheduler.org/</a></li>
+</ul>
+<hr>
+<p><center><img src="http://img.blog.csdn.net/20170401092446529?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMDY5NTc5NA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></center>  </p>
+<p><center>扫码关注，一起进步<br>  </center></p>
+<h2 id="个人博客-http-www-andyqian-com"><a href="#个人博客-http-www-andyqian-com" class="headerlink" title="个人博客: http://www.andyqian.com"></a><center>个人博客: <a href="http://www.andyqian.com" target="_blank" rel="external">http://www.andyqian.com</a></center></h2>
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag">#Java</a>
+          
+            <a href="/tags/Quartz/" rel="tag">#Quartz</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/05/31/java/tools/iText/" rel="next" title="PDF生成方案之iText">
+                <i class="fa fa-chevron-left"></i> PDF生成方案之iText
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/06/21/java/tools/Quartz/"
+           data-title="说说Quartz Scheduler任务调度框架" data-url="http://yoursite.com/2017/06/21/java/tools/Quartz/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="鞠骞" />
+          <p class="site-author-name" itemprop="name">鞠骞</p>
+          <p class="site-description motion-element" itemprop="description">微移是一种生活，分享是一种态度!</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">32</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/userandy" target="_blank">
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/userandy" target="_blank">
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#简述"><span class="nav-number">2.</span> <span class="nav-text">简述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#功能"><span class="nav-number">3.</span> <span class="nav-text">功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#环境准备"><span class="nav-number">4.</span> <span class="nav-text">环境准备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#简单job实现"><span class="nav-number">5.</span> <span class="nav-text">简单job实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CronTrigger使用"><span class="nav-number">6.</span> <span class="nav-text">CronTrigger使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cron表达式"><span class="nav-number">7.</span> <span class="nav-text">Cron表达式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结"><span class="nav-number">8.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考链接"><span class="nav-number">9.</span> <span class="nav-text">参考链接</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#个人博客-http-www-andyqian-com"><span class="nav-number"></span> <span class="nav-text">个人博客: http://www.andyqian.com</span></a></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">鞠骞</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+
+  
+
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.sidebar.display === 'post' || CONFIG.sidebar.display === 'always') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"andyhome"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+      <script src="/lib/ua-parser-js/dist/ua-parser.min.js"></script>
+      <script src="/js/src/hook-duoshuo.js"></script>
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  <!-- custom analytics part create by xiamo -->
+<script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+<script>AV.initialize("DyeMW5P0VKGbQJVb25qWYYS7-gzGzoHsz", "05Ag2XCTCbcFb6qOo96UrplX");</script>
+<script>
+function showTime(Counter) {
+	var query = new AV.Query(Counter);
+	$(".leancloud_visitors").each(function() {
+		var url = $(this).attr("id").trim();
+		query.equalTo("url", url);
+		query.find({
+			success: function(results) {
+				if (results.length == 0) {
+					var content = $(document.getElementById(url)).text() + ': 0';
+					$(document.getElementById(url)).text(content);
+					return;
+				}
+				for (var i = 0; i < results.length; i++) {
+					var object = results[i];
+					var content = $(document.getElementById(url)).text() + ': ' + object.get('time');
+					$(document.getElementById(url)).text(content);
+				}
+			},
+			error: function(object, error) {
+				console.log("Error: " + error.code + " " + error.message);
+			}
+		});
+
+	});
+}
+
+function addCount(Counter) {
+	var Counter = AV.Object.extend("Counter");
+	url = $(".leancloud_visitors").attr('id').trim();
+	title = $(".leancloud_visitors").attr('data-flag-title').trim();
+	var query = new AV.Query(Counter);
+	query.equalTo("url", url);
+	query.find({
+		success: function(results) {
+			if (results.length > 0) {
+				var counter = results[0];
+				counter.fetchWhenSave(true);
+				counter.increment("time");
+				counter.save(null, {
+					success: function(counter) {
+						var content = $(document.getElementById(url)).text() + ': ' + counter.get('time');
+						$(document.getElementById(url)).text(content);
+					},
+					error: function(counter, error) {
+						console.log('Failed to save Visitor num, with error message: ' + error.message);
+					}
+				});
+			} else {
+				var newcounter = new Counter();
+				newcounter.set("title", title);
+				newcounter.set("url", url);
+				newcounter.set("time", 1);
+				newcounter.save(null, {
+					success: function(newcounter) {
+					    console.log("newcounter.get('time')="+newcounter.get('time'));
+						var content = $(document.getElementById(url)).text() + ': ' + newcounter.get('time');
+						$(document.getElementById(url)).text(content);
+					},
+					error: function(newcounter, error) {
+						console.log('Failed to create');
+					}
+				});
+			}
+		},
+		error: function(error) {
+			console.log('Error:' + error.code + " " + error.message);
+		}
+	});
+}
+$(function() {
+	var Counter = AV.Object.extend("Counter");
+	if ($('.leancloud_visitors').length == 1) {
+		addCount(Counter);
+	} else if ($('.post-title-link').length > 1) {
+		showTime(Counter);
+	}
+}); 
+</script>
+  
+</body>
+</html>

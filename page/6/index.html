@@ -236,6 +236,137 @@
             
               
                 
+                <a class="post-title-link" href="/2016/04/05/database/mysqlerrInfo/" itemprop="url">
+                  mysql 数据库中常见的小问题
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-04-05T16:23:00+08:00" content="2016-04-05">
+              2016-04-05
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/mysql/" itemprop="url" rel="index">
+                    <span itemprop="name">mysql</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/04/05/database/mysqlerrInfo/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/05/database/mysqlerrInfo/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+		
+		
+          
+          
+				<span id="/2016/04/05/database/mysqlerrInfo/"class="leancloud_visitors"  data-flag-title="mysql 数据库中常见的小问题">
+        &nbsp; | &nbsp; 阅读次数
+        </span>
+		
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>在使用mysql数据库中，出现一些问题，在此特意将这些问题以及解决办法列出来。</p>
+<h2 id="mysql数据库中使用时的问题"><a href="#mysql数据库中使用时的问题" class="headerlink" title="mysql数据库中使用时的问题"></a>mysql数据库中使用时的问题</h2><h3 id="1-1-空格引来的烦恼"><a href="#1-1-空格引来的烦恼" class="headerlink" title="1.1 空格引来的烦恼"></a>1.1 空格引来的烦恼</h3><p>出现原因:  在看似正常的数据中，按照正确的查询语句，始终得不到预期的效果，如下图所示<br><img src="/img/database/error01.jpg" alt="选择安装包"></p>
+<p>例如:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from tbl_member where telephone=&apos;15608464487&apos;</span><br></pre></td></tr></table></figure></p>
+<p>执行后，执行结果总是空。经过测试，在上述表中，telephone记录中保存的根本就不是 “15608464487” 而是 “ 15608464487” (注意15608464487前面有空格)，</p>
+<p>解决方法:<br>① 使用 trim()函数去除空格:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sql示例： update tbl_member set telephone=telephone(trim(mid))</span><br></pre></td></tr></table></figure></p>
+<p>② 使用 replace()函数进行替换：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sql示例:  update tbl_member set telephone = replace(telephone,&quot;	&quot;,&quot;&quot;)</span><br></pre></td></tr></table></figure></p>
+<p>③ 如果出现其它特殊字符导致，也可以采用上述两种方法进行数据的清洗工作。</p>
+<h3 id="1-2-数据中文乱码"><a href="#1-2-数据中文乱码" class="headerlink" title="1.2 数据中文乱码"></a>1.2 数据中文乱码</h3><p>乱码问题是程序员常见的问题之一，我也相信每个程序员对乱码特别敏感。同样在mysql中也出现中文乱码，<br>①: 设置数据库编码,设置方法如下:<br><img src="/img/database/ecode.jpg" alt="设置数据库编码"></p>
+<p>也可以使用代码的形式来进行修改,代码如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">alter database student</span><br><span class="line">default character set utf8</span><br><span class="line">default collate utf8_general_ci;</span><br></pre></td></tr></table></figure></p>
+<p>其中 student 为数据库名称<br>②：设置表结构编码，代码设置语句如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">alter table tbl_user</span><br><span class="line">engine=innodb</span><br><span class="line">default character set utf8;</span><br></pre></td></tr></table></figure></p>
+<p>③：(如果使用jdbc连接)在连接数据库中的连接中设置 characterEncoding以及 useUnicode。<br>设置方法如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jdbc.url=jdbc:mysql://127.0.0.1:3306/wechatmall?useUnicode=true&amp;characterEncoding=utf8</span><br></pre></td></tr></table></figure></p>
+<h3 id="1-3-小结"><a href="#1-3-小结" class="headerlink" title="1.3 小结"></a>1.3 小结</h3><p>以上就是在开发中遇到的一些小问题，以及解决办法。在后续的开发中，还会继续完善。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2015/12/24/sqlserver/" itemprop="url">
                   windows系统无法安装SQLServer2005的两种解决方法
                 </a>
@@ -729,130 +860,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2014/11/23/javacommon/" itemprop="url">
-                  Java 中必备的公共知识点
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2014-11-23T15:23:00+08:00" content="2014-11-23">
-              2014-11-23
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2014/11/23/javacommon/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/11/23/javacommon/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-		
-		
-          
-          
-				<span id="/2014/11/23/javacommon/"class="leancloud_visitors"  data-flag-title="Java 中必备的公共知识点">
-        &nbsp; | &nbsp; 阅读次数
-        </span>
-		
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>在java中，有很多的公共知识点，这些知识点难度不大，但是却常常容易忽略，在此，特意整理这些知识点，一方面是为了提醒自己本身，另一方面是为整理给有需要的童鞋们，</p>
-<h4 id="1-1-String-StringBuilder-StringBuffer-的区别"><a href="#1-1-String-StringBuilder-StringBuffer-的区别" class="headerlink" title="1.1 String,StringBuilder,StringBuffer 的区别"></a>1.1 String,StringBuilder,StringBuffer 的区别</h4><p><strong>性质:</strong>  String是字符串常量，StringBuilder,StringBuffer是字符串变量，<br><strong>执行速度:</strong> String &lt; StringBuffer &lt; StringBuilder (比较场景为单线程)<br><strong>应用场景:</strong> StringBuffer是同步的，也就是线程安全的，StringBuilder是线程不安全的。<br>在单线程操作中，StringBuilder的执行性能会比StringBuffer好一些，<br>在多线程的操作中，StringBuffer的执行性能会比StringBuilder好一些<br>在实际应用中应该根据:<br><strong>小结:</strong><br>① 少量数据用 String<br>② 单线程大量数据用 StringBuilder<br>③ 多线程大量数据用 StringBuffer</p>
-<h4 id="1-2-HashTable-与-HashMap的区别"><a href="#1-2-HashTable-与-HashMap的区别" class="headerlink" title="1.2 HashTable 与 HashMap的区别"></a>1.2 HashTable 与 HashMap的区别</h4><p><strong>相同点：</strong> HashTable 与 HashMap 都实现了Map接口<br><strong>执行速度:</strong> HashTable &lt; HashMap (比较场景为单线程)<br><strong>应用场景:</strong> HashTable是 synchronized (同步)的,HashMap是非 synchronized (同步)的。<br>因此 HashTable 是线程安全的，HashMap是线程不安全的<br><strong>小结:</strong><br>① 单线程下使用 HashMap<br>② 多线程下使用 HashTable</p>
-<h4 id="1-3-ArrayList、LinkedList、Vector的区别"><a href="#1-3-ArrayList、LinkedList、Vector的区别" class="headerlink" title="1.3 ArrayList、LinkedList、Vector的区别"></a>1.3 ArrayList、LinkedList、Vector的区别</h4><p><strong>本质:</strong> ArrayList,Vector 内部实现是数组，LinkedList内部实现是链表<br><strong>执行速度:</strong> Vector &lt; ArrayList (比较场景为单线程)<br><strong>相同点：</strong> ArrayList,LinkedList,Vector都是对集合的操作。<br><strong>不同点：</strong><br>① 其实 ArrayList,Vector 与 LinkedList的区别就是 数组与链表的区别，ArrayList,Vecotr的 get() 和 set() 性能大于 LinkedList，但是 add() 和 remove()方法的性能却不及LinkedList。<br>② ArrayList与 Vector的区别是: Vector是同步的，也就是线程安全的，ArrayList 是非同步的，也就是线程不安全的。<br><strong>小结:</strong><br>① 在单线程get()与set()频繁时，用 ArrayList。<br>② 在多线程get()与set()频繁时，用 Vector。<br>③ 在add()与remove()操作频繁时，用 LinkedList。</p>
-<h4 id="1-4-Override和Overload的含义去区别"><a href="#1-4-Override和Overload的含义去区别" class="headerlink" title="1.4 Override和Overload的含义去区别"></a>1.4 Override和Overload的含义去区别</h4><p><strong>本质:</strong> Override和Overload 都是多态性的不同体现形式。<br><strong>不同点:</strong><br>① Override(重写) 体现的是子父类的多态性。Overload(重载) 体现的是当前类中的多态性。<br><strong>含义：</strong><br><strong>Override(重写):</strong> 指的是子类定义的方法与父类中的某个方法完全一样 (方法名,方法参数，参数个数，返回值均一致),<br>Override(重写)站的角度为: <strong>父类</strong>。<br><strong>Overload(重载):</strong> 指的是在同一个类中，方法名相同，但返回值，参数个数，参数类型不能相同。<br>Overload(重载): 站的角度为: <strong>自己本身</strong></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -898,7 +905,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">31</span>
+              <span class="site-state-item-count">32</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -906,7 +913,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-count">14</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -915,7 +922,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-count">18</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
