@@ -236,6 +236,140 @@
             
               
                 
+                <a class="post-title-link" href="/2017/07/04/java/tools/zookeeper/" itemprop="url">
+                  Zookeeper安装配置详解
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-07-04T20:42:00+08:00" content="2017-07-04">
+              2017-07-04
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/07/04/java/tools/zookeeper/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/07/04/java/tools/zookeeper/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+		
+		
+          
+          
+				<span id="/2017/07/04/java/tools/zookeeper/"class="leancloud_visitors"  data-flag-title="Zookeeper安装配置详解">
+        &nbsp; | &nbsp; 阅读次数
+        </span>
+		
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>在分布式系统中,Zookeeper已经是必备组件了,其重要性,可见一斑,想从头了解Zookeeper? <a href="https://zookeeper.apache.org/doc/r3.4.10/zookeeperOver.html">https://zookeeper.apache.org/doc/r3.4.10/zookeeperOver.html</a> 可以让您更了解Zookeeper,今天主要为大家介绍如何在Ubuntu下如何安装和配置Zookeeper。</p>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p><strong>1. 下载</strong><br>我们通过<a href="http://www.apache.org/dyn/closer.cgi/zookeeper/下载当前最新版本">http://www.apache.org/dyn/closer.cgi/zookeeper/下载当前最新版本</a>  </p>
+<blockquote>
+<p> sudo wget <a href="http://apache.fayea.com/zookeeper/stable/zookeeper-3.4.10.tar.gz">http://apache.fayea.com/zookeeper/stable/zookeeper-3.4.10.tar.gz</a></p>
+</blockquote>
+<p><strong>2. 解压zookeeper-3.4.10.tar.gz</strong></p>
+<blockquote>
+<p>sudo tar -zxvf zookeeper-3.4.10.tar.gz</p>
+</blockquote>
+<p><strong>3. 查看解压后的文件夹(zookeeper-3.4.10)</strong> </p>
+<blockquote>
+<p>ll</p>
+</blockquote>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2017/07/04/java/tools/zookeeper/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2017/06/21/java/tools/Quartz/" itemprop="url">
                   说说Quartz Scheduler任务调度框架
                 </a>
@@ -321,7 +455,7 @@
 
       
         
-          <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>&nbsp;&nbsp;在很多公司,特别是互联网公司,需要在指定的时间进行一些跑批任务来完成业务实现,Java中实现定时的方式有很多中,其中可自己实现,也有比较成熟的框架,如: <a href="http://www.quartz-scheduler.org/">Quartz</a>,今天来介绍一下Quartz的使用,</p>
+          <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>&nbsp;&nbsp;在很多公司,特别是互联网公司,需要在指定的时间进行一些跑批任务来完成业务实现,Java中实现定时的方式有很多,其中可自己实现,也有比较成熟的框架,如: <a href="http://www.quartz-scheduler.org/">Quartz</a>,今天来介绍一下Quartz的使用,</p>
 <h3 id="简述"><a href="#简述" class="headerlink" title="简述"></a>简述</h3><blockquote>
 <p>&nbsp;&nbsp;Quartz is a richly featured, open source job scheduling library that can be integrated within virtually any Java application - from the smallest stand-alone application to the largest e-commerce system. Quartz can be used to create simple or complex schedules for executing tens, hundreds, or even tens-of-thousands of jobs; jobs whose tasks are defined as standard Java components that may execute virtually anything you may program them to do. The Quartz Scheduler includes many enterprise-class features, such as support for JTA transactions and clustering.  </p>
 </blockquote>
@@ -761,145 +895,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/01/09/java/shiro/shiro01/" itemprop="url">
-                  Shiro笔记之简介
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-01-09T10:38:00+08:00" content="2017-01-09">
-              2017-01-09
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Java/Shiro/" itemprop="url" rel="index">
-                    <span itemprop="name">Shiro</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2017/01/09/java/shiro/shiro01/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/01/09/java/shiro/shiro01/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-		
-		
-          
-          
-				<span id="/2017/01/09/java/shiro/shiro01/"class="leancloud_visitors"  data-flag-title="Shiro笔记之简介">
-        &nbsp; | &nbsp; 阅读次数
-        </span>
-		
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="Shiro笔记之简介"><a href="#Shiro笔记之简介" class="headerlink" title="Shiro笔记之简介"></a>Shiro笔记之简介</h3><h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>之前一直有使用Shiro，却没有深入理解，造成过一段时间后又忘记了,又得从重新找资料,学习再使用,决定记录下来,好记性不如烂笔头.</p>
-<h4 id="Shiro是什么"><a href="#Shiro是什么" class="headerlink" title="Shiro是什么?"></a>Shiro是什么?</h4><p>在Shiro官网是这么描述的:</p>
-<blockquote>
-<p>Apache Shiro™ is a powerful and easy-to-use Java security framework that performs authentication, authorization, cryptography, and session management. With Shiro’s easy-to-understand API, you can quickly and easily secure any application – from the smallest mobile applications to the largest web and enterprise applications.</p>
-</blockquote>
-<p>Apache Shiro是一个功能强大且易于使用的Java安全框架,进行授权,认证,加密以及session管理,Shrio API通俗易懂,你可以轻松快速的使用到任何的应用程序中,包括小的移动应用程序,大的web应用程序以及企业应用程序中.<br>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2017/01/09/java/shiro/shiro01/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -945,7 +940,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">32</span>
+              <span class="site-state-item-count">33</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
