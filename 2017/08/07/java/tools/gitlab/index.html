@@ -1,0 +1,909 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Java,GitLab," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="GitLab安装实践一  前言  至从版本管理从SVN切换至Git后,对Git简直爱不释手,不仅每天在使用Git,平时也会逛Git相关的网站,如GitHub,Gitlab。就连自己的博客也是基于Git来搭建的,今天就为大家介绍一个非常好用的Git项目仓库管理工具,也就是今天的主角-GitLab。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GitLab安装实践">
+<meta property="og:url" content="http://yoursite.com/2017/08/07/java/tools/gitlab/index.html">
+<meta property="og:site_name" content="鞠骞的博客">
+<meta property="og:description" content="GitLab安装实践一  前言  至从版本管理从SVN切换至Git后,对Git简直爱不释手,不仅每天在使用Git,平时也会逛Git相关的网站,如GitHub,Gitlab。就连自己的博客也是基于Git来搭建的,今天就为大家介绍一个非常好用的Git项目仓库管理工具,也就是今天的主角-GitLab。">
+<meta property="og:image" content="http://yoursite.com/img/java/gitlab/installsuccess.png">
+<meta property="og:image" content="http://yoursite.com/img/java/gitlab/startlog.png">
+<meta property="og:image" content="http://yoursite.com/img/java/gitlab/host.png">
+<meta property="og:image" content="http://yoursite.com/img/java/gitlab/success.png">
+<meta property="og:image" content="http://yoursite.com/img/java/gitlab/restpassword.png">
+<meta property="og:image" content="http://yoursite.com/img/java/gitlab/home.png">
+<meta property="og:updated_time" content="2017-08-07T17:56:25.604Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="GitLab安装实践">
+<meta name="twitter:description" content="GitLab安装实践一  前言  至从版本管理从SVN切换至Git后,对Git简直爱不释手,不仅每天在使用Git,平时也会逛Git相关的网站,如GitHub,Gitlab。就连自己的博客也是基于Git来搭建的,今天就为大家介绍一个非常好用的Git项目仓库管理工具,也就是今天的主角-GitLab。">
+<meta name="twitter:image" content="http://yoursite.com/img/java/gitlab/installsuccess.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: undefined,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> GitLab安装实践 | 鞠骞的博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">鞠骞的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">微移是一种心态！</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            时间轴
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-friendslinks">
+          <a href="/friendslinks" rel="section">
+            
+              <i class="menu-item-icon fa fa-question-circle fa-fw"></i> <br />
+            
+            小伙伴们
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                GitLab安装实践
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-08-07T23:54:00+08:00" content="2017-08-07">
+              2017-08-07
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Java/GitLab/" itemprop="url" rel="index">
+                    <span itemprop="name">GitLab</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/08/07/java/tools/gitlab/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/08/07/java/tools/gitlab/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+		
+		
+          
+          
+				<span id="/2017/08/07/java/tools/gitlab/"class="leancloud_visitors"  data-flag-title="GitLab安装实践">
+        &nbsp; | &nbsp; 阅读次数
+        </span>
+		
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="GitLab安装实践"><a href="#GitLab安装实践" class="headerlink" title="GitLab安装实践"></a>GitLab安装实践</h3><h3 id="一-前言"><a href="#一-前言" class="headerlink" title="一  前言"></a>一  前言</h3><p>  至从版本管理从SVN切换至Git后,对Git简直爱不释手,不仅每天在使用Git,平时也会逛Git相关的网站,如GitHub,Gitlab。就连自己的博客也是基于Git来搭建的,今天就为大家介绍一个非常好用的Git项目仓库管理工具,也就是今天的主角-<a href="https://about.gitlab.com/gitlab-com/" target="_blank" rel="external">GitLab</a>。<br><a id="more"></a>  </p>
+<h3 id="二-GitLab是什么"><a href="#二-GitLab是什么" class="headerlink" title="二  GitLab是什么?"></a>二  GitLab是什么?</h3><p>  首先我们需要认识一下，GitLab是什么,维基百科中是这么描述的:</p>
+<blockquote>
+<p>GitLab是一个利用Ruby on Rails开发的开源应用程序，实现一个自托管的Git项目仓库，可通过Web界面进行访问公开的或者私人项目。它拥有与GitHub类似的功能,能够浏览代码,管理缺陷和注释,可以管理团队对仓库的方法,它非常易于浏览器提交过的版本并提供一个历史库。  </p>
+</blockquote>
+<p>对Git/GitHub比较熟悉的小伙伴，对上面的介绍应该比较容易理解，如果刚从SVN转过来的小伙伴，也可以理解为Git是中的VisualSVN Server,但是比VisualSVN Server更强大,说来这么多,怎么安装呢？别急,接着看。</p>
+<h3 id="三-安装"><a href="#三-安装" class="headerlink" title="三  安装"></a>三  安装</h3><p>  我这里安装的系统为: Ubuntu 14.04LTS。<br>GitLab分为在线安装与离线安装。由于GitLab依赖openSSH，首先我们需要安装openssh-server,命令如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install curl openssh-server ca-certificates postfix -y</span><br></pre></td></tr></table></figure></p>
+<h4 id="3-1-在线安装"><a href="#3-1-在线安装" class="headerlink" title="3.1 在线安装"></a>3.1 在线安装</h4><ol>
+<li><p>添加Gitlab package server</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -sS https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.deb.sh | sudo bash</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装Gitlab</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install gitlab-ce</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>如下图所示就表示已经安装完成<br><img src="/img/java/gitlab/installsuccess.png" alt="success">  </p>
+<ol>
+<li>配置启动Gitlab<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo gitlab-ctl reconfigure</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>启动后,会显示很多日志,到最后，如下图所示时,就表示启动没有问题:<br><img src="/img/java/gitlab/startlog.png" alt="startlog.png"><br>此时就能通过<a href="http://hostname进行访问了,其中hostname,为系统的系统主机名称,ubuntu可以通过在命令行中执行" target="_blank" rel="external">http://hostname进行访问了,其中hostname,为系统的系统主机名称,ubuntu可以通过在命令行中执行</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hostname</span><br></pre></td></tr></table></figure></p>
+<p>如下图:<br><img src="/img/java/gitlab/host.png" alt="hostname"><br>例如访问链接: <a href="http://andyqian/,如图所示" target="_blank" rel="external">http://andyqian/,如图所示</a>:<br><img src="/img/java/gitlab/success.png" alt="success"></p>
+<h4 id="3-2-离线安装"><a href="#3-2-离线安装" class="headerlink" title="3.2 离线安装"></a>3.2 离线安装</h4><p>手动下载软件包链接: <a href="https://packages.gitlab.com/gitlab/gitlab-ce,选择合适的包后安装" target="_blank" rel="external">https://packages.gitlab.com/gitlab/gitlab-ce,选择合适的包后安装</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dpkg -i gitlab-ce-XXX.deb</span><br></pre></td></tr></table></figure></p>
+<p>例如: <a href="https://packages.gitlab.com/gitlab/gitlab-ce/packages/ubuntu/xenial/gitlab-ce_9.4.3-ce.0_amd64.deb" target="_blank" rel="external">https://packages.gitlab.com/gitlab/gitlab-ce/packages/ubuntu/xenial/gitlab-ce_9.4.3-ce.0_amd64.deb</a><br>重新加载配置并启动:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo gitlab-ctl reconfigure</span><br></pre></td></tr></table></figure></p>
+<h3 id="四-修改root用户密码"><a href="#四-修改root用户密码" class="headerlink" title="四 修改root用户密码"></a>四 修改root用户密码</h3><p>  默认用户为root用户,其为超级管理员权限,个人建议一开始就修改root用户密码,忘记密码也可以使用该方法:<br>打开console<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo gitlab-rails console production;</span><br></pre></td></tr></table></figure></p>
+<p>查找需要修改的用户(id:1的用户为root用户)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">user = User.where(id:1).first;</span><br></pre></td></tr></table></figure></p>
+<p>设置密码&amp;确认密码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">user.password = &apos;your_password&apos;</span><br><span class="line">user.password_confirmation = &apos;your_password&apos;</span><br></pre></td></tr></table></figure></p>
+<p>保存修改<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">user.save!</span><br></pre></td></tr></table></figure></p>
+<p>重新加载配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo gitlab-ctl reconfigure</span><br></pre></td></tr></table></figure></p>
+<p>重启服务<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo gitlab-ctl restart</span><br></pre></td></tr></table></figure></p>
+<p><img src="/img/java/gitlab/restpassword.png" alt="安全性"><br>(ps:该root密码纯粹为来演示,不考虑安全性,建议在平常使用时考虑root密码的安全性)执行完成后就可以使用新密码登录了,登录成功后的界面如下图所示:<br><img src="/img/java/gitlab/home.png" alt="home"></p>
+<h3 id="五-常用命令"><a href="#五-常用命令" class="headerlink" title="五 常用命令"></a>五 常用命令</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sudo gitlab-rails console production;  //打开控制台  </span><br><span class="line">sudo gitlab-ctl tail;                   //查看日志,包括nginx,redis等   </span><br><span class="line">sudo gitlab-ctl start;                  //开启gitlab服务   </span><br><span class="line">sudo gitlab-ctl stop;                   //关闭gitlab服务   </span><br><span class="line">sudo gitlab-ctl restart;                //重启gitlab服务   </span><br><span class="line">sudo gitlab-ctl reconfigure             //重新加载配置</span><br></pre></td></tr></table></figure>
+<h3 id="六-邮件通知配置"><a href="#六-邮件通知配置" class="headerlink" title="六 邮件通知配置"></a>六 邮件通知配置</h3><p>  Gitlab支持邮件功能,默认是不启用状态,我们可以通过在/etc/gitlab/gitlab.rb文件中配置,即可进行邮件的通知功能，邮件功能的使用场景主要有:<br>用户注册,密码重置,事件通知等。(笔者在这里使用的是163邮箱),在/etc/gitlab/gitlab.rb文件中配置如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">### Email Settings</span><br><span class="line">gitlab_rails[&apos;gitlab_email_enabled&apos;] = true</span><br><span class="line">gitlab_rails[&apos;gitlab_email_from&apos;] = &apos;xxxx@163.com&apos;</span><br><span class="line">gitlab_rails[&apos;gitlab_email_display_name&apos;] = &apos;you nickname&apos;</span><br><span class="line">gitlab_rails[&apos;gitlab_email_reply_to&apos;] = &apos;xxxx@163.com&apos;</span><br><span class="line">gitlab_rails[&apos;gitlab_email_subject_suffix&apos;] = &apos;&apos;</span><br></pre></td></tr></table></figure></p>
+<p>以上配置仅仅是开启邮件通知功能,以及发送邮件的一些简单配置,接下来，我们需要配置邮件服务器(SMTP),来进行发送邮件,如下所示:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">gitlab_rails[&apos;smtp_enable&apos;] = true</span><br><span class="line">gitlab_rails[&apos;smtp_address&apos;] = &quot;smtp.163.com&quot;</span><br><span class="line">gitlab_rails[&apos;smtp_port&apos;] = 25</span><br><span class="line">gitlab_rails[&apos;smtp_user_name&apos;] = &quot;xxxx@163.com&quot;</span><br><span class="line">gitlab_rails[&apos;smtp_password&apos;] = &quot;you password&quot;</span><br><span class="line">gitlab_rails[&apos;smtp_domain&apos;] = &quot;163.com&quot;</span><br><span class="line">gitlab_rails[&apos;smtp_authentication&apos;] = :login</span><br><span class="line">gitlab_rails[&apos;smtp_enable_starttls_auto&apos;] = true</span><br><span class="line">gitlab_rails[&apos;smtp_tls&apos;] = false</span><br></pre></td></tr></table></figure></p>
+<p>其中:<br>smtp_user_name 为邮箱名<br>smtp_password: 登录密码<br>smtp_port: 如果是163邮箱则为固定值 25<br>注意: 该邮箱需要支持smtp协议,才能进行邮件的正常收发。<br>gitlab支持多种邮箱配置,具体配置参考链接<a href="https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/doc/settings/smtp.md" target="_blank" rel="external">SMTP配置</a></p>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>在本篇文章中,主要介绍了Gitlab安装的步骤,以及一些注意事项,在后面的文章中,介绍如何汉化,以及如何通过日志分析问题,并解决问题。</p>
+<h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><p><a href="https://about.gitlab.com/" target="_blank" rel="external">GitLab</a><br><a href="https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/doc/settings/smtp.md" target="_blank" rel="external">SMTP配置</a>  </p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag">#Java</a>
+          
+            <a href="/tags/GitLab/" rel="tag">#GitLab</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/06/life/interview/" rel="next" title="一份面试总结">
+                <i class="fa fa-chevron-left"></i> 一份面试总结
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/08/07/java/tools/gitlab/"
+           data-title="GitLab安装实践" data-url="http://yoursite.com/2017/08/07/java/tools/gitlab/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="鞠骞" />
+          <p class="site-author-name" itemprop="name">鞠骞</p>
+          <p class="site-description motion-element" itemprop="description">微移是一种生活，分享是一种态度!</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">35</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/userandy" target="_blank">
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/userandy" target="_blank">
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#GitLab安装实践"><span class="nav-number">1.</span> <span class="nav-text">GitLab安装实践</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一-前言"><span class="nav-number">2.</span> <span class="nav-text">一  前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二-GitLab是什么"><span class="nav-number">3.</span> <span class="nav-text">二  GitLab是什么?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三-安装"><span class="nav-number">4.</span> <span class="nav-text">三  安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-在线安装"><span class="nav-number">4.1.</span> <span class="nav-text">3.1 在线安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-离线安装"><span class="nav-number">4.2.</span> <span class="nav-text">3.2 离线安装</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四-修改root用户密码"><span class="nav-number">5.</span> <span class="nav-text">四 修改root用户密码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#五-常用命令"><span class="nav-number">6.</span> <span class="nav-text">五 常用命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#六-邮件通知配置"><span class="nav-number">7.</span> <span class="nav-text">六 邮件通知配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结"><span class="nav-number">8.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考链接"><span class="nav-number">9.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">鞠骞</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+
+  
+
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.sidebar.display === 'post' || CONFIG.sidebar.display === 'always') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"andyhome"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+      <script src="/lib/ua-parser-js/dist/ua-parser.min.js"></script>
+      <script src="/js/src/hook-duoshuo.js"></script>
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  <!-- custom analytics part create by xiamo -->
+<script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+<script>AV.initialize("DyeMW5P0VKGbQJVb25qWYYS7-gzGzoHsz", "05Ag2XCTCbcFb6qOo96UrplX");</script>
+<script>
+function showTime(Counter) {
+	var query = new AV.Query(Counter);
+	$(".leancloud_visitors").each(function() {
+		var url = $(this).attr("id").trim();
+		query.equalTo("url", url);
+		query.find({
+			success: function(results) {
+				if (results.length == 0) {
+					var content = $(document.getElementById(url)).text() + ': 0';
+					$(document.getElementById(url)).text(content);
+					return;
+				}
+				for (var i = 0; i < results.length; i++) {
+					var object = results[i];
+					var content = $(document.getElementById(url)).text() + ': ' + object.get('time');
+					$(document.getElementById(url)).text(content);
+				}
+			},
+			error: function(object, error) {
+				console.log("Error: " + error.code + " " + error.message);
+			}
+		});
+
+	});
+}
+
+function addCount(Counter) {
+	var Counter = AV.Object.extend("Counter");
+	url = $(".leancloud_visitors").attr('id').trim();
+	title = $(".leancloud_visitors").attr('data-flag-title').trim();
+	var query = new AV.Query(Counter);
+	query.equalTo("url", url);
+	query.find({
+		success: function(results) {
+			if (results.length > 0) {
+				var counter = results[0];
+				counter.fetchWhenSave(true);
+				counter.increment("time");
+				counter.save(null, {
+					success: function(counter) {
+						var content = $(document.getElementById(url)).text() + ': ' + counter.get('time');
+						$(document.getElementById(url)).text(content);
+					},
+					error: function(counter, error) {
+						console.log('Failed to save Visitor num, with error message: ' + error.message);
+					}
+				});
+			} else {
+				var newcounter = new Counter();
+				newcounter.set("title", title);
+				newcounter.set("url", url);
+				newcounter.set("time", 1);
+				newcounter.save(null, {
+					success: function(newcounter) {
+					    console.log("newcounter.get('time')="+newcounter.get('time'));
+						var content = $(document.getElementById(url)).text() + ': ' + newcounter.get('time');
+						$(document.getElementById(url)).text(content);
+					},
+					error: function(newcounter, error) {
+						console.log('Failed to create');
+					}
+				});
+			}
+		},
+		error: function(error) {
+			console.log('Error:' + error.code + " " + error.message);
+		}
+	});
+}
+$(function() {
+	var Counter = AV.Object.extend("Counter");
+	if ($('.leancloud_visitors').length == 1) {
+		addCount(Counter);
+	} else if ($('.post-title-link').length > 1) {
+		showTime(Counter);
+	}
+}); 
+</script>
+  
+</body>
+</html>
