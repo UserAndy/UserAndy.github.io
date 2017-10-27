@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="svn & git," />
+  <meta name="keywords" content="生活," />
 
 
 
@@ -57,25 +57,18 @@
 
 
 
-<meta name="description" content="在实际开发过程中，团队协作，版本控制是非常重要的，目前比较流行的版本控制工具有:SVN和 Git,而在Java开发中，最常用的开发工具是 MyEclipse，今天介绍大家如何在Myeclipse 中集成 SVN
-MyEclipse中集成SVN详解1.1 准备工作首先，我们需要下载SVN 的客户端，可以在SVN的官网进行下载:① 在官网下载SVN 插件 (如:site-1.6.18)Subversi">
+<meta name="description" content="前言 &amp;nbsp;&amp;nbsp;看到曹大写的《企业面试需要几轮》这篇文章，分析的简直不要太好，太赞同他的观点了，仔细看了几次之后，决定结合自己之前的求职经历简单说说">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MyEclipse中集成SVN详解">
-<meta property="og:url" content="http://yoursite.com/2016/04/16/versionControl/myeclipseSvn/index.html">
+<meta property="og:title" content="企业面试成本">
+<meta property="og:url" content="http://yoursite.com/2017/10/27/life/costControl/index.html">
 <meta property="og:site_name" content="鞠骞的博客">
-<meta property="og:description" content="在实际开发过程中，团队协作，版本控制是非常重要的，目前比较流行的版本控制工具有:SVN和 Git,而在Java开发中，最常用的开发工具是 MyEclipse，今天介绍大家如何在Myeclipse 中集成 SVN
-MyEclipse中集成SVN详解1.1 准备工作首先，我们需要下载SVN 的客户端，可以在SVN的官网进行下载:① 在官网下载SVN 插件 (如:site-1.6.18)Subversi">
-<meta property="og:image" content="http://yoursite.com/img/svn/svnEclipse.png">
-<meta property="og:image" content="http://yoursite.com/img/svn/success.png">
-<meta property="og:image" content="http://yoursite.com/img/svn/method01.png">
-<meta property="og:image" content="http://yoursite.com/img/svn/sitesvn.png">
-<meta property="og:image" content="http://yoursite.com/img/svn/myeclipseSvn.png">
-<meta property="og:updated_time" content="2016-11-17T10:02:08.122Z">
+<meta property="og:description" content="前言 &amp;nbsp;&amp;nbsp;看到曹大写的《企业面试需要几轮》这篇文章，分析的简直不要太好，太赞同他的观点了，仔细看了几次之后，决定结合自己之前的求职经历简单说说">
+<meta property="og:image" content="http://img.blog.csdn.net/20170401092446529?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMDY5NTc5NA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:updated_time" content="2017-10-27T14:19:36.923Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MyEclipse中集成SVN详解">
-<meta name="twitter:description" content="在实际开发过程中，团队协作，版本控制是非常重要的，目前比较流行的版本控制工具有:SVN和 Git,而在Java开发中，最常用的开发工具是 MyEclipse，今天介绍大家如何在Myeclipse 中集成 SVN
-MyEclipse中集成SVN详解1.1 准备工作首先，我们需要下载SVN 的客户端，可以在SVN的官网进行下载:① 在官网下载SVN 插件 (如:site-1.6.18)Subversi">
-<meta name="twitter:image" content="http://yoursite.com/img/svn/svnEclipse.png">
+<meta name="twitter:title" content="企业面试成本">
+<meta name="twitter:description" content="前言 &amp;nbsp;&amp;nbsp;看到曹大写的《企业面试需要几轮》这篇文章，分析的简直不要太好，太赞同他的观点了，仔细看了几次之后，决定结合自己之前的求职经历简单说说">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20170401092446529?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMDY5NTc5NA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
 
 
 
@@ -93,7 +86,7 @@ MyEclipse中集成SVN详解1.1 准备工作首先，我们需要下载SVN 的客
   };
 </script>
 
-  <title> MyEclipse中集成SVN详解 | 鞠骞的博客 </title>
+  <title> 企业面试成本 | 鞠骞的博客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -243,7 +236,7 @@ MyEclipse中集成SVN详解1.1 准备工作首先，我们需要下载SVN 的客
             
             
               
-                MyEclipse中集成SVN详解
+                企业面试成本
               
             
           </h1>
@@ -255,8 +248,8 @@ MyEclipse中集成SVN详解1.1 准备工作首先，我们需要下载SVN 的客
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-04-16T21:56:00+08:00" content="2016-04-16">
-              2016-04-16
+            <time itemprop="dateCreated" datetime="2017-10-27T20:35:00+08:00" content="2017-10-27">
+              2017-10-27
             </time>
           </span>
 
@@ -269,8 +262,20 @@ MyEclipse中集成SVN详解1.1 准备工作首先，我们需要下载SVN 的客
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/svn-git/" itemprop="url" rel="index">
-                    <span itemprop="name">svn & git</span>
+                  <a href="/categories/Life/" itemprop="url" rel="index">
+                    <span itemprop="name">Life</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Life/面试/" itemprop="url" rel="index">
+                    <span itemprop="name">面试</span>
                   </a>
                 </span>
 
@@ -285,8 +290,8 @@ MyEclipse中集成SVN详解1.1 准备工作首先，我们需要下载SVN 的客
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/04/16/versionControl/myeclipseSvn/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/16/versionControl/myeclipseSvn/" itemprop="commentsCount"></span>
+                <a href="/2017/10/27/life/costControl/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/10/27/life/costControl/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -297,7 +302,7 @@ MyEclipse中集成SVN详解1.1 准备工作首先，我们需要下载SVN 的客
 		
           
           
-				<span id="/2016/04/16/versionControl/myeclipseSvn/"class="leancloud_visitors"  data-flag-title="MyEclipse中集成SVN详解">
+				<span id="/2017/10/27/life/costControl/"class="leancloud_visitors"  data-flag-title="企业面试成本">
         &nbsp; | &nbsp; 阅读次数
         </span>
 		
@@ -313,19 +318,51 @@ MyEclipse中集成SVN详解1.1 准备工作首先，我们需要下载SVN 的客
       
 
       
-        <p>在实际开发过程中，团队协作，版本控制是非常重要的，目前比较流行的版本控制工具有:<a href="http://baike.baidu.com/link?url=LrhMpauYDeMrfEbMeBJ42DKPkWp7TSE2Ov5OtwnpRc9tHAFXIUdACE7K4dGFQGl3BGFzgUcl5DWZZtnSUnnhyq" target="_blank" rel="external">SVN</a>和 <a href="http://baike.baidu.com/link?url=jOm3mxtQr3nSAVvSk7GxLhL9Aj5KtNUUpN5hLxQfzfZrj0BX6RfRiTBSlkQ1NCwGur3AZYGfaTUjSyKx6oAXe92M4VY0cuu7ZMuPbzIE0SC" target="_blank" rel="external">Git</a>,而在Java开发中，最常用的开发工具是 MyEclipse，今天介绍大家如何在Myeclipse 中集成 SVN</p>
-<h2 id="MyEclipse中集成SVN详解"><a href="#MyEclipse中集成SVN详解" class="headerlink" title="MyEclipse中集成SVN详解"></a>MyEclipse中集成SVN详解</h2><h3 id="1-1-准备工作"><a href="#1-1-准备工作" class="headerlink" title="1.1 准备工作"></a>1.1 准备工作</h3><p>首先，我们需要下载SVN 的客户端，可以在SVN的官网进行下载:<br>① 在官网下载SVN 插件 (如:site-1.6.18)<br><a href="https://sourceforge.net/projects/win32svn/" target="_blank" rel="external">Subversion</a><br><a href="https://tortoisesvn.net/downloads.html" target="_blank" rel="external">Tortoisesvn</a><br>如果您需要安装SVN的服务器,则需要下载<br><a href="https://www.visualsvn.com/visualsvn/download/" target="_blank" rel="external">VisualSVN-Server</a><br>也可以在以下链接下载完整的下载包<br><a href="http://pan.baidu.com/s/1miAfHig" target="_blank" rel="external">百度云安装包列表</a><br>下载后,如下所示:<br><img src="/img/svn/svnEclipse.png" alt="下载后的列表"><br>其中:<br>site-1.6.18 表示 Myeclipse中的SVN插件<br>Setup-Subversion-1.6.16.msi 表示版本控制组件<br>TortoiseSVN-1.6.10.19898-win32-svn-1.6.12 表示SVN客户端组件(传说中的乌龟) 32位<br>TortoiseSVN-1.8.4.24972-x64-svn-1.8.5.msi SVN客户端组件(64位)<br>VisualSVN-Server-2.7.2.zip SVN 服务器<br><a id="more"></a> </p>
-<h3 id="1-2-安装"><a href="#1-2-安装" class="headerlink" title="1.2 安装"></a>1.2 安装</h3><p>按照上述的顺序，依次安装即可。<br>安装成功后，鼠标右击，在右键菜单选项中，则会添加了svn的操作项<br><img src="/img/svn/success.png" alt="安装成功后的界面"><br>注意事项如下:<br>① 根据系统版本选择 TortoiseSVN 版本安装。<br>② 根据是否需要在本机安装服务器，选择安装 VisualSVN-Server-2.7.2。</p>
-<h3 id="1-3-本地安装配置路径"><a href="#1-3-本地安装配置路径" class="headerlink" title="1.3 本地安装配置路径"></a>1.3 本地安装配置路径</h3><p>通过1.2 步骤，我们已经成功在电脑里安装了SVN版本控制工具，到现在已经完成了80%了，现在需要做的就是，需要让我们的Myeclipse识别，这里有两种方法:  </p>
-<h5 id="方法一-通过直接安装插件"><a href="#方法一-通过直接安装插件" class="headerlink" title="方法一: 通过直接安装插件"></a>方法一: 通过直接安装插件</h5><p>将SVN插件（如1.1图中的 site-1.6.18) (也可以将 site-1.6.18 文件夹中的  features,plugins文件夹）复制到 Myeclipse-&gt;dropins 文件夹中，如图所示:<br><img src="/img/svn/method01.png" alt="引用的方法"><br>重启Myeclipse即可。  </p>
-<h5 id="方法二-通过-link-的方式来引用"><a href="#方法二-通过-link-的方式来引用" class="headerlink" title="方法二: 通过 link 的方式来引用"></a>方法二: 通过 link 的方式来引用</h5><p>通过在 Myeclipse-&gt;dropins 文件夹中 添加 svn.link 文件，内容为:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">path=D://java//svn//svn</span><br></pre></td></tr></table></figure></p>
-<p>其中 D:\java\svn\svn，是svn插件的路径，这里需要注意的是:将 \ 换成 //，<br>重启Myeclipse即可。</p>
-<h3 id="1-4-在线安装"><a href="#1-4-在线安装" class="headerlink" title="1.4 在线安装"></a>1.4 在线安装</h3><p>在线安装，我们这里主要以Myeclipse进行讲解，我们通过Help-&gt;install from Site。<br>如下图所示:<br><img src="/img/svn/sitesvn.png" alt="在线安装">  </p>
-<pre><code>svn - http://subclipse.tigris.org/update_1.10.x/
-</code></pre><p>在这里，我选择的是1.10.x版本。<br>刚方法附带解决的问题:<br>① 如果发现本地插件安装后,不能使用,则可以使用该方法进行更新svn插件版本。<br>② 如果svn服务器版本，要求客户端最低版本为xxx以上，也可以通过该方式进行安装。</p>
-<h3 id="1-5-验证安装"><a href="#1-5-验证安装" class="headerlink" title="1.5 验证安装"></a>1.5 验证安装</h3><p>通过上述步骤，我们就已经完成了，重启安装Myeclipse后，我们可以通过如下图所示查看:<br><img src="/img/svn/myeclipseSvn.png" alt="引用的方法">,</p>
-<h3 id="1-6-小结"><a href="#1-6-小结" class="headerlink" title="1.6 小结"></a>1.6 小结</h3><p>以上就是Myeclipse中安装 SVN插件的方法。</p>
+        <h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p> &nbsp;&nbsp;看到曹大写的《企业面试需要几轮》这篇文章，分析的简直不要太好，太赞同他的观点了，仔细看了几次之后，决定结合自己之前的求职经历简单说说<br><a id="more"></a></p>
+<h3 id="成本"><a href="#成本" class="headerlink" title="成本"></a>成本</h3><p>&nbsp;&nbsp;曹大说到了成本，我们今天就来捋一捋，算一算，一场面试！对于企业和求职者，分别有哪些成本，分布在哪些环节！</p>
+<h4 id="企业招聘成本"><a href="#企业招聘成本" class="headerlink" title="企业招聘成本"></a>企业招聘成本</h4><p>&nbsp;&nbsp;首先我们就来说说企业招聘成本由哪些元素构成。在说构成元素之前，我们首先回顾一下企业招聘的流程，从发布招聘需求到入职之间由哪些步骤构成:</p>
+<blockquote>
+<ol>
+<li>招聘信息发布  </li>
+<li>简历搜集</li>
+<li>简历筛选 </li>
+<li>电话邀约 </li>
+<li>面试安排 </li>
+<li>面试 </li>
+<li>面试评估 </li>
+<li>offer发放 </li>
+<li>入职手续办理</li>
+</ol>
+</blockquote>
+<p>你看，光流程就有这么多，每个环节都是需要消耗大量时间的，其中前面简历搜集+筛选就是不少时间呢，我们继续往下看，电话邀约与面试安排，这些都是HR的人力成本，紧接着，进入面试环节，在这个环节中企业需要参与的角色就更多了，就以现在大部分企业来看，在这个环节，参与到其中的，需要三个及以上的角色！（其中包括但不限于:初试官，复试官，HR），一个求职者从简历筛选，到面试邀约，直至到入职手续办理，一整套流程走下来后，快则两三天，多则一两个个月呢，这还是指求职者通过面试的情况呢！如果精细算下，除去求职者爽约，面试不通过等等因素，招聘一岗位的成本就非常高了！！！</p>
+<h4 id="求职者成本"><a href="#求职者成本" class="headerlink" title="求职者成本"></a>求职者成本</h4><p>&nbsp;&nbsp;对于求职者来说，主要还是时间成本，其次就是经济成本，就以我自己之前的应聘经历来说吧: </p>
+<blockquote>
+<p>&nbsp;&nbsp;之前去一家互联网公司面试，面试岗位是中级Java工程师，一共有:1轮笔试+4轮面试，分两天进行，其中笔试由四页笔试题构成（其中包括代码填空，手写设计模式等等）4轮面试分别是: 初试，主要问些基础，第二轮复试主要问些框架，中间件之类的东西，面完后被告知第二天来进行最终的技术总监面试，第三轮技术总监面完后，紧接着就是四轮的HR面试，请注意，我应聘的岗位仅仅只是中级Java工程师，一共经历了1轮笔试+4轮面试，共耗时2天，有效面试时间:3.5小时。其他时间很多浪费在面试路程和面试等待上。</p>
+</blockquote>
+<p>你看，光从这方面，就造成了求职者大量时间上的浪费。这还是求职者与公司在同城呢，如果是异地，那成本岂不是以成倍增长了，跨国那就更不要说了！</p>
+<h4 id="成本-1"><a href="#成本-1" class="headerlink" title="成本"></a>成本</h4><p>&nbsp;&nbsp;上面说了这么多,我们现在就能回答之前抛出来的问题了。  </p>
+<p><strong>企业成本</strong>: 时间成本+HR人力成本+面试官成本+其他成本    </p>
+<h6 id="备注-其中面试官成本就包括薪资很高的那种"><a href="#备注-其中面试官成本就包括薪资很高的那种" class="headerlink" title="备注: 其中面试官成本就包括薪资很高的那种"></a><strong>备注</strong>: 其中面试官成本就包括薪资很高的那种</h6><p><strong>求职者成本</strong>:  &nbsp;&nbsp;时间成本+经济成本。 </p>
+<h6 id="备注-nbsp-nbsp-经济成本就包括求职者面试交通费，住宿费等等！"><a href="#备注-nbsp-nbsp-经济成本就包括求职者面试交通费，住宿费等等！" class="headerlink" title="备注:  &nbsp;&nbsp;经济成本就包括求职者面试交通费，住宿费等等！"></a><strong>备注</strong>:  &nbsp;&nbsp;经济成本就包括求职者面试交通费，住宿费等等！</h6><p>其实越到后面的环节，两者的成本逐渐增高。到发送offer时,两者的成本达到最高峰。  </p>
+<p><strong>对于企业来说</strong>: &nbsp;&nbsp;如果在面试了3,4轮后，发现求职者的一些问题，此时企业也是很纠结的，如果录取，又要判断该求职者的已有问题对企业的影响，如果不录取，之前所有的步骤都付诸东流，成本也就白白花费，又比如，企业给求职者发offer后，求职者由于某种原因，不能入职，此时两者之前所费的精力以及成本均白搭。  </p>
+<p><strong>对于求职者来说</strong>: 花费了大量时间面试，经历了初面，复面，终面，HR面,到最后因为薪资或其他问题(或某厂以价值不符为由而未录取),你说这成本怎么算,如果你是求职者,你就说气不气….</p>
+<h4 id="如何成本控制"><a href="#如何成本控制" class="headerlink" title="如何成本控制"></a>如何成本控制</h4><p>&nbsp;&nbsp;经过上面的分析,我们就知道一个求职者从面试到入职,经历了哪些步骤,企业和求职者分别有哪些成本,有多大的成本。那么这么大的成本,都是必须的吗？答案肯定是否定的。因为有些成本是可控的。从上面的流程来看,企业更有主动权,以下是个人觉得几个能够控制成本的地方:  </p>
+<ol>
+<li><p><strong>简历筛选</strong><br>&nbsp;&nbsp;在这一步基本上都是技术官进行简历筛选,如果觉得合适才会让HR电话邀约. (此时一个好的技术官,会筛选掉大量不合格的简历,从而不会进入后续的流程。就如软件开发,需求阶段的设计修改成本是最低的。)  </p>
+</li>
+<li><p><strong>&nbsp;&nbsp;面试流程</strong><br>&nbsp;&nbsp;现在大部分公司,面试动不动就好几轮,少则两三轮,多则五六轮,甚至更多。但大部分都比较重复,恨不得对求职者调查个底朝天，从技术能力到设计思想,最后还有价值观之类的。其实面试这么多轮,说到底还是考核标准考核不到求职者,只能通过多轮面试,来看求职者的表现呢.</p>
+</li>
+</ol>
+<ol>
+<li><strong>考核标准</strong><br>&nbsp;&nbsp;这个也就是曹大所说的,对不同层级的岗位需求,设定不同的考核标准,但这个考核标准,可不是单纯的增加面试次数哦。如:对于初级岗考核看中的就应该是基础+潜力,对于中级岗位应该是项目经验+设计思维等等。</li>
+</ol>
+<p>对于企业来说,与其天天打着节源省流的口号,还不如控制好招聘成本呢,例如制定一系列满足企业招聘需求的面试官标准,不同岗位招聘考核标准等等呢!</p>
+<h4 id="致求职者的话"><a href="#致求职者的话" class="headerlink" title="致求职者的话"></a>致求职者的话</h4><p>&nbsp;&nbsp;从上面的成本来看,我们也比较清楚的认识到,在成本方面,求职者也非常高，其中除时间成本外,其他的成本均要以企业发起面试邀请后开始,为了节省自己的成本，一份好的简历就显得尤为重要,上一篇《面试官初体验》这篇文章就着重说过这个问题，在这里再重申三遍, 千万不要有错别字,千万不要有错别字，千万不要有错别字。 如果简历有错别字,一旦进入面试环节,被刷的可能性也大大增加。自己之前花费的准备,时间以及经济成本均白费!!!</p>
+<hr>
+<center><img src="http://img.blog.csdn.net/20170401092446529?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMDY5NTc5NA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></center><br><center>扫码关注，一起进步<br><br><center>个人博客: <a href="http://www.andyqian.com" target="_blank" rel="external">http://www.andyqian.com</a></center>
 
+
+</center>
       
     </div>
 
@@ -339,7 +376,7 @@ MyEclipse中集成SVN详解1.1 准备工作首先，我们需要下载SVN 的客
       
         <div class="post-tags">
           
-            <a href="/tags/svn-git/" rel="tag">#svn & git</a>
+            <a href="/tags/生活/" rel="tag">#生活</a>
           
         </div>
       
@@ -348,17 +385,13 @@ MyEclipse中集成SVN详解1.1 准备工作首先，我们需要下载SVN 的客
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/04/09/java/tomcatAddServices/" rel="next" title="Tomcat 使用详解">
-                <i class="fa fa-chevron-left"></i> Tomcat 使用详解
+              <a href="/2017/10/24/life/1024/" rel="next" title="1024! 程序员节日快乐！">
+                <i class="fa fa-chevron-left"></i> 1024! 程序员节日快乐！
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/05/06/android/fastjson/" rel="prev" title="Fastjson 详解">
-                Fastjson 详解 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -384,8 +417,8 @@ MyEclipse中集成SVN详解1.1 准备工作首先，我们需要下载SVN 的客
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/04/16/versionControl/myeclipseSvn/"
-           data-title="MyEclipse中集成SVN详解" data-url="http://yoursite.com/2016/04/16/versionControl/myeclipseSvn/">
+      <div class="ds-thread" data-thread-key="2017/10/27/life/costControl/"
+           data-title="企业面试成本" data-url="http://yoursite.com/2017/10/27/life/costControl/">
       </div>
     
   </div>
@@ -495,7 +528,7 @@ MyEclipse中集成SVN详解1.1 准备工作首先，我们需要下载SVN 的客
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#MyEclipse中集成SVN详解"><span class="nav-number">1.</span> <span class="nav-text">MyEclipse中集成SVN详解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-准备工作"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 准备工作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-安装"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-本地安装配置路径"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 本地安装配置路径</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#方法一-通过直接安装插件"><span class="nav-number">1.3.0.1.</span> <span class="nav-text">方法一: 通过直接安装插件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#方法二-通过-link-的方式来引用"><span class="nav-number">1.3.0.2.</span> <span class="nav-text">方法二: 通过 link 的方式来引用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-在线安装"><span class="nav-number">1.4.</span> <span class="nav-text">1.4 在线安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-验证安装"><span class="nav-number">1.5.</span> <span class="nav-text">1.5 验证安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-6-小结"><span class="nav-number">1.6.</span> <span class="nav-text">1.6 小结</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#成本"><span class="nav-number"></span> <span class="nav-text">成本</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#企业招聘成本"><span class="nav-number">1.</span> <span class="nav-text">企业招聘成本</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#求职者成本"><span class="nav-number">2.</span> <span class="nav-text">求职者成本</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#成本-1"><span class="nav-number">3.</span> <span class="nav-text">成本</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#备注-其中面试官成本就包括薪资很高的那种"><span class="nav-number">3.0.1.</span> <span class="nav-text">备注: 其中面试官成本就包括薪资很高的那种</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#备注-nbsp-nbsp-经济成本就包括求职者面试交通费，住宿费等等！"><span class="nav-number">3.0.2.</span> <span class="nav-text">备注:    经济成本就包括求职者面试交通费，住宿费等等！</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如何成本控制"><span class="nav-number">4.</span> <span class="nav-text">如何成本控制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#致求职者的话"><span class="nav-number">5.</span> <span class="nav-text">致求职者的话</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
