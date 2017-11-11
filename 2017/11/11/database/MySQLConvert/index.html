@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="生活," />
+  <meta name="keywords" content="mysql," />
 
 
 
@@ -57,18 +57,22 @@
 
 
 
-<meta name="description" content="前言&amp;nbsp;&amp;nbsp;由于公司业务发展需要,最近有大量的招聘需求,我也有幸成为面试官，进行了一系列的面试，其中大部分都是两年左右工作经验的求职者，从中发现不少问题，也有一些初次做面试官的体会，记录在这里，也算是第一次做面试官的总结吧，如果能够帮助到你,那就更好了!">
+<meta name="description" content="前言&amp;nbsp;&amp;nbsp;今天我们继续回到MySQL系列文章中,谈一谈MySQL中隐式类型转换。(其实我最早知道是在慢SQL优化中知道的隐式类型转换概念的),在说隐式类型转换之前,首先我们通过一个实例来看看是怎么回事。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="面试官初体验">
-<meta property="og:url" content="http://yoursite.com/2017/10/22/life/interview2/index.html">
+<meta property="og:title" content="谈谈MySQL隐式类型转换">
+<meta property="og:url" content="http://yoursite.com/2017/11/11/database/MySQLConvert/index.html">
 <meta property="og:site_name" content="鞠骞的博客">
-<meta property="og:description" content="前言&amp;nbsp;&amp;nbsp;由于公司业务发展需要,最近有大量的招聘需求,我也有幸成为面试官，进行了一系列的面试，其中大部分都是两年左右工作经验的求职者，从中发现不少问题，也有一些初次做面试官的体会，记录在这里，也算是第一次做面试官的总结吧，如果能够帮助到你,那就更好了!">
+<meta property="og:description" content="前言&amp;nbsp;&amp;nbsp;今天我们继续回到MySQL系列文章中,谈一谈MySQL中隐式类型转换。(其实我最早知道是在慢SQL优化中知道的隐式类型转换概念的),在说隐式类型转换之前,首先我们通过一个实例来看看是怎么回事。">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/CqmXOEQ4Dia4kzdgphN1RSicjVNRKKwDceNrVG2AVCml69WGjXKTRT9aLC61ibKQl2tiax4B74ymEsevK3nJUs0PXQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/CqmXOEQ4Dia4kzdgphN1RSicjVNRKKwDceEWEzGYuotHsayLSLRxVh5sp2Zib309q04bnxfS1NjqsaGlJaEsLwuww/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/CqmXOEQ4Dia4kzdgphN1RSicjVNRKKwDceNrVG2AVCml69WGjXKTRT9aLC61ibKQl2tiax4B74ymEsevK3nJUs0PXQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/CqmXOEQ4Dia4kzdgphN1RSicjVNRKKwDcemS7YibctLtMtJkic6lnQKIG9ZzHnxWZCqUdy5rKU5bPFk6TQ0I2FdROQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1">
 <meta property="og:image" content="http://img.blog.csdn.net/20170401092446529?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMDY5NTc5NA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
-<meta property="og:updated_time" content="2017-10-22T13:15:14.927Z">
+<meta property="og:updated_time" content="2017-11-11T15:43:09.199Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="面试官初体验">
-<meta name="twitter:description" content="前言&amp;nbsp;&amp;nbsp;由于公司业务发展需要,最近有大量的招聘需求,我也有幸成为面试官，进行了一系列的面试，其中大部分都是两年左右工作经验的求职者，从中发现不少问题，也有一些初次做面试官的体会，记录在这里，也算是第一次做面试官的总结吧，如果能够帮助到你,那就更好了!">
-<meta name="twitter:image" content="http://img.blog.csdn.net/20170401092446529?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMDY5NTc5NA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta name="twitter:title" content="谈谈MySQL隐式类型转换">
+<meta name="twitter:description" content="前言&amp;nbsp;&amp;nbsp;今天我们继续回到MySQL系列文章中,谈一谈MySQL中隐式类型转换。(其实我最早知道是在慢SQL优化中知道的隐式类型转换概念的),在说隐式类型转换之前,首先我们通过一个实例来看看是怎么回事。">
+<meta name="twitter:image" content="https://mmbiz.qpic.cn/mmbiz_png/CqmXOEQ4Dia4kzdgphN1RSicjVNRKKwDceNrVG2AVCml69WGjXKTRT9aLC61ibKQl2tiax4B74ymEsevK3nJUs0PXQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1">
 
 
 
@@ -86,7 +90,7 @@
   };
 </script>
 
-  <title> 面试官初体验 | 鞠骞的博客 </title>
+  <title> 谈谈MySQL隐式类型转换 | 鞠骞的博客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -236,7 +240,7 @@
             
             
               
-                面试官初体验
+                谈谈MySQL隐式类型转换
               
             
           </h1>
@@ -248,8 +252,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-10-22T20:35:00+08:00" content="2017-10-22">
-              2017-10-22
+            <time itemprop="dateCreated" datetime="2017-11-11T21:43:00+08:00" content="2017-11-11">
+              2017-11-11
             </time>
           </span>
 
@@ -262,8 +266,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Life/" itemprop="url" rel="index">
-                    <span itemprop="name">Life</span>
+                  <a href="/categories/mysql/" itemprop="url" rel="index">
+                    <span itemprop="name">mysql</span>
                   </a>
                 </span>
 
@@ -274,8 +278,8 @@
 
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Life/面试/" itemprop="url" rel="index">
-                    <span itemprop="name">面试</span>
+                  <a href="/categories/mysql/explain/" itemprop="url" rel="index">
+                    <span itemprop="name">explain</span>
                   </a>
                 </span>
 
@@ -290,8 +294,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2017/10/22/life/interview2/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/10/22/life/interview2/" itemprop="commentsCount"></span>
+                <a href="/2017/11/11/database/MySQLConvert/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/11/11/database/MySQLConvert/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -302,7 +306,7 @@
 		
           
           
-				<span id="/2017/10/22/life/interview2/"class="leancloud_visitors"  data-flag-title="面试官初体验">
+				<span id="/2017/11/11/database/MySQLConvert/"class="leancloud_visitors"  data-flag-title="谈谈MySQL隐式类型转换">
         &nbsp; | &nbsp; 阅读次数
         </span>
 		
@@ -318,46 +322,98 @@
       
 
       
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>&nbsp;&nbsp;由于公司业务发展需要,最近有大量的招聘需求,我也有幸成为面试官，进行了一系列的面试，其中大部分都是两年左右工作经验的求职者，从中发现不少问题，也有一些初次做面试官的体会，记录在这里，也算是第一次做面试官的总结吧，如果能够帮助到你,那就更好了!<br><a id="more"></a></p>
-<h3 id="简历"><a href="#简历" class="headerlink" title="简历"></a>简历</h3><p>&nbsp;&nbsp;大家都知道，求职时，一份好的简历，至关重要！不仅能让你获得HR的面试邀请，也能让你得到面试官的青睐，在最近的面试时，发现非常多求职者的简历是不合格的，为什么不合格呢？因为大部分的求职者的简历要么内容臃肿，要么太简单，要么错别字太多，比如：</p>
+        <h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>&nbsp;&nbsp;今天我们继续回到MySQL系列文章中,谈一谈MySQL中隐式类型转换。(其实我最早知道是在慢SQL优化中知道的隐式类型转换概念的),在说隐式类型转换之前,首先我们通过一个实例来看看是怎么回事。<br><a id="more"></a></p>
+<h4 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h4><p>本文中所有的操作,都是基于该数据结构(有兴趣的童鞋,可以实验):<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">create table t_base_user(   </span><br><span class="line">oid bigint(20) not null primary key auto_increment,  </span><br><span class="line">name varchar(30) null comment &quot;name&quot;,  </span><br><span class="line">email varchar(30) null comment &quot;email&quot;,  </span><br><span class="line">age int null comment &quot;age&quot;,  </span><br><span class="line">telephone varchar(30) null comment &quot;telephone&quot;,  </span><br><span class="line">status tinyint(4) null comment &quot;0 无效 1 有效&quot;,  </span><br><span class="line">created_at datetime null default now() comment &quot;创建时间&quot;,  </span><br><span class="line">updated_at datetime null default now() comment &quot;修改时间&quot;  </span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">### 新建索引</span><br><span class="line"></span><br><span class="line">alter table t_base_user add index idx_email(email);</span><br><span class="line">alter table t_base_user add index idx_name(name);</span><br><span class="line">alter table t_base_user add index idx_telephone(telephone);</span><br><span class="line"></span><br><span class="line">### 新增记录: </span><br><span class="line">INSERT INTO `andyqian`.`t_base_user` (`name`, `email`, `age`, `telephone`, `status`, `created_at`, `updated_at`) </span><br><span class="line">VALUES (&apos;111111&apos;, &apos;andytohome@gmail.com&apos;, &apos;111&apos;, &apos;12345678901&apos;, &apos;1&apos;, now(),now());</span><br></pre></td></tr></table></figure></p>
+<h4 id="引子"><a href="#引子" class="headerlink" title="引子"></a>引子</h4><p>&nbsp;&nbsp;首先我们基于上述数据结构中,我们来看看下面这个执行计划:</p>
 <blockquote>
-<p>有将SVN写成SVM的，有将fastjson写成FashJson的，有将SpringMVC写成SpringMvc的,有将MySQL写成Mysql的……等等<br>简历上有错别字的，太多太多了! 更有甚者,在简历中的个人技能页上:专有词汇出现7,8个错别字。这样的简历,面试官看到的第一感觉,就是不专业。</p>
+<p>explain select * from t_base_user where telephone=12345678901;</p>
 </blockquote>
-<h3 id="态度"><a href="#态度" class="headerlink" title="态度"></a>态度</h3><p>&nbsp;&nbsp;这个是最基本的要求,无论是经验丰富的同学，还是刚毕业的新同学,在求职的时候，都是需要注意的,在最近的面试中，大部分求职者的态度都是挺好的,但有部分同学，在面试是,态度就有些欠缺，请看下面两段对话:<br>对话一:  </p>
+<p>执行计划结果:<br><img src="https://mmbiz.qpic.cn/mmbiz_png/CqmXOEQ4Dia4kzdgphN1RSicjVNRKKwDceNrVG2AVCml69WGjXKTRT9aLC61ibKQl2tiax4B74ymEsevK3nJUs0PXQ/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1" alt="没过索引的执行计划"></p>
+<p>细心的童鞋应该已经看出来了,为什么数据结构中已经在telephone字段上新建了idx_telephone，而上述语句并没有走索引,而是全表扫描。这是为什么呢？带着这疑问,我们来看看今天的主角–MySQL隐式类型转换</p>
+<h4 id="什么隐式类型转换？"><a href="#什么隐式类型转换？" class="headerlink" title="什么隐式类型转换？"></a>什么隐式类型转换？</h4><p>&nbsp;&nbsp;在MySQL中:</p>
 <blockquote>
-<p>面试官:你对Git熟悉吗？<br>求职者A: 这个不太熟悉,平时SVN用的多些,Git也不是高深的技术,网上一搜一大把。<br>面试官: ….. </p>
+<p>当操作符与不同类型的操作数一起使用时，会发生类型转换以使操作数兼容。则会发生转换隐式</p>
 </blockquote>
-<p>对话二: </p>
+<p>也就是说,MySQL会根据需要自动将数字转换为字符串，将字符串转换数字。看到这个概念之后,是不是有一种茅塞顿开的感觉。哦… 原来在数据结构中telephone字段为字符串(varchar)类型,而我们传的手机号是数字类型。现在我们将SQL修改下:</p>
 <blockquote>
-<p>面试官: 你对Git熟悉吗？<br>求职者B: 这个不太熟悉,平时SVN用的多些,这方面的知识确实有些欠缺,我会在工作之余多了解的。<br>面试官: 嗯，好的 </p>
+<p>select * from t_base_user where telephone=”1234567890”;</p>
 </blockquote>
-<p>看到这里,你可能在笑，在最近的面试过程中，像职者A这样的还不少呢!(我觉得求职者A说的确实是对的,但这样的对话,就已经体现出求职者的态度了)。</p>
-<h3 id="沟通能力"><a href="#沟通能力" class="headerlink" title="沟通能力"></a>沟通能力</h3><p>&nbsp;&nbsp;这个并不是说求职者,对我自己也同样适用,在沟通方面,也同样有欠缺,这个算不算是程序员的通病呀(微笑脸)。<br>就比如我：在之前的求职过程中,面试官问的问题,心里知道,工作中也用过,但就是表达不出来,表达的不清楚, 其实不仅仅在面试方面，在需求讨论,bug描述等等，都和沟通能力有很大的关系。我也有待提高!</p>
-<h3 id="自信"><a href="#自信" class="headerlink" title="自信"></a>自信</h3><p>&nbsp;&nbsp;在最近的面试过程中,有些求职者的技术还是蛮不错的,但是在面谈的过程中，其实还是比较紧张的,自己平时知道的知识点，说起来就没那么顺畅,有点支支吾吾的感觉,更有甚者，还没开始面试的时候，就说自己技术能力不行,什么什么没做过,这些都是不太好的，既然来面试了，就要自信一点，相信自己的能力,即使能力不够,也能起到一个查漏补缺的作用。<br>ps: 自己之前在求职过程中,也是非常的不自信。</p>
-<h3 id="技术能力"><a href="#技术能力" class="headerlink" title="技术能力"></a>技术能力</h3><p>&nbsp;&nbsp;此次面试时,发现很多求职者的基础还是不够的,问Java SE 方面的知识,答的时候都挺支支吾吾的，一些基础的数据结构也说不清楚,还有一些小伙伴，使用框架时间久了，对基础就不了解了，比如: </p>
+<p>再看看执行计划上述语句的执行计划:</p>
 <blockquote>
-<p>说说jdbc连接数据库常用的几个java类<br>都有些童鞋说不清楚，对常用的集合类,网络类都不了解，这就很不应该呀。</p>
+<p>explain select * from t_base_user where telephone=”1234567890”;</p>
 </blockquote>
-<h3 id="对求职者的建议"><a href="#对求职者的建议" class="headerlink" title="对求职者的建议"></a>对求职者的建议</h3><h4 id="简历-1"><a href="#简历-1" class="headerlink" title="简历"></a>简历</h4><p>首先我们来看看简历是什么:</p>
+<p>结果:<br><img src="https://mmbiz.qpic.cn/mmbiz_png/CqmXOEQ4Dia4kzdgphN1RSicjVNRKKwDceEWEzGYuotHsayLSLRxVh5sp2Zib309q04bnxfS1NjqsaGlJaEsLwuww/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1" alt="走索引"><br>从这里看,现在语句已经走索引了。为了加深我们对隐式类型转换的印象,我们再多看看几个隐式类型转换案例:<br>案例一: 字符串转换为数字</p>
 <blockquote>
-<p>其实对于我们软件行业,简历就是通过简洁的描述来介绍自己,所掌握的技能,项目经验等等。</p>
+<p>mysql &gt; SELECT 1+’1’; </p>
 </blockquote>
-<p>我个人认为:<br>简历=自我介绍+所掌握的技能列表+项目经验<br>从面试官的角度,我认为一份合格的简历，至少要符合以下三点:</p>
-<ol>
-<li>够简洁,(不是简单)，但要表达清楚，比如有几年工作经验后，写项目时，选择比较有代表性的项目，描述清楚，而不是每个项目都写上。（个人建议最多2页）</li>
-<li>专业词汇必须写正确，大小写也应该严格区分！比如fastjson不能写成FaSTjson，（不然会让面试官的感觉求职者很不专业！）</li>
-<li>项目经验至少要详细介绍1至2个项目,其中包括项目简介,项目起始时间,自己所承担的职责以及所负责的模块,项目收获等。</li>
-<li>关于简历格式方面,个人强烈建议使用pdf格式。</li>
-</ol>
-<h4 id="态度-amp-自信"><a href="#态度-amp-自信" class="headerlink" title="态度&amp;自信"></a>态度&amp;自信</h4><ol>
-<li>态度方面,当面试官问的一些自己不知道的问题时，不清楚的时候，态度要端正,表明自己不清楚，后续会花时间了解,(ps: 每个人的知识面,技能点都是不一样的,不清楚很正常,但是不清楚,态度还不好,还不肯自己花时间去思考,那就不正常了)。</li>
-<li>面试时,不要紧张,自己知道多少,就说多少,想想之前自己面试的时候,也挺紧张的，估计这次换位体验后，应该会好很多了。  </li>
-<li>面试的时候，要相信自己,不要怯场,你表达出自己的能力后就足够了。更不要花了好几个小时来准备面试,到了公司,坐在面谈室时,说自己技术不好,技术怎么差，这个时候，自己的技术能力好不好，就让面试官来评价好了。  </li>
-</ol>
-<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>&nbsp;&nbsp;上面说了这么多,有些方面自己也还是有些欠缺的,在这之前,都是以求职者的身份面试,这次有机会来面试别人,其实还是挺幸运的,在面谈的过程中,看求职者回答问题的时候，我就在想，这个问题，我会怎么回答，如何答的更好,更全面等等。此次面试官体验，也是对自己的一个查漏补缺的过程，对自己也还是挺有帮助的。   </p>
-<p>最后:&nbsp;&nbsp;祝大家都能找到一个满意的工作！</p>
+<p>结果:</p>
+<blockquote>
+<p>mysql &gt; 2</p>
+</blockquote>
+<p>案例二: 数字转换为字符串</p>
+<blockquote>
+<p>mysql -&gt; SELECT CONCAT(1024,’ andyqian’); </p>
+</blockquote>
+<p>结果: </p>
+<blockquote>
+<p>‘1,’ test’;</p>
+</blockquote>
+<p>此时CONCAT(字符拼接)函数就进行了隐式类型转换。</p>
+<h4 id="如何避免隐式类型转换"><a href="#如何避免隐式类型转换" class="headerlink" title="如何避免隐式类型转换?"></a>如何避免隐式类型转换?</h4><p>&nbsp;&nbsp;只有当清楚的知道隐式类型转换的规则，才能从根本上避免产生隐式类型转换。MySQL也在官网描述了进行隐式类型转换的一些规则如下:</p>
+<p><strong>1. 隐式类型转换规则:</strong> </p>
+<ul>
+<li><p>如果一个或两个参数都是NULL，比较的结果是NULL，除了NULL安全的&lt;=&gt;相等比较运算符。对于NULL &lt;=&gt; NULL，结果为true。不需要转换</p>
+</li>
+<li><p>如果比较操作中的两个参数都是字符串，则将它们作为字符串进行比较。</p>
+</li>
+<li><p>如果两个参数都是整数，则将它们作为整数进行比较。</p>
+</li>
+<li><p>如果不与数字进行比较，则将十六进制值视为二进制字符串</p>
+</li>
+<li><p>如果其中一个参数是十进制值，则比较取决于另一个参数。 如果另一个参数是十进制或整数值，则将参数与十进制值进行比较，如果另一个参数是浮点值，则将参数与浮点值进行比较</p>
+</li>
+<li><p>如果其中一个参数是TIMESTAMP或DATETIME列，另一个参数是常量，则在执行比较之前将常量转换为时间戳。</p>
+</li>
+<li>在所有其他情况下，参数都是作为浮点数（实数）比较的。</li>
+</ul>
+<p><strong>2. 使用CAST函数显示转换</strong><br>我们可以使用CAST显示的将类型进行转换,如下所示:</p>
+<blockquote>
+<p>mysql&gt; SELECT 38.8, CAST(38.8 AS CHAR);</p>
+</blockquote>
+<p>结果:</p>
+<blockquote>
+<p>mysql &gt; 38.8, ‘38.8’</p>
+</blockquote>
+<p>如上述中:</p>
+<blockquote>
+<p>select * from t_base_user where telephone=cast(15608464487 as char);</p>
+</blockquote>
+<p>查看执行计划,我们也可以看出<br><img src="https://mmbiz.qpic.cn/mmbiz_png/CqmXOEQ4Dia4kzdgphN1RSicjVNRKKwDceNrVG2AVCml69WGjXKTRT9aLC61ibKQl2tiax4B74ymEsevK3nJUs0PXQ/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1" alt="有索引的执行计划"></p>
+<p>你看,这个时候也走索引了。</p>
+<p><strong>3. 类型一致</strong><br>&nbsp;&nbsp;这里说的类型一致,指的是在写SQL时,参数类型一定要与数据库中的类型一致,避免产生隐式类型转换,就如刚才在文首时,如果多检查,写的SQL的参数类型与数据库中字段类型一致，也就不会不走索引了，你说是不是？ </p>
+<h4 id="小心隐式类型转换"><a href="#小心隐式类型转换" class="headerlink" title="小心隐式类型转换"></a>小心隐式类型转换</h4><p>&nbsp;&nbsp;这里再重申一次,写SQL时一定要检查参数类型与数据库字段类型一致,(如果参数不一致,也要使用CAST函数显示转换成一致)否则造成隐式类型转换,不走索引,后果简直不堪设想, 在前面<a href="http://mp.weixin.qq.com/s/UzWxJ_pVPjU5ip0Z-Y9TdA" target="_blank" rel="external">《写会MySQL索引》</a>这篇文章中提到过,不走索引,轻则造成慢查询，重则造成数据库服务器CPU100%。唉,说到这里,不瞒你说，我就吃过不少MySQL隐式类型转换的亏,导致了慢查询。</p>
+<h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><p>&nbsp;&nbsp;看到这里,是不是有一种，数据表设计还真不是件容易的事情。需要考虑的因素太多太多了,需要考虑字段类型,索引设计,还有各种约束条件等等。也一定要谨慎谨慎再谨慎！其实换个角度就更容易理解了,大家都知道高楼大厦都是需要一个好的地基的,在数据库表设计中,前期的表结构设计就是这个地基，其重要性可想而知。</p>
+<hr>
+<p>&nbsp;&nbsp;从后续开始,每篇MySQL文章最后,都推荐一个常用且实用的MySQL命令:</p>
+<p>今天的命令是: </p>
+<blockquote>
+<p>show full columns from table_name;</p>
+</blockquote>
+<p>作用: 显示指定表所有列信息  </p>
+<p>例如:</p>
+<blockquote>
+<p>show full columns from t_base_user;</p>
+</blockquote>
+<p>返回结果如下图所示:<br><img src="https://mmbiz.qpic.cn/mmbiz_png/CqmXOEQ4Dia4kzdgphN1RSicjVNRKKwDcemS7YibctLtMtJkic6lnQKIG9ZzHnxWZCqUdy5rKU5bPFk6TQ0I2FdROQ/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1" alt="插入列信息图片"></p>
+<p>其中:<br>Field: 字段名<br>Type: 该字段类型<br>Collation: 描述了如何对查询出来的数据进行比较和排序<br>Null: 是否允许为空, NO: 不允许，YES 允许<br>Key: 键,例如: 主键(PRI), 唯一键(UNI) 等<br>Default: 该字段默认值<br>Extra: 附加信息如自增主键上的(auto_increment)<br>Privileges: 权限,有select,update等<br>Comment: 字段注释 </p>
+<p><strong>注意:</strong>   通过该命令显示都是建表时的信息,这里着重强调一下,在数据库建表时,一定要加注释,加注释，加注释！</p>
+<h2 id="最后-大家今天剁手了吗？-祝大家晚安"><a href="#最后-大家今天剁手了吗？-祝大家晚安" class="headerlink" title="最后: 大家今天剁手了吗？ 祝大家晚安!"></a><strong>最后</strong>: 大家今天剁手了吗？ 祝大家晚安!</h2><p>相关阅读:</p>
+<p><a href="http://mp.weixin.qq.com/s/UzWxJ_pVPjU5ip0Z-Y9TdA" target="_blank" rel="external">写会MySQL索引</a>  </p>
+<p><a href="http://mp.weixin.qq.com/s/-BlLvBKcF-yalELY7XkqaQ" target="_blank" rel="external">读懂MySQL执行计划</a></p>
 <hr>
 <center><img src="http://img.blog.csdn.net/20170401092446529?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMDY5NTc5NA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></center><br><center>扫码关注，一起进步<br><br><center>个人博客: <a href="http://www.andyqian.com" target="_blank" rel="external">http://www.andyqian.com</a></center>
+
+
 
 
 </center>
@@ -374,7 +430,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/生活/" rel="tag">#生活</a>
+            <a href="/tags/mysql/" rel="tag">#mysql</a>
           
         </div>
       
@@ -383,17 +439,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/09/20/java/tools/htmlEscape/" rel="next" title="Spring中html字符编解码">
-                <i class="fa fa-chevron-left"></i> Spring中html字符编解码
+              <a href="/2017/11/07/database/MySQLLIMIT/" rel="next" title="学会MySQL LIMIT">
+                <i class="fa fa-chevron-left"></i> 学会MySQL LIMIT
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/10/24/life/1024/" rel="prev" title="1024! 程序员节日快乐！">
-                1024! 程序员节日快乐！ <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -419,8 +471,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2017/10/22/life/interview2/"
-           data-title="面试官初体验" data-url="http://yoursite.com/2017/10/22/life/interview2/">
+      <div class="ds-thread" data-thread-key="2017/11/11/database/MySQLConvert/"
+           data-title="谈谈MySQL隐式类型转换" data-url="http://yoursite.com/2017/11/11/database/MySQLConvert/">
       </div>
     
   </div>
@@ -530,7 +582,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#简历"><span class="nav-number">2.</span> <span class="nav-text">简历</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#态度"><span class="nav-number">3.</span> <span class="nav-text">态度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#沟通能力"><span class="nav-number">4.</span> <span class="nav-text">沟通能力</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自信"><span class="nav-number">5.</span> <span class="nav-text">自信</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#技术能力"><span class="nav-number">6.</span> <span class="nav-text">技术能力</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对求职者的建议"><span class="nav-number">7.</span> <span class="nav-text">对求职者的建议</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#简历-1"><span class="nav-number">7.1.</span> <span class="nav-text">简历</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#态度-amp-自信"><span class="nav-number">7.2.</span> <span class="nav-text">态度&自信</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结"><span class="nav-number">8.</span> <span class="nav-text">小结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据结构"><span class="nav-number">2.</span> <span class="nav-text">数据结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#引子"><span class="nav-number">3.</span> <span class="nav-text">引子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#什么隐式类型转换？"><span class="nav-number">4.</span> <span class="nav-text">什么隐式类型转换？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如何避免隐式类型转换"><span class="nav-number">5.</span> <span class="nav-text">如何避免隐式类型转换?</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#小心隐式类型转换"><span class="nav-number">6.</span> <span class="nav-text">小心隐式类型转换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#小结"><span class="nav-number">7.</span> <span class="nav-text">小结</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最后-大家今天剁手了吗？-祝大家晚安"><span class="nav-number"></span> <span class="nav-text">最后: 大家今天剁手了吗？ 祝大家晚安!</span></a></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
