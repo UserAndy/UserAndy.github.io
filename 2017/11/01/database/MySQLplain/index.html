@@ -63,10 +63,12 @@
 <meta property="og:url" content="http://yoursite.com/2017/11/01/database/MySQLplain/index.html">
 <meta property="og:site_name" content="鞠骞的博客">
 <meta property="og:description" content="前言&amp;nbsp;&amp;nbsp;在之前的面试过程中,问到执行计划,有很多童鞋不知道是什么?甚至将执行计划与执行时间认为是同一个概念。今天我们就一起来了解一下执行计划到底是什么?有什么用途?">
-<meta property="og:updated_time" content="2017-10-31T18:24:23.339Z">
+<meta property="og:image" content="http://img.blog.csdn.net/20170401092446529?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMDY5NTc5NA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:updated_time" content="2017-11-14T14:00:13.967Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="读懂MySQL执行计划">
 <meta name="twitter:description" content="前言&amp;nbsp;&amp;nbsp;在之前的面试过程中,问到执行计划,有很多童鞋不知道是什么?甚至将执行计划与执行时间认为是同一个概念。今天我们就一起来了解一下执行计划到底是什么?有什么用途?">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20170401092446529?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMDY5NTc5NA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
 
 
 
@@ -373,7 +375,9 @@
 <p>你看,现在已经走idx_name索引了,其type从All(全表扫描)到ref(非唯一索引了)，别看就只有这一点点小区别,在大数据量的时候,可是会起大作用的哦。</p>
 <h4 id="数据结"><a href="#数据结" class="headerlink" title="数据结"></a>数据结</h4><p>&nbsp;&nbsp;本文中演示的数据结构如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"># 创建表  </span><br><span class="line">create table t_base_user(</span><br><span class="line">oid bigint(20) not null primary key auto_increment,</span><br><span class="line">name varchar(30) null comment &quot;name&quot;,</span><br><span class="line">email varchar(30) null comment &quot;email&quot;,</span><br><span class="line">age int null comment &quot;age&quot;,</span><br><span class="line">telephone varchar(30) null comment &quot;telephone&quot;,</span><br><span class="line">status tinyint(4) null comment &quot;0  无效 1 有效&quot;,</span><br><span class="line">created_at datetime null comment &quot;&quot;,</span><br><span class="line">updated_at datetime null comment &quot;&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">## 新增记录:</span><br><span class="line">insert into t_base_user(name,email,age,telephone,created_at,updated_at)values(&quot;andyqian&quot;,&quot;andytohome@gmail.com&quot;,20,&quot;15608411&quot;,now(),now());</span><br><span class="line">)</span><br></pre></td></tr></table></figure></p>
 <h4 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h4><p>&nbsp;&nbsp;一个好的数据库表设计,从一开始就应该考虑添加索引,而不是到最后发现慢SQL了,影响业务了,才来补救。其实我在工作经历当中，由于新建表,或新加字段后,忘记添加索引也造成了多次生产事故,记忆犹新!!!<br>其实新建索引也是有一定的原则的,建什么索引,建在哪些字段上,这里面还有不少知识呢，下一篇文章写,尽请期待吧!</p>
-
+<hr>
+<center><img src="http://img.blog.csdn.net/20170401092446529?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMDY5NTc5NA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></center><br><center>扫码关注，一起进步<br><br><center>个人博客: <a href="http://www.andyqian.com" target="_blank" rel="external">http://www.andyqian.com</a></center>
+</center>
       
     </div>
 
