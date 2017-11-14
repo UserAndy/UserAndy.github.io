@@ -65,11 +65,13 @@ mysql 中添加索引的三种方法1.1 新建表中添加索引① 普通索引
 <meta property="og:site_name" content="鞠骞的博客">
 <meta property="og:description" content="在mysql中有多种索引，有普通索引，全文索引，唯一索引，多列索引，小伙伴们可以通过不同的应用场景来进行索引的新建，在此列出三种新建索引的方法
 mysql 中添加索引的三种方法1.1 新建表中添加索引① 普通索引1234567create table t_dept(    no int not null primary key,    name varchar(20) null,    sex v">
-<meta property="og:updated_time" content="2016-04-09T03:16:59.516Z">
+<meta property="og:image" content="http://img.blog.csdn.net/20170401092446529?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMDY5NTc5NA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:updated_time" content="2017-11-14T14:25:32.629Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mysql 中添加索引的三种方法">
 <meta name="twitter:description" content="在mysql中有多种索引，有普通索引，全文索引，唯一索引，多列索引，小伙伴们可以通过不同的应用场景来进行索引的新建，在此列出三种新建索引的方法
 mysql 中添加索引的三种方法1.1 新建表中添加索引① 普通索引1234567create table t_dept(    no int not null primary key,    name varchar(20) null,    sex v">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20170401092446529?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMDY5NTc5NA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
 
 
 
@@ -322,7 +324,9 @@ mysql 中添加索引的三种方法1.1 新建表中添加索引① 普通索引
 <p>③ 全文索引<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">alter table t_dept</span><br><span class="line">           add fulltext index_name(name);</span><br></pre></td></tr></table></figure></p>
 <p>④ 多列索引<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">alter table t_dept</span><br><span class="line">              add index index_name_no(name,no);</span><br></pre></td></tr></table></figure></p>
 <h3 id="1-4-小结"><a href="#1-4-小结" class="headerlink" title="1.4 小结"></a>1.4 小结</h3><p>以上就是mysql中索引的新建的三种方法。以上的表名以及列名，请根据实际表列名替换。</p>
-
+<hr>
+<center><img src="http://img.blog.csdn.net/20170401092446529?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMDY5NTc5NA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></center><br><center>扫码关注，一起进步<br><br><center>个人博客: <a href="http://www.andyqian.com" target="_blank" rel="external">http://www.andyqian.com</a></center>
+</center>
       
     </div>
 
