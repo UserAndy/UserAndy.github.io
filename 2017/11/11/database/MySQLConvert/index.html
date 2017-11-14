@@ -68,7 +68,7 @@
 <meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/CqmXOEQ4Dia4kzdgphN1RSicjVNRKKwDceNrVG2AVCml69WGjXKTRT9aLC61ibKQl2tiax4B74ymEsevK3nJUs0PXQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1">
 <meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/CqmXOEQ4Dia4kzdgphN1RSicjVNRKKwDcemS7YibctLtMtJkic6lnQKIG9ZzHnxWZCqUdy5rKU5bPFk6TQ0I2FdROQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1">
 <meta property="og:image" content="http://img.blog.csdn.net/20170401092446529?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMDY5NTc5NA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
-<meta property="og:updated_time" content="2017-11-11T15:43:09.199Z">
+<meta property="og:updated_time" content="2017-11-14T14:29:17.995Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="谈谈MySQL隐式类型转换">
 <meta name="twitter:description" content="前言&amp;nbsp;&amp;nbsp;今天我们继续回到MySQL系列文章中,谈一谈MySQL中隐式类型转换。(其实我最早知道是在慢SQL优化中知道的隐式类型转换概念的),在说隐式类型转换之前,首先我们通过一个实例来看看是怎么回事。">
@@ -407,7 +407,9 @@
 <p>返回结果如下图所示:<br><img src="https://mmbiz.qpic.cn/mmbiz_png/CqmXOEQ4Dia4kzdgphN1RSicjVNRKKwDcemS7YibctLtMtJkic6lnQKIG9ZzHnxWZCqUdy5rKU5bPFk6TQ0I2FdROQ/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1" alt="插入列信息图片"></p>
 <p>其中:<br>Field: 字段名<br>Type: 该字段类型<br>Collation: 描述了如何对查询出来的数据进行比较和排序<br>Null: 是否允许为空, NO: 不允许，YES 允许<br>Key: 键,例如: 主键(PRI), 唯一键(UNI) 等<br>Default: 该字段默认值<br>Extra: 附加信息如自增主键上的(auto_increment)<br>Privileges: 权限,有select,update等<br>Comment: 字段注释 </p>
 <p><strong>注意:</strong>   通过该命令显示都是建表时的信息,这里着重强调一下,在数据库建表时,一定要加注释,加注释，加注释！</p>
-<h2 id="最后-大家今天剁手了吗？-祝大家晚安"><a href="#最后-大家今天剁手了吗？-祝大家晚安" class="headerlink" title="最后: 大家今天剁手了吗？ 祝大家晚安!"></a><strong>最后</strong>: 大家今天剁手了吗？ 祝大家晚安!</h2><p>相关阅读:</p>
+<p><strong>最后</strong>: 大家今天剁手了吗？ 祝大家晚安!</p>
+<hr>
+<p>相关阅读:</p>
 <p><a href="http://mp.weixin.qq.com/s/UzWxJ_pVPjU5ip0Z-Y9TdA" target="_blank" rel="external">写会MySQL索引</a>  </p>
 <p><a href="http://mp.weixin.qq.com/s/-BlLvBKcF-yalELY7XkqaQ" target="_blank" rel="external">读懂MySQL执行计划</a></p>
 <hr>
@@ -582,7 +584,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据结构"><span class="nav-number">2.</span> <span class="nav-text">数据结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#引子"><span class="nav-number">3.</span> <span class="nav-text">引子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#什么隐式类型转换？"><span class="nav-number">4.</span> <span class="nav-text">什么隐式类型转换？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如何避免隐式类型转换"><span class="nav-number">5.</span> <span class="nav-text">如何避免隐式类型转换?</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#小心隐式类型转换"><span class="nav-number">6.</span> <span class="nav-text">小心隐式类型转换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#小结"><span class="nav-number">7.</span> <span class="nav-text">小结</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最后-大家今天剁手了吗？-祝大家晚安"><span class="nav-number"></span> <span class="nav-text">最后: 大家今天剁手了吗？ 祝大家晚安!</span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据结构"><span class="nav-number">2.</span> <span class="nav-text">数据结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#引子"><span class="nav-number">3.</span> <span class="nav-text">引子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#什么隐式类型转换？"><span class="nav-number">4.</span> <span class="nav-text">什么隐式类型转换？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如何避免隐式类型转换"><span class="nav-number">5.</span> <span class="nav-text">如何避免隐式类型转换?</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#小心隐式类型转换"><span class="nav-number">6.</span> <span class="nav-text">小心隐式类型转换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#小结"><span class="nav-number">7.</span> <span class="nav-text">小结</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
