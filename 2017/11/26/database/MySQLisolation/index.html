@@ -1,0 +1,899 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="mysql," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="前言&amp;nbsp;&amp;nbsp;我们在上一篇&amp;nbsp;&amp;nbsp;《MySQL之初识事务》中介绍了事务的基本概念，以及查看当前事务属性，如何手动开启，提交，回滚事务。事务中还有一个非常重要的概念—-事务隔离级别。今天就一起来看看事务的隔离级别！">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL事务隔离级别">
+<meta property="og:url" content="http://yoursite.com/2017/11/26/database/MySQLisolation/index.html">
+<meta property="og:site_name" content="鞠骞的博客">
+<meta property="og:description" content="前言&amp;nbsp;&amp;nbsp;我们在上一篇&amp;nbsp;&amp;nbsp;《MySQL之初识事务》中介绍了事务的基本概念，以及查看当前事务属性，如何手动开启，提交，回滚事务。事务中还有一个非常重要的概念—-事务隔离级别。今天就一起来看看事务的隔离级别！">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/CqmXOEQ4Dia4N7sCwd3icCwU6mOMfkxB1tceChr7KdibVjYMIHiapfGvxIXX1TzMJv3d98DiaTcF0YcmMVvZR1eic17g/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/CqmXOEQ4Dia4N7sCwd3icCwU6mOMfkxB1tp4iaJbSldFibbDPTqGPWmxBibQlw0xQYF2j0NIfBqA1nOpxs3ktXGnNeg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/CqmXOEQ4Dia4N7sCwd3icCwU6mOMfkxB1tVfJz93jFrwRUMcuv8gmop50ub6IkPHKaDbvcibIAHib3icm1mBb3Aicywg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1">
+<meta property="og:image" content="http://img.blog.csdn.net/20170401092446529?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMDY5NTc5NA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:updated_time" content="2017-11-27T15:28:25.546Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MySQL事务隔离级别">
+<meta name="twitter:description" content="前言&amp;nbsp;&amp;nbsp;我们在上一篇&amp;nbsp;&amp;nbsp;《MySQL之初识事务》中介绍了事务的基本概念，以及查看当前事务属性，如何手动开启，提交，回滚事务。事务中还有一个非常重要的概念—-事务隔离级别。今天就一起来看看事务的隔离级别！">
+<meta name="twitter:image" content="https://mmbiz.qpic.cn/mmbiz_png/CqmXOEQ4Dia4N7sCwd3icCwU6mOMfkxB1tceChr7KdibVjYMIHiapfGvxIXX1TzMJv3d98DiaTcF0YcmMVvZR1eic17g/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: undefined,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> MySQL事务隔离级别 | 鞠骞的博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">鞠骞的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">微移是一种心态！</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            时间轴
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-friendslinks">
+          <a href="/friendslinks" rel="section">
+            
+              <i class="menu-item-icon fa fa-question-circle fa-fw"></i> <br />
+            
+            小伙伴们
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                MySQL事务隔离级别
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-11-26T08:43:00+08:00" content="2017-11-26">
+              2017-11-26
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/mysql/" itemprop="url" rel="index">
+                    <span itemprop="name">mysql</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/11/26/database/MySQLisolation/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/11/26/database/MySQLisolation/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+		
+		
+          
+          
+				<span id="/2017/11/26/database/MySQLisolation/"class="leancloud_visitors"  data-flag-title="MySQL事务隔离级别">
+        &nbsp; | &nbsp; 阅读次数
+        </span>
+		
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>&nbsp;&nbsp;我们在上一篇&nbsp;&nbsp;《<a href="">MySQL之初识事务</a>》中介绍了事务的基本概念，以及查看当前事务属性，如何手动开启，提交，回滚事务。事务中还有一个非常重要的概念—-事务隔离级别。今天就一起来看看事务的隔离级别！<br><a id="more"></a></p>
+<h4 id="什么是隔离级别"><a href="#什么是隔离级别" class="headerlink" title="什么是隔离级别?"></a>什么是隔离级别?</h4><p>官方文档中这么描述:</p>
+<blockquote>
+<p>The isolation level is the setting that fine-tunes the balance between performance and reliability, consistency, and reproducibility of results when multiple transactions are making changes and performing queries at the same tim</p>
+</blockquote>
+<p>&nbsp;&nbsp;隔离级别是在多个事务同时进行更改和执行查询时，对结果的性能和可靠性，一致性和可重复性之间的平衡进行微调的设置。<br>也就是说，数据一致性与性能和可靠性成反比，我们根据业务需求，来选择合适的隔离级别。所有脱离业务需求，来选择隔离级别的都是耍流氓！！！</p>
+<h4 id="隔离级别"><a href="#隔离级别" class="headerlink" title="隔离级别"></a>隔离级别</h4><p>&nbsp;&nbsp;在MySQL InnoDB引擎中提供了SQL标准中定义的所有四个隔离级别，分别是:<br>READ UNCOMMITTED(未提交读)。<br>READ COMMITTED(提交读)。<br>REPEATABLE READ(可重复读)。<br>SERIALIZABLE(可串行化)。  </p>
+<p>下面分别介绍这四类隔离级别的作用，以及场景。</p>
+<h4 id="READ-UNCOMMITTED-未提交读"><a href="#READ-UNCOMMITTED-未提交读" class="headerlink" title="READ UNCOMMITTED(未提交读)"></a>READ UNCOMMITTED(未提交读)</h4><p>&nbsp;&nbsp;还记得上一篇文章，我们说&nbsp;begin;&nbsp;只是开启事务，没有commit提交的话，是没有真正提交的。没有持久化的对不对。相应的其它事务也读取不到未提交的值对不对，但如果我们将隔离级别设置为READ UNCOMMITTED的话，那就会获取到未提交的数据哦。<br>例如:</p>
+<p>原始数据<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO `andyqian`.`t_base_user` (`oid`, `name`, `email`, `age`, `telephone`, `status`, `created_at`, `updated_at`) VALUES (&apos;3866584&apos;, &apos;andyqian&apos;, &apos;andytohome@gmail.com&apos;, &apos;1&apos;, &apos;12345678901&apos;, &apos;1&apos;, &apos;2017-11-21 21:15:04&apos;, &apos;2017-11-21 21:1:40&apos;);</span><br></pre></td></tr></table></figure></p>
+<p>事务A:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">begin;</span><br><span class="line">update t_base_user set email=&quot;11111111@gmail.com&quot;,updated_at=now() where oid=3866584;</span><br></pre></td></tr></table></figure></p>
+<p>注意此时事务Ab并没有commit。</p>
+<p>我们再开启一个事务B;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">begin;</span><br><span class="line"></span><br><span class="line">select * from t_base_user where email=”11111111@gmail.com&quot;;</span><br><span class="line"></span><br><span class="line">commit;</span><br></pre></td></tr></table></figure>
+<p>这个时候，其实事务B已经查询出来了, 11111111@gmail.com已经是事务A未提交的数据对不对。(为了方便试验，可以将自动提交禁用掉。set autocommit=0)；</p>
+<p>&nbsp;&nbsp;细心的童鞋应该发现问题了，假如事务A这个语句写错了，不commit，或rollback(回滚)后，但事务B已经读取了事务A未commit的数据，这时候就造成了数据不一致的问题，产生脏读！ 所以，该隔离级别一般很少使用。</p>
+<h4 id="READ-COMMITTED-提交读"><a href="#READ-COMMITTED-提交读" class="headerlink" title="READ COMMITTED(提交读)"></a>READ COMMITTED(提交读)</h4><p>&nbsp;&nbsp;顾名思义，也就是说： 事务只能查看到已经提交后的事务，持久化后的数据，换句话说： 未提交的事务，所进行的修改，均不会被读取到，这也是大多数数据库系统的默认事务级别。(MySQL默认的隔离级别是：可重复读)。</p>
+<h4 id="REPEATABLE-TABLE-可重复读"><a href="#REPEATABLE-TABLE-可重复读" class="headerlink" title="REPEATABLE TABLE(可重复读)"></a>REPEATABLE TABLE(可重复读)</h4><p>&nbsp;&nbsp;这是MySQL默认的事务隔离级别，保证了在同一个事务中多次读取记录的结果是一致的。也解决了READ UNCOMMITITED(未提交读)中的脏读问题。</p>
+<h4 id="SERIALIZABLE-可串行化"><a href="#SERIALIZABLE-可串行化" class="headerlink" title="SERIALIZABLE(可串行化)"></a>SERIALIZABLE(可串行化)</h4><p>&nbsp;&nbsp;该隔离级别是最高的隔离级别，保持了数据的强一致性，但有利也有弊，该隔离级别是通过强制事务串行执行，就像队列一样，一个紧接着一个，在大并发应用时，就会导致大量的超时和锁竞争产生。所以在平时，一般情况下也很少使用该事务隔离级别。</p>
+<h4 id="查看-amp-修改事务隔离级别"><a href="#查看-amp-修改事务隔离级别" class="headerlink" title="查看&amp;修改事务隔离级别"></a>查看&amp;修改事务隔离级别</h4><p>&nbsp;&nbsp;我们可以下面命令查看会话隔离级别，以及全局隔离级别。<br>当前会话隔离级别:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select @@tx_isolation</span><br></pre></td></tr></table></figure></p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/CqmXOEQ4Dia4N7sCwd3icCwU6mOMfkxB1tceChr7KdibVjYMIHiapfGvxIXX1TzMJv3d98DiaTcF0YcmMVvZR1eic17g/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1" alt="会话隔离级别图片"><br>全局隔离级别:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select @@global.tx_isolation;</span><br></pre></td></tr></table></figure></p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/CqmXOEQ4Dia4N7sCwd3icCwU6mOMfkxB1tp4iaJbSldFibbDPTqGPWmxBibQlw0xQYF2j0NIfBqA1nOpxs3ktXGnNeg/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1" alt="全局隔离级别图片"><br>同样,我们也可以修改默认的隔离级别，通过如下命令:<br>修改当前会话隔离级别：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set session transaction isolation level read uncommitted;</span><br></pre></td></tr></table></figure></p>
+<p>修改全局隔离级别：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set global transaction isolation level read uncommitted;</span><br></pre></td></tr></table></figure></p>
+<p>这里值得注意的是，如果生产环境， 不要轻易修改事务的隔离级别(除非有特别特殊理由，否则最好别修改)。<br>例如： 从(REPEATABLE READ(可重复读))修改为(SERIALIZABLE(可串行化)，就存在很大的风险，会导致大量的超时，导致性能急速下降，影响业务使用。</p>
+<p>也就是说：事务的隔离级别，在数据库前期就应该根据业务方式，来确定好。后续就不应该进行修改。</p>
+<h4 id="今日命令"><a href="#今日命令" class="headerlink" title="今日命令"></a>今日命令</h4><p>&nbsp;&nbsp;今天介绍的命令，在查看服务器连接，排查连接过多，查看连接状态时特别有用！ </p>
+<p>命令: <strong>show full processlist</strong>  </p>
+<p>作用: <strong>显示当前运行的线程以及状态，也可以根据该命令来查看服务器状态。</strong></p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/CqmXOEQ4Dia4N7sCwd3icCwU6mOMfkxB1tVfJz93jFrwRUMcuv8gmop50ub6IkPHKaDbvcibIAHib3icm1mBb3Aicywg/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1" alt="插入processlist图片"> </p>
+<p><strong>Id:</strong> 连接Id。<br><strong>User:</strong> 操作用户名,这里的用户是MySQL中的用户<br><strong>Host:</strong> 顾名思义，这里显示的是客户端用户的Host名以及端口号。这里需要注意的是系统用户并不显示。<br><strong>db</strong>： 客户端连接的数据库，这里的andyqian就是数据库名称。<br><strong>Command</strong>: 表示客户端正在执行的命令类型，这里的类型有:Sleep,Query(查询),Binlog Dump(在主从复制时常见)， Change user(线程正在更改用户)等。一般通过该属性也能看出当前进程的状态。<br>此属性状态还有很多，下次单独写一篇文章拎出来说说。</p>
+<p><strong>Time</strong>: 指当前连接处于该状态的时间。(单位:秒)<br><strong>State</strong>: 指当连接正在执行的动作，事件或状态。使用show processlist命令时，一般为null值。<br><strong>Info</strong>: 当前连接正在执行的语句，如果没有执行任何语句，则为Null。</p>
+<hr>
+<p>相关阅读:</p>
+<p><a href="http://mp.weixin.qq.com/s/UzWxJ_pVPjU5ip0Z-Y9TdA" target="_blank" rel="external">写会MySQL索引</a>  </p>
+<p><a href="http://mp.weixin.qq.com/s/-BlLvBKcF-yalELY7XkqaQ" target="_blank" rel="external">读懂MySQL执行计划</a></p>
+<p><a href="">谈谈MySQL隐式类型转换</a>  </p>
+<p><a href="">学会MySQL LIMIT</a></p>
+<hr>
+<center><img src="http://img.blog.csdn.net/20170401092446529?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMDY5NTc5NA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></center><br><center>扫码关注，一起进步<br><br><center>个人博客: <a href="http://www.andyqian.com" target="_blank" rel="external">http://www.andyqian.com</a></center>
+</center>
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/mysql/" rel="tag">#mysql</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/11/25/database/MySQLtransaction/" rel="next" title="MySQL之初识事务">
+                <i class="fa fa-chevron-left"></i> MySQL之初识事务
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/11/27/database/mysqlstatetype/" rel="prev" title="MySQL 命令种类">
+                MySQL 命令种类 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/11/26/database/MySQLisolation/"
+           data-title="MySQL事务隔离级别" data-url="http://yoursite.com/2017/11/26/database/MySQLisolation/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="鞠骞" />
+          <p class="site-author-name" itemprop="name">鞠骞</p>
+          <p class="site-description motion-element" itemprop="description">微移是一种生活，分享是一种态度!</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">46</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/userandy" target="_blank">
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/userandy" target="_blank">
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是隔离级别"><span class="nav-number">2.</span> <span class="nav-text">什么是隔离级别?</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#隔离级别"><span class="nav-number">3.</span> <span class="nav-text">隔离级别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#READ-UNCOMMITTED-未提交读"><span class="nav-number">4.</span> <span class="nav-text">READ UNCOMMITTED(未提交读)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#READ-COMMITTED-提交读"><span class="nav-number">5.</span> <span class="nav-text">READ COMMITTED(提交读)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#REPEATABLE-TABLE-可重复读"><span class="nav-number">6.</span> <span class="nav-text">REPEATABLE TABLE(可重复读)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SERIALIZABLE-可串行化"><span class="nav-number">7.</span> <span class="nav-text">SERIALIZABLE(可串行化)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查看-amp-修改事务隔离级别"><span class="nav-number">8.</span> <span class="nav-text">查看&修改事务隔离级别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#今日命令"><span class="nav-number">9.</span> <span class="nav-text">今日命令</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">鞠骞</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+
+  
+
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.sidebar.display === 'post' || CONFIG.sidebar.display === 'always') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"andyhome"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+      <script src="/lib/ua-parser-js/dist/ua-parser.min.js"></script>
+      <script src="/js/src/hook-duoshuo.js"></script>
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  <!-- custom analytics part create by xiamo -->
+<script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+<script>AV.initialize("DyeMW5P0VKGbQJVb25qWYYS7-gzGzoHsz", "05Ag2XCTCbcFb6qOo96UrplX");</script>
+<script>
+function showTime(Counter) {
+	var query = new AV.Query(Counter);
+	$(".leancloud_visitors").each(function() {
+		var url = $(this).attr("id").trim();
+		query.equalTo("url", url);
+		query.find({
+			success: function(results) {
+				if (results.length == 0) {
+					var content = $(document.getElementById(url)).text() + ': 0';
+					$(document.getElementById(url)).text(content);
+					return;
+				}
+				for (var i = 0; i < results.length; i++) {
+					var object = results[i];
+					var content = $(document.getElementById(url)).text() + ': ' + object.get('time');
+					$(document.getElementById(url)).text(content);
+				}
+			},
+			error: function(object, error) {
+				console.log("Error: " + error.code + " " + error.message);
+			}
+		});
+
+	});
+}
+
+function addCount(Counter) {
+	var Counter = AV.Object.extend("Counter");
+	url = $(".leancloud_visitors").attr('id').trim();
+	title = $(".leancloud_visitors").attr('data-flag-title').trim();
+	var query = new AV.Query(Counter);
+	query.equalTo("url", url);
+	query.find({
+		success: function(results) {
+			if (results.length > 0) {
+				var counter = results[0];
+				counter.fetchWhenSave(true);
+				counter.increment("time");
+				counter.save(null, {
+					success: function(counter) {
+						var content = $(document.getElementById(url)).text() + ': ' + counter.get('time');
+						$(document.getElementById(url)).text(content);
+					},
+					error: function(counter, error) {
+						console.log('Failed to save Visitor num, with error message: ' + error.message);
+					}
+				});
+			} else {
+				var newcounter = new Counter();
+				newcounter.set("title", title);
+				newcounter.set("url", url);
+				newcounter.set("time", 1);
+				newcounter.save(null, {
+					success: function(newcounter) {
+					    console.log("newcounter.get('time')="+newcounter.get('time'));
+						var content = $(document.getElementById(url)).text() + ': ' + newcounter.get('time');
+						$(document.getElementById(url)).text(content);
+					},
+					error: function(newcounter, error) {
+						console.log('Failed to create');
+					}
+				});
+			}
+		},
+		error: function(error) {
+			console.log('Error:' + error.code + " " + error.message);
+		}
+	});
+}
+$(function() {
+	var Counter = AV.Object.extend("Counter");
+	if ($('.leancloud_visitors').length == 1) {
+		addCount(Counter);
+	} else if ($('.post-title-link').length > 1) {
+		showTime(Counter);
+	}
+}); 
+</script>
+  
+</body>
+</html>

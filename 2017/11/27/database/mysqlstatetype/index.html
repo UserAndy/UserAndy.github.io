@@ -1,0 +1,916 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="mysql," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="前言&amp;nbsp;&amp;nbsp;嗯，这两天，又开始犯懒了，搓搓手，扬起，就是左右各一巴掌。继续开始更新文章！ 今天我们来说说一个比较通俗易懂的概念。我们从开始写这一系列文章开始，就不停在说SQL语法，殊不知，SQL语法也是有分类的。今天我们就来说说这个分类。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL 命令种类">
+<meta property="og:url" content="http://yoursite.com/2017/11/27/database/mysqlstatetype/index.html">
+<meta property="og:site_name" content="鞠骞的博客">
+<meta property="og:description" content="前言&amp;nbsp;&amp;nbsp;嗯，这两天，又开始犯懒了，搓搓手，扬起，就是左右各一巴掌。继续开始更新文章！ 今天我们来说说一个比较通俗易懂的概念。我们从开始写这一系列文章开始，就不停在说SQL语法，殊不知，SQL语法也是有分类的。今天我们就来说说这个分类。">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/CqmXOEQ4Dia7KibF4rPtFdTiaogZg4TkzR8XGjkYWtiadTBNCIwHFh9K7aXLjyzq88EzQcceKujn15xULfHJyuibbug/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/CqmXOEQ4Dia7KibF4rPtFdTiaogZg4TkzR8Jlmm9WbHjPicMPw2dWnS6cJDenyWicQu0WvKMCv4ZYvEWZ6BrUp6RnicQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1">
+<meta property="og:image" content="http://img.blog.csdn.net/20170401092446529?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMDY5NTc5NA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:updated_time" content="2017-11-27T15:15:09.328Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MySQL 命令种类">
+<meta name="twitter:description" content="前言&amp;nbsp;&amp;nbsp;嗯，这两天，又开始犯懒了，搓搓手，扬起，就是左右各一巴掌。继续开始更新文章！ 今天我们来说说一个比较通俗易懂的概念。我们从开始写这一系列文章开始，就不停在说SQL语法，殊不知，SQL语法也是有分类的。今天我们就来说说这个分类。">
+<meta name="twitter:image" content="https://mmbiz.qpic.cn/mmbiz_png/CqmXOEQ4Dia7KibF4rPtFdTiaogZg4TkzR8XGjkYWtiadTBNCIwHFh9K7aXLjyzq88EzQcceKujn15xULfHJyuibbug/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: undefined,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> MySQL 命令种类 | 鞠骞的博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">鞠骞的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">微移是一种心态！</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            时间轴
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-friendslinks">
+          <a href="/friendslinks" rel="section">
+            
+              <i class="menu-item-icon fa fa-question-circle fa-fw"></i> <br />
+            
+            小伙伴们
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                MySQL 命令种类
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-11-27T23:15:00+08:00" content="2017-11-27">
+              2017-11-27
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/mysql/" itemprop="url" rel="index">
+                    <span itemprop="name">mysql</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/11/27/database/mysqlstatetype/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/11/27/database/mysqlstatetype/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+		
+		
+          
+          
+				<span id="/2017/11/27/database/mysqlstatetype/"class="leancloud_visitors"  data-flag-title="MySQL 命令种类">
+        &nbsp; | &nbsp; 阅读次数
+        </span>
+		
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>&nbsp;&nbsp;嗯，这两天，又开始犯懒了，搓搓手，扬起，就是左右各一巴掌。继续开始更新文章！ 今天我们来说说一个比较通俗易懂的概念。我们从开始写这一系列文章开始，就不停在说SQL语法，殊不知，SQL语法也是有分类的。今天我们就来说说这个分类。<br><a id="more"></a></p>
+<h4 id="语句分类"><a href="#语句分类" class="headerlink" title="语句分类"></a>语句分类</h4><p>&nbsp;&nbsp;在详细说之前，先来看看这个图:<br><img src="https://mmbiz.qpic.cn/mmbiz_png/CqmXOEQ4Dia7KibF4rPtFdTiaogZg4TkzR8XGjkYWtiadTBNCIwHFh9K7aXLjyzq88EzQcceKujn15xULfHJyuibbug/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1" alt="SQL语句分类">  </p>
+<p>图中比较直观的说明了。SQL命令分为四种，分别为: DDL，DML，DCL，TCL。下面分别介绍这四种类型分别包括哪些命令。</p>
+<h4 id="DDL"><a href="#DDL" class="headerlink" title="DDL"></a>DDL</h4><p>&nbsp;&nbsp; DDL 全称: Data Definition Language(数据定义语言)，既然是定义语言，其就包括: </p>
+<ul>
+<li><p>create: 创建数据库及其对象(包括新建表，索引，视图，存储过程等)</p>
+</li>
+<li><p>alter： 改变现有数据库的结构(包括: 修改索引，修改字段类型，删除索引)</p>
+</li>
+<li><p>truncate: 删除表中所有记录，并删除已分配的空间。</p>
+</li>
+<li><p>comment: 添加注释,还记得在前面的文章中说过，新建表以及字段上添加注释的习惯吗？</p>
+</li>
+<li><p>rename: 重命名，其中包括索引，表名等。</p>
+</li>
+</ul>
+<h4 id="DML"><a href="#DML" class="headerlink" title="DML"></a>DML</h4><p>&nbsp;&nbsp;DML全称是: Data Manipulation Language(数据操作语句)，其中就包括:</p>
+<ul>
+<li><p>select 语句，从数据库中检索数据。</p>
+</li>
+<li><p>insert语句，新增数据到数据库中。</p>
+</li>
+<li><p>update语句，更新表格中现有数据。</p>
+</li>
+<li><p>delete 语句，删除现有数据。</p>
+</li>
+<li><p>explain 语句，查看语句的执行计划。</p>
+</li>
+<li><p>lock table 语句，锁表操作</p>
+</li>
+</ul>
+<h4 id="DCL"><a href="#DCL" class="headerlink" title="DCL"></a>DCL</h4><p>&nbsp;&nbsp;这一类语句，平常我们用的比较少，DBA管理员用的比较多，但，这非常重要。(要不下次也写一写？)。</p>
+<p>DCL 全称为:  Data Control Language(数据控制语句)，这里指的控制，说的其实就是权限控制。涉及到的命令有:</p>
+<ul>
+<li><p>grant: 允许用户访问数据库的权限 </p>
+</li>
+<li><p>revoke: 撤销用户访问数据库的权限</p>
+</li>
+</ul>
+<h4 id="TCL"><a href="#TCL" class="headerlink" title="TCL"></a>TCL</h4><p>&nbsp;&nbsp;最后说一说，我们的老朋友，注意: TCL不是电视品牌哦，而是: Transaction Control Language(事务控制语言)的简称。其中包括的命令有:</p>
+<ul>
+<li><p>commit ： 提交事务。</p>
+</li>
+<li><p>rollback ： 会滚事务。</p>
+</li>
+<li><p>set trasaction: 设置事务隔离级别。</p>
+</li>
+</ul>
+<p>事务相关更多的文章，请查看&nbsp;&nbsp;《<a href="">MySQL之事务初识</a>》， 《<a href="">MySQL事务隔离级别</a>》这两篇文章。</p>
+<h4 id="今日命令"><a href="#今日命令" class="headerlink" title="今日命令"></a>今日命令</h4><p>命令: show tables;<br>作用: 显示当前数据库中所有表名。<br>例子:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show tables;</span><br></pre></td></tr></table></figure></p>
+<p>如下图所示(仅作演示):<br><img src="https://mmbiz.qpic.cn/mmbiz_png/CqmXOEQ4Dia7KibF4rPtFdTiaogZg4TkzR8Jlmm9WbHjPicMPw2dWnS6cJDenyWicQu0WvKMCv4ZYvEWZ6BrUp6RnicQ/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1" alt="全部表名"></p>
+<p>该命令：在日常工作中，非常有用，能够帮助快速定位表，以及统计有多少表等等。</p>
+<h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><p>&nbsp;&nbsp;这里预告一下，下篇文章为：《浅谈MySQL在线DDL》，MySQL&nbsp;5.6&nbsp;及以后的新特性，尽请期待！ </p>
+<p>PS：本来，这篇文章应该是在《浅谈MySQL在线DDL》的一小章节中出现的。为了避免文章过长，导致阅读疲劳，就单独拧出来，写成了一篇，现在看，也挺好的！</p>
+<p><strong>最后：祝大家晚安!</strong></p>
+<hr>
+<p>相关阅读:</p>
+<p><a href="http://mp.weixin.qq.com/s/UzWxJ_pVPjU5ip0Z-Y9TdA" target="_blank" rel="external">写会MySQL索引</a>  </p>
+<p><a href="http://mp.weixin.qq.com/s/-BlLvBKcF-yalELY7XkqaQ" target="_blank" rel="external">读懂MySQL执行计划</a></p>
+<hr>
+<center><img src="http://img.blog.csdn.net/20170401092446529?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMDY5NTc5NA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></center><br><center>扫码关注，一起进步<br><br><center>个人博客: <a href="http://www.andyqian.com" target="_blank" rel="external">http://www.andyqian.com</a></center>
+</center>
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/mysql/" rel="tag">#mysql</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/11/26/database/MySQLisolation/" rel="next" title="MySQL事务隔离级别">
+                <i class="fa fa-chevron-left"></i> MySQL事务隔离级别
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/11/27/database/mysqlstatetype/"
+           data-title="MySQL 命令种类" data-url="http://yoursite.com/2017/11/27/database/mysqlstatetype/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="鞠骞" />
+          <p class="site-author-name" itemprop="name">鞠骞</p>
+          <p class="site-description motion-element" itemprop="description">微移是一种生活，分享是一种态度!</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">46</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/userandy" target="_blank">
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/userandy" target="_blank">
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#语句分类"><span class="nav-number">2.</span> <span class="nav-text">语句分类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DDL"><span class="nav-number">3.</span> <span class="nav-text">DDL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DML"><span class="nav-number">4.</span> <span class="nav-text">DML</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DCL"><span class="nav-number">5.</span> <span class="nav-text">DCL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TCL"><span class="nav-number">6.</span> <span class="nav-text">TCL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#今日命令"><span class="nav-number">7.</span> <span class="nav-text">今日命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#小结"><span class="nav-number">8.</span> <span class="nav-text">小结</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">鞠骞</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+
+  
+
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.sidebar.display === 'post' || CONFIG.sidebar.display === 'always') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"andyhome"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+      <script src="/lib/ua-parser-js/dist/ua-parser.min.js"></script>
+      <script src="/js/src/hook-duoshuo.js"></script>
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  <!-- custom analytics part create by xiamo -->
+<script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+<script>AV.initialize("DyeMW5P0VKGbQJVb25qWYYS7-gzGzoHsz", "05Ag2XCTCbcFb6qOo96UrplX");</script>
+<script>
+function showTime(Counter) {
+	var query = new AV.Query(Counter);
+	$(".leancloud_visitors").each(function() {
+		var url = $(this).attr("id").trim();
+		query.equalTo("url", url);
+		query.find({
+			success: function(results) {
+				if (results.length == 0) {
+					var content = $(document.getElementById(url)).text() + ': 0';
+					$(document.getElementById(url)).text(content);
+					return;
+				}
+				for (var i = 0; i < results.length; i++) {
+					var object = results[i];
+					var content = $(document.getElementById(url)).text() + ': ' + object.get('time');
+					$(document.getElementById(url)).text(content);
+				}
+			},
+			error: function(object, error) {
+				console.log("Error: " + error.code + " " + error.message);
+			}
+		});
+
+	});
+}
+
+function addCount(Counter) {
+	var Counter = AV.Object.extend("Counter");
+	url = $(".leancloud_visitors").attr('id').trim();
+	title = $(".leancloud_visitors").attr('data-flag-title').trim();
+	var query = new AV.Query(Counter);
+	query.equalTo("url", url);
+	query.find({
+		success: function(results) {
+			if (results.length > 0) {
+				var counter = results[0];
+				counter.fetchWhenSave(true);
+				counter.increment("time");
+				counter.save(null, {
+					success: function(counter) {
+						var content = $(document.getElementById(url)).text() + ': ' + counter.get('time');
+						$(document.getElementById(url)).text(content);
+					},
+					error: function(counter, error) {
+						console.log('Failed to save Visitor num, with error message: ' + error.message);
+					}
+				});
+			} else {
+				var newcounter = new Counter();
+				newcounter.set("title", title);
+				newcounter.set("url", url);
+				newcounter.set("time", 1);
+				newcounter.save(null, {
+					success: function(newcounter) {
+					    console.log("newcounter.get('time')="+newcounter.get('time'));
+						var content = $(document.getElementById(url)).text() + ': ' + newcounter.get('time');
+						$(document.getElementById(url)).text(content);
+					},
+					error: function(newcounter, error) {
+						console.log('Failed to create');
+					}
+				});
+			}
+		},
+		error: function(error) {
+			console.log('Error:' + error.code + " " + error.message);
+		}
+	});
+}
+$(function() {
+	var Counter = AV.Object.extend("Counter");
+	if ($('.leancloud_visitors').length == 1) {
+		addCount(Counter);
+	} else if ($('.post-title-link').length > 1) {
+		showTime(Counter);
+	}
+}); 
+</script>
+  
+</body>
+</html>
