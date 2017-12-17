@@ -57,22 +57,18 @@
 
 
 
-<meta name="description" content="前言&amp;nbsp;&amp;nbsp;大家周末过的还愉快吗？一眨眼周末就过去了，明天得上班写BUG了。What？写BUG？没错，就是写BUG，为此测试”房姐”调侃了我不少，就差没叫我「BUG」了，还在上周告诉了我一个永无BUG的方法。听到答案的我”面红耳赤”的继续写BUG。答案是什么？你们先猜猜看？
-引子&amp;nbsp;&amp;nbsp;在之前的文章中我们说过MySQL事务，现在大家都应该知道了MySQL事务了吧，还">
+<meta name="description" content="前言&amp;nbsp;&amp;nbsp;大家周末过的还愉快吗？一眨眼周末就过去了，明天得上班写BUG了。What？写BUG？没错，就是写BUG，为此测试”房姐”调侃了我不少，就差没叫我「BUG」了，还在上周告诉了我一个永无BUG的方法。听到答案的我”面红耳赤”的继续写BUG。答案是什么？你们先猜猜看？">
 <meta property="og:type" content="article">
 <meta property="og:title" content="谈谈MySQL存储引擎">
 <meta property="og:url" content="http://yoursite.com/2017/12/17/database/mysqlengines/index.html">
 <meta property="og:site_name" content="鞠骞的博客">
-<meta property="og:description" content="前言&amp;nbsp;&amp;nbsp;大家周末过的还愉快吗？一眨眼周末就过去了，明天得上班写BUG了。What？写BUG？没错，就是写BUG，为此测试”房姐”调侃了我不少，就差没叫我「BUG」了，还在上周告诉了我一个永无BUG的方法。听到答案的我”面红耳赤”的继续写BUG。答案是什么？你们先猜猜看？
-引子&amp;nbsp;&amp;nbsp;在之前的文章中我们说过MySQL事务，现在大家都应该知道了MySQL事务了吧，还">
-<meta property="og:image" content="http://yoursite.com/www.baidu.com">
+<meta property="og:description" content="前言&amp;nbsp;&amp;nbsp;大家周末过的还愉快吗？一眨眼周末就过去了，明天得上班写BUG了。What？写BUG？没错，就是写BUG，为此测试”房姐”调侃了我不少，就差没叫我「BUG」了，还在上周告诉了我一个永无BUG的方法。听到答案的我”面红耳赤”的继续写BUG。答案是什么？你们先猜猜看？">
 <meta property="og:image" content="http://img.blog.csdn.net/20170401092446529?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMDY5NTc5NA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
-<meta property="og:updated_time" content="2017-12-17T13:12:13.857Z">
+<meta property="og:updated_time" content="2017-12-17T13:14:04.034Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="谈谈MySQL存储引擎">
-<meta name="twitter:description" content="前言&amp;nbsp;&amp;nbsp;大家周末过的还愉快吗？一眨眼周末就过去了，明天得上班写BUG了。What？写BUG？没错，就是写BUG，为此测试”房姐”调侃了我不少，就差没叫我「BUG」了，还在上周告诉了我一个永无BUG的方法。听到答案的我”面红耳赤”的继续写BUG。答案是什么？你们先猜猜看？
-引子&amp;nbsp;&amp;nbsp;在之前的文章中我们说过MySQL事务，现在大家都应该知道了MySQL事务了吧，还">
-<meta name="twitter:image" content="http://yoursite.com/www.baidu.com">
+<meta name="twitter:description" content="前言&amp;nbsp;&amp;nbsp;大家周末过的还愉快吗？一眨眼周末就过去了，明天得上班写BUG了。What？写BUG？没错，就是写BUG，为此测试”房姐”调侃了我不少，就差没叫我「BUG」了，还在上周告诉了我一个永无BUG的方法。听到答案的我”面红耳赤”的继续写BUG。答案是什么？你们先猜猜看？">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20170401092446529?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMDY5NTc5NA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
 
 
 
@@ -310,8 +306,8 @@
       
 
       
-        <h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>&nbsp;&nbsp;大家周末过的还愉快吗？一眨眼周末就过去了，明天得上班写BUG了。What？写BUG？没错，就是写BUG，为此测试”房姐”调侃了我不少，就差没叫我「BUG」了，还在上周告诉了我一个永无BUG的方法。听到答案的我”面红耳赤”的继续写BUG。答案是什么？你们先猜猜看？</p>
-<h4 id="引子"><a href="#引子" class="headerlink" title="引子"></a>引子</h4><p>&nbsp;&nbsp;在之前的文章中我们说过MySQL事务，现在大家都应该知道了MySQL事务了吧，还记得事务的ACID原则吗？不记得的童鞋可以回顾一下<img src="www.baidu.com" alt="初始MySQL事务">，其实呀，更严谨一点的话，应该是MySQL InnoDB存储引擎，因为在MySQL中，只有InnoDB存储引擎才支持事务。看到此处，有些朋友可能有以下疑问:    </p>
+        <h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>&nbsp;&nbsp;大家周末过的还愉快吗？一眨眼周末就过去了，明天得上班写BUG了。What？写BUG？没错，就是写BUG，为此测试”房姐”调侃了我不少，就差没叫我「BUG」了，还在上周告诉了我一个永无BUG的方法。听到答案的我”面红耳赤”的继续写BUG。答案是什么？你们先猜猜看？<br><a id="more"></a></p>
+<h4 id="引子"><a href="#引子" class="headerlink" title="引子"></a>引子</h4><p>&nbsp;&nbsp;在之前的文章中我们说过MySQL事务，现在大家都应该知道了MySQL事务了吧，还记得事务的ACID原则吗？不记得的童鞋可以回顾一下<a href="www.baidu.com">初始MySQL事务</a>，其实呀，更严谨一点的话，应该是MySQL InnoDB存储引擎，因为在MySQL中，只有InnoDB存储引擎才支持事务。看到此处，有些朋友可能有以下疑问:    </p>
 <ul>
 <li>存储引擎是什么？</li>
 <li>MySQL中有哪些存储引擎？</li>
