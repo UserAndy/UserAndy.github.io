@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="生活," />
+  <meta name="keywords" content="MySQL," />
 
 
 
@@ -57,21 +57,19 @@
 
 
 
-<meta name="description" content="前言&amp;nbsp;&amp;nbsp;上海国际10K精英赛是由中国田径协会,上海市体育总会,普陀区人民政府等联合主办的上马系列赛，参加并完赛的选手,会获得300分上马积分,因此吸引了众多跑步爱好者,我就是其一,从09月21号报名开始,一直就很期待。">
+<meta name="description" content="前言&amp;nbsp;&amp;nbsp;有一小阵子没有更新技术文章了，今天我们继续MySQL系列，今天要说的是MySQL表结构设计。在我的工作经历当中，就踩过很多这方面的坑，在之前的文章《MySQL数据表设计踩过的坑》中，也谈到了一些坑，但总有一种，只是指出了问题，却没有给出解决方案的感觉，今天我们就来讲讲MySQL表如何设计才能避免踩坑。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="我的第一个上海国际10K精英赛">
-<meta property="og:url" content="http://yoursite.com/2017/10/29/life/run/index.html">
+<meta property="og:title" content="浅谈MySQL表结构设计">
+<meta property="og:url" content="http://yoursite.com/2017/12/27/database/MySQLTable/index.html">
 <meta property="og:site_name" content="鞠骞的博客">
-<meta property="og:description" content="前言&amp;nbsp;&amp;nbsp;上海国际10K精英赛是由中国田径协会,上海市体育总会,普陀区人民政府等联合主办的上马系列赛，参加并完赛的选手,会获得300分上马积分,因此吸引了众多跑步爱好者,我就是其一,从09月21号报名开始,一直就很期待。">
-<meta property="og:image" content="http://yoursite.com/img/run/001.jpg">
-<meta property="og:image" content="http://yoursite.com/img/run/002.jpg">
-<meta property="og:image" content="http://yoursite.com/img/run/fun.jpg">
+<meta property="og:description" content="前言&amp;nbsp;&amp;nbsp;有一小阵子没有更新技术文章了，今天我们继续MySQL系列，今天要说的是MySQL表结构设计。在我的工作经历当中，就踩过很多这方面的坑，在之前的文章《MySQL数据表设计踩过的坑》中，也谈到了一些坑，但总有一种，只是指出了问题，却没有给出解决方案的感觉，今天我们就来讲讲MySQL表如何设计才能避免踩坑。">
+<meta property="og:image" content="http://yoursite.com/img/database/mysql/table/intrange.png">
 <meta property="og:image" content="http://img.blog.csdn.net/20170401092446529?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMDY5NTc5NA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
-<meta property="og:updated_time" content="2017-10-29T14:56:13.782Z">
+<meta property="og:updated_time" content="2017-12-26T17:33:43.073Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="我的第一个上海国际10K精英赛">
-<meta name="twitter:description" content="前言&amp;nbsp;&amp;nbsp;上海国际10K精英赛是由中国田径协会,上海市体育总会,普陀区人民政府等联合主办的上马系列赛，参加并完赛的选手,会获得300分上马积分,因此吸引了众多跑步爱好者,我就是其一,从09月21号报名开始,一直就很期待。">
-<meta name="twitter:image" content="http://yoursite.com/img/run/001.jpg">
+<meta name="twitter:title" content="浅谈MySQL表结构设计">
+<meta name="twitter:description" content="前言&amp;nbsp;&amp;nbsp;有一小阵子没有更新技术文章了，今天我们继续MySQL系列，今天要说的是MySQL表结构设计。在我的工作经历当中，就踩过很多这方面的坑，在之前的文章《MySQL数据表设计踩过的坑》中，也谈到了一些坑，但总有一种，只是指出了问题，却没有给出解决方案的感觉，今天我们就来讲讲MySQL表如何设计才能避免踩坑。">
+<meta name="twitter:image" content="http://yoursite.com/img/database/mysql/table/intrange.png">
 
 
 
@@ -89,7 +87,7 @@
   };
 </script>
 
-  <title> 我的第一个上海国际10K精英赛 | 鞠骞的博客 </title>
+  <title> 浅谈MySQL表结构设计 | 鞠骞的博客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -239,7 +237,7 @@
             
             
               
-                我的第一个上海国际10K精英赛
+                浅谈MySQL表结构设计
               
             
           </h1>
@@ -251,8 +249,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-10-29T20:35:00+08:00" content="2017-10-29">
-              2017-10-29
+            <time itemprop="dateCreated" datetime="2017-12-27T08:43:00+08:00" content="2017-12-27">
+              2017-12-27
             </time>
           </span>
 
@@ -265,20 +263,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Life/" itemprop="url" rel="index">
-                    <span itemprop="name">Life</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Life/跑步/" itemprop="url" rel="index">
-                    <span itemprop="name">跑步</span>
+                  <a href="/categories/MySQL/" itemprop="url" rel="index">
+                    <span itemprop="name">MySQL</span>
                   </a>
                 </span>
 
@@ -293,8 +279,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2017/10/29/life/run/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/10/29/life/run/" itemprop="commentsCount"></span>
+                <a href="/2017/12/27/database/MySQLTable/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/12/27/database/MySQLTable/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -305,7 +291,7 @@
 		
           
           
-				<span id="/2017/10/29/life/run/"class="leancloud_visitors"  data-flag-title="我的第一个上海国际10K精英赛">
+				<span id="/2017/12/27/database/MySQLTable/"class="leancloud_visitors"  data-flag-title="浅谈MySQL表结构设计">
         &nbsp; | &nbsp; 阅读次数
         </span>
 		
@@ -321,23 +307,90 @@
       
 
       
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>&nbsp;&nbsp;上海国际10K精英赛是由中国田径协会,上海市体育总会,普陀区人民政府等联合主办的上马系列赛，参加并完赛的选手,会获得300分上马积分,因此吸引了众多跑步爱好者,我就是其一,从09月21号报名开始,一直就很期待。<br><a id="more"></a></p>
-<h3 id="现场"><a href="#现场" class="headerlink" title="现场"></a>现场</h3><p>&nbsp;&nbsp;期待已久的上马系列赛·10K精英赛,如期而至,<br>从昨晚收到主办方的短信通知后,就有点兴奋不已(事实上是,由于偷懒,已经有一个月没锻炼了,害怕自己能不能坚持跑完!)，平时周末都在09:00以后才醒,由于比赛时间为7:30，今天在05:30就醒来了,洗漱后坐地铁,转乘共耗时50分钟,07:10分到达比赛地点。到达现场,此时的跑友们已经占满前排了。<br><img src="/img/run/001.jpg" alt="现场图片1">  </p>
-<p><img src="/img/run/002.jpg" alt="现场图片2"><br>&nbsp;&nbsp;每个人都在做奔跑前最后的准备!<br>07:30分准时开跑,由于跑友们实在太多了，我们从人群中慢慢涌动到起跑点，活生生花了2分半钟。<br>来,体验一下现场的气氛:<br><img src="" alt="此处放视频"></p>
-<h3 id="体验"><a href="#体验" class="headerlink" title="体验"></a>体验</h3><ol>
-<li>有趣:<br>在奔跑过程中,除了举办方统一的服装外,跑友真的脑洞大开,有代表跑团的,有幽默的,如下:<br><img src="/img/run/fun.jpg" alt="插入幽默的"><br>在跑道旁边,有各种啦啦队,有年轻的美女在喊加油,有乐队在奏乐,有广场舞大妈在跳舞以给跑友加油助阵。让原有紧张比赛的氛围变得轻松有趣。</li>
-<li>目标:<br>至从上次李宁10K的跑完后,就给自己定下目标,(跑进60分钟内)。由于有一段时间没有锻炼了,这次跑步前就想好,先匀速,后面根据体能情况,再考虑是否加速,跑到6公里处,发现体能还不错,进入加速阶段,加速到8公里处,肌肉明显有酸痛感,又慢下来,跑了1公里,到最后1公里,为了目标咬牙加速到终点,最终成绩显示为: <blockquote>
-<p>祝贺完成2017上海国际10公里精英赛男子10公里项目，参赛号: 2917,枪声成绩: 1:03:09 净成绩: 0:59:10  </p>
-</blockquote>
+        <h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>&nbsp;&nbsp;有一小阵子没有更新技术文章了，今天我们继续MySQL系列，今天要说的是MySQL表结构设计。在我的工作经历当中，就踩过很多这方面的坑，在之前的文章《<a href="">MySQL数据表设计踩过的坑</a>》中，也谈到了一些坑，但总有一种，只是指出了问题，却没有给出解决方案的感觉，今天我们就来讲讲MySQL表如何设计才能避免踩坑。<br><a id="more"></a></p>
+<h4 id="选择合适的存储引擎"><a href="#选择合适的存储引擎" class="headerlink" title="选择合适的存储引擎"></a>选择合适的存储引擎</h4><p>&nbsp;&nbsp;在表结构设计中，首先我们就要选择一个合适的存储引擎，我们在之前的文章《<a href="">谈谈MySQL存储引擎</a>》就简述了每个存储引擎的区别，在选择存储引擎时，我们应该根据自己的业务场景来选型存储引擎，如：需要OLTP(在线事务处理)的应用，就应该选择InnoDB存储引擎，如果仅仅用作存储数据，允许数据不一致，数据仓库等场景时，可用MyISAM存储引擎，如果你不知道如何选择，那么使用InnoDB存储引擎就对了。</p>
+<h4 id="选择合适的字符集"><a href="#选择合适的字符集" class="headerlink" title="选择合适的字符集"></a>选择合适的字符集</h4><p>&nbsp;&nbsp;这里之前也说过一次了，主要是为了保存emoji表情，例如: 微信昵称，就有很多带有emoji表情的，这里我们使用utf8mb4字符集，千万不要使用blob类型来存储。</p>
+<h4 id="主-外键类型"><a href="#主-外键类型" class="headerlink" title="主/外键类型"></a>主/外键类型</h4><p>&nbsp;&nbsp;众所周知，主键的设定是非常重要的，在主键的选择上，应该满足以下几个条件:</p>
+<ol>
+<li>唯一性   (必要条件)</li>
+<li>非空性   </li>
+<li>有序性    </li>
+<li>可读性  </li>
+<li>可扩展性</li>
+</ol>
+<p>主键的唯一性和非空性，就不多说了，其中有序性就有不少好处。例如: 查询时，为有序IO，就可提高查询效率，存储的顺序也是有序的，往远了看，分库分表也是有好处的。因此，我建议使8字节无符号的bigint(20)作为主键的数据类型<br>如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">create table t_base_user(</span><br><span class="line">id bigint(20) unsigned not null primary key auto_increment;</span><br><span class="line">....</span><br><span class="line">)</span><br></pre></td></tr></table></figure></p>
+<p>这里有几个注意点:</p>
+<ol>
+<li><p>主外键的数据类型一定要一致！</p>
+</li>
+<li><p>每个表中的主键命名保持一致！</p>
 </li>
 </ol>
-<p>一个多月没锻炼的我,对这个成绩已经很满意了。</p>
-<h4 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h4><p>&nbsp;&nbsp;跑步是我为数不多的运动爱好! 说实话,一开始并不喜欢跑步,觉得太乏味,太累! 如果从源头说起,那还需要把时间回溯至初中，当时学校需要挑选运动员代表去市里面参加市运动会,又阴差阳错的被选中为5K的代表,期间进行了一系列的锻炼。就在这期间也就慢慢地爱上跑步,高中期间中断过一段时间,到大学时,只要晚上一有时间,也会约上同学跑个3,5公里的,也就将这个爱好一直保持至现在。今年跑了两个10K了，下一个目标就是半马了,期待中…</p>
-<p>最后: 你有在坚持运动吗？</p>
+<p>(我就吃过这种细节上的亏)。</p>
+<p>无符号与有符号的区别:<br>&nbsp;&nbsp;有符号允许存储负数，无符号只允许从年初正数，无符号最小值为0，最大值根据类型不同而不同。</p>
+<p><img src="/img/database/mysql/table/intrange.png" alt="图片"></p>
+<p>问题一: 为什么不使用varchar类型作主键</p>
+<p>答: varchar类型会对性能有影响，其中varchar也不是有序的，可读性也不好，这里不建议使用。<br>(之前我就用过UUID作为主键，可读性简直了….当时数据量较小，还感觉不到性能)。</p>
+<p>PS: 主键其实是一个比较大的话题，为什么这么说呢，其实上面的方案也是有缺点的，适用于主从架构，对于多主呢？此时的主键是不是就会有重复的情况产生了，这也就是为什么一些大厂有自己的ID生成中间件的原因了，这里不做深入讨论，我们下次单独写一篇文章来说。</p>
+<h4 id="外键约束"><a href="#外键约束" class="headerlink" title="外键约束"></a>外键约束</h4><p>&nbsp;&nbsp;外键约束用来保证数据完整性的，这一点我很赞同，但是我不建议在数据库表中加外键约束，因为在数据表中添加外键约束，会影响性能，例如: 每一次修改数据时，都要在另外的一张表中执行查询。我的建议是：在应用层，也就是代码层面，来维持外键关系。</p>
+<h4 id="选择合适的类型"><a href="#选择合适的类型" class="headerlink" title="选择合适的类型"></a>选择合适的类型</h4><p>&nbsp;&nbsp;这里指的是数据列的数据类型，在选择合适的数据类型时，我们应满足以下条件:</p>
+<ol>
+<li><p>尽量选择小，简单的数据类型。</p>
+</li>
+<li><p>保持可读性。</p>
+</li>
+<li><p>尽量避免Null</p>
+</li>
+</ol>
+<p>我们尽可能选择小的数据类型，这样会有很多好处，比如服务端处理效率，传输等都会快些。这里给出几个常见的数据类型设计： </p>
+<ul>
+<li><p>状态类型用 tinyint，例如 性别等。</p>
+</li>
+<li><p>时间日期使用datetime,timesamp类型，我比较喜欢使用datetime类型，(可读性高些)。</p>
+</li>
+<li><p>尽量不要使用text和blob数据类型，特别是blob，</p>
+</li>
+</ul>
+<h4 id="设计逻辑删除"><a href="#设计逻辑删除" class="headerlink" title="设计逻辑删除"></a>设计逻辑删除</h4><p>&nbsp;&nbsp;这个字段主要用作业务上的逻辑删除，在现在数据为金的时代，数据不建议做物理删除。原因有以下几点:</p>
+<ul>
+<li><p>可恢复，物理删除一旦删除，即不可恢复。</p>
+</li>
+<li><p>逻辑删除数据可用数据分析等。</p>
+</li>
+</ul>
+<p>例如:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">deleted tinyint not null default 1;</span><br></pre></td></tr></table></figure></p>
+<h4 id="创建时间-amp-修改时间"><a href="#创建时间-amp-修改时间" class="headerlink" title="创建时间&amp;修改时间"></a>创建时间&amp;修改时间</h4><p>&nbsp;&nbsp;这些主要是用作业务上的字段，每个表中，都应该使用，在查询，以及问题查找定定位时有诸多好处，例如： 查询最近三个月的登录用户，这时就可用创建时间来查询等等，</p>
+<p>如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">created_time datetime not null default now();</span><br><span class="line"></span><br><span class="line">updated_time datetime not null default now() comment &apos;&apos;</span><br></pre></td></tr></table></figure></p>
+<h4 id="添加合适的索引"><a href="#添加合适的索引" class="headerlink" title="添加合适的索引"></a>添加合适的索引</h4><p>&nbsp;&nbsp;索引说过很多次了，这里就不再详细说了，可参考之前的文章《<a href="">写会MySQL索引</a>》，<br>这里需要强调的是，在创建时间上，我的建议是，都加上索引。</p>
+<h4 id="添加注释"><a href="#添加注释" class="headerlink" title="添加注释"></a>添加注释</h4><p>&nbsp;&nbsp;添加注释，这是非常重要的，其中包括表注释，字段注释。主要是为了后期表结构的维护，我相信你对着数据表中那么多字段，如果没有注释的话，你是很难一下子知道是什么意思的，即使你是该表结构的设计者，十天半个月过去后，你还记得吗？</p>
+<p>简单实例:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">create table t_base_user(</span><br><span class="line"> id bigint(20) UNSIGNED not null primary key auto_increment comment &quot;主键&quot;,</span><br><span class="line"> name varchar(50) character set utf8mb4 comment &quot;&quot;,</span><br><span class="line"> created_time datetime not null default now() comment &quot;创建时间&quot;,</span><br><span class="line"> updated_time datetime not null default now() comment &quot;修改时间&quot;,</span><br><span class="line"> deleted tinyint not null default 1 comment &quot;逻辑删除 0正常数据 1删除数据&quot;</span><br><span class="line">)engine=innodb charset=utf8 comment &quot;用户表&quot;;</span><br><span class="line"></span><br><span class="line">//添加索引</span><br><span class="line"></span><br><span class="line">alter table t_base_user idx_created_time(created_time);</span><br></pre></td></tr></table></figure></p>
+<p>以上表结构仅作演示，实际表结构设计时，会更复杂，但思路是一样的。</p>
+<h4 id="小结"><a href="#小结" class="headerlink" title="小结:"></a>小结:</h4><p>&nbsp;&nbsp;<br>下面精简一下:</p>
+<ul>
+<li><p>选择合适的存储引擎,一般使用InnoDB。</p>
+</li>
+<li><p>选择合适的字符集，无emoji使用utf8，有emoji使用utf8mb4。</p>
+</li>
+<li><p>主键使用bigint(20)，主外键类型一致。</p>
+</li>
+<li><p>选择合适的类型。</p>
+</li>
+<li><p>添加逻辑删除，创建，修改时间。</p>
+</li>
+<li><p>添加表，字段注释</p>
+</li>
+<li><p>添加索引</p>
+</li>
+</ul>
+<p>以上是表结构设计时的一些注意事项，也算是，我在MySQL表结构设计的一点点积累吧，就算是抛砖引玉了，有不同意见的小伙伴，都可在留言区留言，我们旨在设计好一个不给自己挖坑的表结构。</p>
+<hr>
+<p>相关阅读:</p>
+<p><a href="http://mp.weixin.qq.com/s/UzWxJ_pVPjU5ip0Z-Y9TdA" target="_blank" rel="external">写会MySQL索引</a>  </p>
+<p><a href="http://mp.weixin.qq.com/s/-BlLvBKcF-yalELY7XkqaQ" target="_blank" rel="external">读懂MySQL执行计划</a></p>
+<p><a href="">谈谈MySQL隐式类型转换</a>  </p>
+<p><a href="">学会MySQL LIMIT</a></p>
 <hr>
 <center><img src="http://img.blog.csdn.net/20170401092446529?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMDY5NTc5NA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></center><br><center>扫码关注，一起进步<br><br><center>个人博客: <a href="http://www.andyqian.com" target="_blank" rel="external">http://www.andyqian.com</a></center>
-
-
 </center>
       
     </div>
@@ -352,7 +405,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/生活/" rel="tag">#生活</a>
+            <a href="/tags/MySQL/" rel="tag">#MySQL</a>
           
         </div>
       
@@ -361,17 +414,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/10/27/life/costControl/" rel="next" title="企业面试成本">
-                <i class="fa fa-chevron-left"></i> 企业面试成本
+              <a href="/2017/12/17/database/mysqlengines/" rel="next" title="谈谈MySQL存储引擎">
+                <i class="fa fa-chevron-left"></i> 谈谈MySQL存储引擎
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/11/01/database/MySQLplain/" rel="prev" title="读懂MySQL执行计划">
-                读懂MySQL执行计划 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -397,8 +446,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2017/10/29/life/run/"
-           data-title="我的第一个上海国际10K精英赛" data-url="http://yoursite.com/2017/10/29/life/run/">
+      <div class="ds-thread" data-thread-key="2017/12/27/database/MySQLTable/"
+           data-title="浅谈MySQL表结构设计" data-url="http://yoursite.com/2017/12/27/database/MySQLTable/">
       </div>
     
   </div>
@@ -508,7 +557,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#现场"><span class="nav-number">2.</span> <span class="nav-text">现场</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#体验"><span class="nav-number">3.</span> <span class="nav-text">体验</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#最后"><span class="nav-number">3.1.</span> <span class="nav-text">最后</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#选择合适的存储引擎"><span class="nav-number">2.</span> <span class="nav-text">选择合适的存储引擎</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#选择合适的字符集"><span class="nav-number">3.</span> <span class="nav-text">选择合适的字符集</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#主-外键类型"><span class="nav-number">4.</span> <span class="nav-text">主/外键类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#外键约束"><span class="nav-number">5.</span> <span class="nav-text">外键约束</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#选择合适的类型"><span class="nav-number">6.</span> <span class="nav-text">选择合适的类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#设计逻辑删除"><span class="nav-number">7.</span> <span class="nav-text">设计逻辑删除</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建时间-amp-修改时间"><span class="nav-number">8.</span> <span class="nav-text">创建时间&修改时间</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#添加合适的索引"><span class="nav-number">9.</span> <span class="nav-text">添加合适的索引</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#添加注释"><span class="nav-number">10.</span> <span class="nav-text">添加注释</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#小结"><span class="nav-number">11.</span> <span class="nav-text">小结:</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
