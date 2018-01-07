@@ -236,6 +236,274 @@
             
               
                 
+                <a class="post-title-link" href="/2018/01/05/java/comment/" itemprop="url">
+                  说说Java注释
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-01-05T23:15:00+08:00" content="2018-01-05">
+              2018-01-05
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2018/01/05/java/comment/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/01/05/java/comment/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+		
+		
+          
+          
+				<span id="/2018/01/05/java/comment/"class="leancloud_visitors"  data-flag-title="说说Java注释">
+        &nbsp; | &nbsp; 阅读次数
+        </span>
+		
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>&nbsp;&nbsp;有好几天没有写文章，实在抱歉，今天我们来说说如何编写Java注释。使用过Java的同学都非常熟悉，Java中有:</p>
+<ul>
+<li>单行注释 <figure class="highlight plain"><figcaption><span>这是单注释```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"> * 多行注释 ```/*这是多行注释*/```  </span><br><span class="line"> * Javadoc注释 ```/**这是javadoc注释*/```  </span><br><span class="line"> </span><br><span class="line">其实这里面还有很多细节呢，下面我们一一来揭晓</span><br><span class="line">&lt;!--more--&gt;</span><br><span class="line"></span><br><span class="line">#### 哪些地方需要添加注释</span><br><span class="line">&amp;nbsp;&amp;nbsp;首先，我们需要确定一下，添加注释的目的是什么？(手动思考10秒)。</span><br><span class="line">&gt;  我认为添加注释，是为了程序更容易理解与维护，特别是维护，更是对自己的代码负责的一种体现。  </span><br><span class="line"></span><br><span class="line">那基于这样的目的，在日常开发中，我们需要在哪些地方添加注释呢？</span><br><span class="line"></span><br><span class="line">* 类，接口。</span><br><span class="line"></span><br><span class="line">这一部分注释是必须的，在这里，我们需要使用javadoc注释，需要标明，创建者，创建时间，版本，以及该类的作用。如下所示:</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>package com.andyqian.utils;</p>
+<p>/**</p>
+<ul>
+<li>@author: andy</li>
+<li>@date: 18-01-05</li>
+<li>@version: 1.0.0</li>
+<li>@description: 生成PDF 工具类<br>*/<br>public class PdfUtil {</li>
+</ul>
+<p>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">* 方法  </span><br><span class="line"></span><br><span class="line">在方法中，我们需要对入参，出参，以及返回值，均要标明，如</span><br></pre></td></tr></table></figure></p>
+<pre><code>/**
+ * 生成pdf文件
+ * @param htmlContent  待生成pdf的 html内容
+ * @param file  生成pdf文件地址
+ * @see  PdfUtils#getFontPath()
+ * @return true 生成成功    false 生成失败
+ */
+public static boolean generatePdf(String htmlContent,File file){
+    ...
+    return result;
+}
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">* 常量  </span><br><span class="line"></span><br><span class="line">对常量，我们需要使用多行注释，进行标明该常量的用途，如下所示:</span><br></pre></td></tr></table></figure>
+<p>/**</p>
+<ul>
+<li>@author: andy</li>
+<li>@date: 18-01-05</li>
+<li>@version: 0.0.1</li>
+<li><p>@description:<br>*/<br>public class StatusConsts {</p>
+<p> /**</p>
+<ul>
+<li>博客地址<br>*/<br>public static final String BLOG=”www.andyqian.com”;<br>}<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">* 关键算法上  </span><br><span class="line"></span><br><span class="line">在关键算法上，添加注释并且按照顺序依次标明，写明白该方法为什么这么做。如下所示:</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<p>/**</p>
+<pre><code> * 应用场景:
+ * 1.在windows下,使用Thread.currentThread()获取路径时,出现空对象，导致不能使用
+ * 2.在linux下,使用PdfUtils.class获取路径为null,
+ * 获取字体路径
+ * @return 返回字体路径
+ */
+private static String getFontPath(){
+    String path=&quot;&quot;;
+    // 1.
+    ClassLoader classLoader= Thread.currentThread().getContextClassLoader();
+    URL url = (classLoader==null)?null:classLoader.getResource(&quot;/&quot;);
+    String threadCurrentPath = (url==null)?&quot;&quot;:url.getPath();
+    // 2. 如果线程获取为null,则使用当前PdfUtils.class加载路径
+    if(threadCurrentPath==null||&quot;&quot;.equals(threadCurrentPath)){
+        path = PdfUtils.class.getClass().getResource(&quot;/&quot;).getPath();
+    }
+    // 3.拼接字体路径
+    StringBuffer stringBuffer = new StringBuffer(path);
+    stringBuffer.append(&quot;/fonts/SIMKAI.TTF&quot;);
+    path = stringBuffer.toString();
+    return path;
+}
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#### 怎么添加注释? </span><br><span class="line">**1. IDEA 自动生成**   </span><br><span class="line">&amp;nbsp;&amp;nbsp;对于类中的注释，我们可以通过IDEA自动生成。</span><br><span class="line">如IDEA 可以通过：File-&gt;Settings-&gt;Editor-&gt;File and Code Templates-&gt;Includes-&gt;File Header来设置模板，这样新建文件时，IDEA会按照设置的模板，会自动生成一个注释，就不需要一个一个敲了。  </span><br><span class="line">![截图]()  </span><br><span class="line"></span><br><span class="line">其中标签有:  </span><br><span class="line">$&#123;USER&#125; : 当前用户。  </span><br><span class="line">$&#123;DATE&#125; : 当前日期。  </span><br><span class="line">$&#123;PACKAGE_NAME&#125;：包名。  </span><br><span class="line">$&#123;TIME&#125;: 当前时间。  </span><br><span class="line">$&#123;YEAR&#125;： 当前年。  </span><br><span class="line">$&#123;MONTH&#125;：当前月。  </span><br><span class="line">$&#123;DAY&#125;: 当前日。  </span><br><span class="line">$&#123;HOURS&#125;： 当前小时。  </span><br><span class="line">$&#123;MINUTE&#125;: 当前分钟</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">2. 注释引用</span><br><span class="line"></span><br><span class="line">如果方法中引用了其他的方法，在注释中如何体现呢？细心的朋友，应该已经发现了，在上面的：</span><br></pre></td></tr></table></figure>
+<pre><code>/**
+ * 生成pdf文件
+ * @param htmlContent  待生成pdf的 html内容
+ * @param file  生成pdf文件地址
+ * @see  PdfUtils#getFontPath()
+ * @return true 生成成功    false 生成失败
+ */
+public static boolean generatePdf(String htmlContent,File file){
+    ...
+    return result;
+}
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">中的@see就有这个作用，其语法是:</span><br></pre></td></tr></table></figure>
+<p>@see package.class#method  label<br>@see  #field<br>@see  #method(Type, Type,…)<br>@see  #method(Type argname, Type argname,…)<br>@see  #constructor(Type, Type,…)<br>@see  #constructor(Type argname, Type argname,…)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">例如:</span><br></pre></td></tr></table></figure></p>
+<p> @see  PdfUtils#getFontPath()<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">如果是同一个类中，package(包名全路径)可以省略。有相同功能的标签有:   </span><br><span class="line">```&#123;@link package.class#metod&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 生成pdf文件</span><br><span class="line"> * @return true 生成成功    false 生成失败</span><br><span class="line"> * @throws  Exception</span><br><span class="line"> * &#123;@link PdfUtils#getFontPath()&#125;</span><br><span class="line"> */</span><br><span class="line">public static boolean generatePdf(String htmlContent,File file)&#123;</span><br><span class="line">    ....</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其区别是：@see必须要在注释行首，{@link}可以在任意位置。</p>
+<ol>
+<li>在IDEA中，我们可以选中方法通过快捷键<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">![注释截图]()</span><br><span class="line"></span><br><span class="line">2. 如果需要引用外网的连接，我们可以通过HTML标签中的a标签来表示，如下所示:</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>@see <a href="http://www.andyqian.com" target="_blank" rel="external">博客地址</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">以下为javadoc 需要熟知的注释标签:  </span><br><span class="line">@see 引用类/方法。  </span><br><span class="line">@author: 作者。  </span><br><span class="line">@date：日期。  </span><br><span class="line">@version: 版本号。  </span><br><span class="line">@throws：异常信息。  </span><br><span class="line">@param：参数  </span><br><span class="line">@return： 方法返回值。  </span><br><span class="line">@since: 开源项目常用此标签用于创建日期 。 </span><br><span class="line">&#123;@value&#125;: 会使用该值，常用于常量。   </span><br><span class="line">&#123;@link&#125; 引用类/方法。  </span><br><span class="line">&#123;@linkplain&#125; 与@link功能一致。  </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">完整案例如下:</span><br></pre></td></tr></table></figure></p>
+<p>package com.andyqian.pdf.utils;</p>
+<p>import com.itextpdf.text.log.Logger;<br>import com.itextpdf.text.log.LoggerFactory;</p>
+<p>import java.io.File;<br>import java.net.URL;</p>
+<p>/**</p>
+<ul>
+<li>@author: 鞠骞</li>
+<li>@date: 18-01-05</li>
+<li>@version: 1.0.0</li>
+<li>@description: 生成PDF 工具类<br>*/<br>public class PdfUtils {<br> private static final Logger logger = LoggerFactory.getLogger(PdfUtils.class);</li>
+</ul>
+<pre><code>/**
+ * 生成pdf文件
+ * @param htmlContent  待生成pdf的 html内容
+ * @param file  生成pdf文件地址
+ * @see  &lt;a href=&quot;https://itextpdf.com/&quot;&gt;https://itextpdf.com/&lt;/a&gt;
+ * @return true 生成成功    false 生成失败
+ */
+public static boolean generatePdf(String htmlContent,File file)throws Exception{
+    ...
+    return true;
+}
+
+/**
+ * 应用场景:
+ * 1.在windows下,使用Thread.currentThread()获取路径时,出现空对象，导致不能使用
+ * 2.在linux下,使用PdfUtils.class获取路径为null,
+ * 获取字体路径
+ * @return 返回字体路径
+ */
+private static String getFontPath(){
+    String path=&quot;&quot;;
+    // 1.
+    ClassLoader classLoader= Thread.currentThread().getContextClassLoader();
+    URL url = (classLoader==null)?null:classLoader.getResource(&quot;/&quot;);
+    String threadCurrentPath = (url==null)?&quot;&quot;:url.getPath();
+    // 2. 如果线程获取为null,则使用当前PdfUtils.class加载路径
+    if(threadCurrentPath==null||&quot;&quot;.equals(threadCurrentPath)){
+        path = PdfUtils.class.getClass().getResource(&quot;/&quot;).getPath();
+    }
+    // 3.拼接字体路径
+    StringBuffer stringBuffer = new StringBuffer(path);
+    stringBuffer.append(&quot;/fonts/SIMKAI.TTF&quot;);
+    path = stringBuffer.toString();
+    return path;
+}
+</code></pre><p>}</p>
+<p>```</p>
+<h4 id="添加注释时的一点建议"><a href="#添加注释时的一点建议" class="headerlink" title="添加注释时的一点建议"></a>添加注释时的一点建议</h4><ol>
+<li><p>类中，接口等必须有创建时间，创建人，版本号，描述等注释。</p>
+</li>
+<li><p>注释不是越多越好，比如：get/set方法就不需要写注释。更不需要每一行都写注释。</p>
+</li>
+<li>注释需要写的简明易懂。特别是方法的参数，以及返回值。</li>
+<li>每一次修改时，相应的注释也应进行同步更新。</li>
+<li>在类，接口，方法中，应该都使用<code>/** */</code>javadoc注释。因为这样调用者就不需要进入方法内部才知道方法的用处。提高编码效率。</li>
+<li>方法代码中如果有顺序之分，最好将代码也加上序号，如1，2，3等。</li>
+<li>枚举中的每一个值都需要添加注释。  </li>
+</ol>
+<h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><p>&nbsp;&nbsp;写注释是一个好习惯，能让自己和团队都受益，如果你接手一个一丁点注释都没有的项目，那么上一个程序员就倒霉了(此处省略N个字)，不知你们有没有看过开源项目的源码，那注释写的相当详细，大家可以多多参考，争取别做一个”倒霉”的程序员。</p>
+<hr>
+<p>相关阅读<br><a href="">java相关</a><br><a href="">代码</a></p>
+<hr>
+<p>相关阅读:</p>
+<p><a href="http://mp.weixin.qq.com/s/UzWxJ_pVPjU5ip0Z-Y9TdA" target="_blank" rel="external">写会MySQL索引</a>  </p>
+<p><a href="http://mp.weixin.qq.com/s/-BlLvBKcF-yalELY7XkqaQ" target="_blank" rel="external">读懂MySQL执行计划</a></p>
+<hr>
+<center><img src="http://img.blog.csdn.net/20170401092446529?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMDY5NTc5NA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></center><br><center>扫码关注，一起进步<br><br><center>个人博客: <a href="http://www.andyqian.com" target="_blank" rel="external">http://www.andyqian.com</a></center>
+</center>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2017/12/27/database/MySQLTable/" itemprop="url">
                   浅谈MySQL表结构设计
                 </a>
@@ -703,128 +971,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/11/26/database/MySQLisolation/" itemprop="url">
-                  MySQL事务隔离级别
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-11-26T08:43:00+08:00" content="2017-11-26">
-              2017-11-26
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/mysql/" itemprop="url" rel="index">
-                    <span itemprop="name">mysql</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2017/11/26/database/MySQLisolation/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/11/26/database/MySQLisolation/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-		
-		
-          
-          
-				<span id="/2017/11/26/database/MySQLisolation/"class="leancloud_visitors"  data-flag-title="MySQL事务隔离级别">
-        &nbsp; | &nbsp; 阅读次数
-        </span>
-		
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>&nbsp;&nbsp;我们在上一篇&nbsp;&nbsp;《<a href="">MySQL之初识事务</a>》中介绍了事务的基本概念，以及查看当前事务属性，如何手动开启，提交，回滚事务。事务中还有一个非常重要的概念—-事务隔离级别。今天就一起来看看事务的隔离级别！<br>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2017/11/26/database/MySQLisolation/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -870,7 +1016,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">49</span>
+              <span class="site-state-item-count">50</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -940,7 +1086,7 @@
         <div class="copyright" >
   
   &copy;  2015 - 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

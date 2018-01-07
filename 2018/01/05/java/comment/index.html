@@ -1,0 +1,1008 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Java," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="前言&amp;nbsp;&amp;nbsp;有好几天没有写文章，实在抱歉，今天我们来说说如何编写Java注释。使用过Java的同学都非常熟悉，Java中有:
+
+单行注释 这是单注释```123456789101112131415 * 多行注释 ```/*这是多行注释*/```   * Javadoc注释 ```/**这是javadoc注释*/```   其实这里面还有很多细节呢，下面我们一一来揭晓&amp;lt;!--m">
+<meta property="og:type" content="article">
+<meta property="og:title" content="说说Java注释">
+<meta property="og:url" content="http://yoursite.com/2018/01/05/java/comment/index.html">
+<meta property="og:site_name" content="鞠骞的博客">
+<meta property="og:description" content="前言&amp;nbsp;&amp;nbsp;有好几天没有写文章，实在抱歉，今天我们来说说如何编写Java注释。使用过Java的同学都非常熟悉，Java中有:
+
+单行注释 这是单注释```123456789101112131415 * 多行注释 ```/*这是多行注释*/```   * Javadoc注释 ```/**这是javadoc注释*/```   其实这里面还有很多细节呢，下面我们一一来揭晓&amp;lt;!--m">
+<meta property="og:image" content="http://img.blog.csdn.net/20170401092446529?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMDY5NTc5NA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:updated_time" content="2018-01-07T17:27:29.721Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="说说Java注释">
+<meta name="twitter:description" content="前言&amp;nbsp;&amp;nbsp;有好几天没有写文章，实在抱歉，今天我们来说说如何编写Java注释。使用过Java的同学都非常熟悉，Java中有:
+
+单行注释 这是单注释```123456789101112131415 * 多行注释 ```/*这是多行注释*/```   * Javadoc注释 ```/**这是javadoc注释*/```   其实这里面还有很多细节呢，下面我们一一来揭晓&amp;lt;!--m">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20170401092446529?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMDY5NTc5NA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: undefined,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 说说Java注释 | 鞠骞的博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">鞠骞的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">微移是一种心态！</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            时间轴
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-friendslinks">
+          <a href="/friendslinks" rel="section">
+            
+              <i class="menu-item-icon fa fa-question-circle fa-fw"></i> <br />
+            
+            小伙伴们
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                说说Java注释
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-01-05T23:15:00+08:00" content="2018-01-05">
+              2018-01-05
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2018/01/05/java/comment/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/01/05/java/comment/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+		
+		
+          
+          
+				<span id="/2018/01/05/java/comment/"class="leancloud_visitors"  data-flag-title="说说Java注释">
+        &nbsp; | &nbsp; 阅读次数
+        </span>
+		
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>&nbsp;&nbsp;有好几天没有写文章，实在抱歉，今天我们来说说如何编写Java注释。使用过Java的同学都非常熟悉，Java中有:</p>
+<ul>
+<li>单行注释 <figure class="highlight plain"><figcaption><span>这是单注释```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"> * 多行注释 ```/*这是多行注释*/```  </span><br><span class="line"> * Javadoc注释 ```/**这是javadoc注释*/```  </span><br><span class="line"> </span><br><span class="line">其实这里面还有很多细节呢，下面我们一一来揭晓</span><br><span class="line">&lt;!--more--&gt;</span><br><span class="line"></span><br><span class="line">#### 哪些地方需要添加注释</span><br><span class="line">&amp;nbsp;&amp;nbsp;首先，我们需要确定一下，添加注释的目的是什么？(手动思考10秒)。</span><br><span class="line">&gt;  我认为添加注释，是为了程序更容易理解与维护，特别是维护，更是对自己的代码负责的一种体现。  </span><br><span class="line"></span><br><span class="line">那基于这样的目的，在日常开发中，我们需要在哪些地方添加注释呢？</span><br><span class="line"></span><br><span class="line">* 类，接口。</span><br><span class="line"></span><br><span class="line">这一部分注释是必须的，在这里，我们需要使用javadoc注释，需要标明，创建者，创建时间，版本，以及该类的作用。如下所示:</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>package com.andyqian.utils;</p>
+<p>/**</p>
+<ul>
+<li>@author: andy</li>
+<li>@date: 18-01-05</li>
+<li>@version: 1.0.0</li>
+<li>@description: 生成PDF 工具类<br>*/<br>public class PdfUtil {</li>
+</ul>
+<p>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">* 方法  </span><br><span class="line"></span><br><span class="line">在方法中，我们需要对入参，出参，以及返回值，均要标明，如</span><br></pre></td></tr></table></figure></p>
+<pre><code>/**
+ * 生成pdf文件
+ * @param htmlContent  待生成pdf的 html内容
+ * @param file  生成pdf文件地址
+ * @see  PdfUtils#getFontPath()
+ * @return true 生成成功    false 生成失败
+ */
+public static boolean generatePdf(String htmlContent,File file){
+    ...
+    return result;
+}
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">* 常量  </span><br><span class="line"></span><br><span class="line">对常量，我们需要使用多行注释，进行标明该常量的用途，如下所示:</span><br></pre></td></tr></table></figure>
+<p>/**</p>
+<ul>
+<li>@author: andy</li>
+<li>@date: 18-01-05</li>
+<li>@version: 0.0.1</li>
+<li><p>@description:<br>*/<br>public class StatusConsts {</p>
+<p> /**</p>
+<ul>
+<li>博客地址<br>*/<br>public static final String BLOG=”www.andyqian.com”;<br>}<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">* 关键算法上  </span><br><span class="line"></span><br><span class="line">在关键算法上，添加注释并且按照顺序依次标明，写明白该方法为什么这么做。如下所示:</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<p>/**</p>
+<pre><code> * 应用场景:
+ * 1.在windows下,使用Thread.currentThread()获取路径时,出现空对象，导致不能使用
+ * 2.在linux下,使用PdfUtils.class获取路径为null,
+ * 获取字体路径
+ * @return 返回字体路径
+ */
+private static String getFontPath(){
+    String path=&quot;&quot;;
+    // 1.
+    ClassLoader classLoader= Thread.currentThread().getContextClassLoader();
+    URL url = (classLoader==null)?null:classLoader.getResource(&quot;/&quot;);
+    String threadCurrentPath = (url==null)?&quot;&quot;:url.getPath();
+    // 2. 如果线程获取为null,则使用当前PdfUtils.class加载路径
+    if(threadCurrentPath==null||&quot;&quot;.equals(threadCurrentPath)){
+        path = PdfUtils.class.getClass().getResource(&quot;/&quot;).getPath();
+    }
+    // 3.拼接字体路径
+    StringBuffer stringBuffer = new StringBuffer(path);
+    stringBuffer.append(&quot;/fonts/SIMKAI.TTF&quot;);
+    path = stringBuffer.toString();
+    return path;
+}
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#### 怎么添加注释? </span><br><span class="line">**1. IDEA 自动生成**   </span><br><span class="line">&amp;nbsp;&amp;nbsp;对于类中的注释，我们可以通过IDEA自动生成。</span><br><span class="line">如IDEA 可以通过：File-&gt;Settings-&gt;Editor-&gt;File and Code Templates-&gt;Includes-&gt;File Header来设置模板，这样新建文件时，IDEA会按照设置的模板，会自动生成一个注释，就不需要一个一个敲了。  </span><br><span class="line">![截图]()  </span><br><span class="line"></span><br><span class="line">其中标签有:  </span><br><span class="line">$&#123;USER&#125; : 当前用户。  </span><br><span class="line">$&#123;DATE&#125; : 当前日期。  </span><br><span class="line">$&#123;PACKAGE_NAME&#125;：包名。  </span><br><span class="line">$&#123;TIME&#125;: 当前时间。  </span><br><span class="line">$&#123;YEAR&#125;： 当前年。  </span><br><span class="line">$&#123;MONTH&#125;：当前月。  </span><br><span class="line">$&#123;DAY&#125;: 当前日。  </span><br><span class="line">$&#123;HOURS&#125;： 当前小时。  </span><br><span class="line">$&#123;MINUTE&#125;: 当前分钟</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">2. 注释引用</span><br><span class="line"></span><br><span class="line">如果方法中引用了其他的方法，在注释中如何体现呢？细心的朋友，应该已经发现了，在上面的：</span><br></pre></td></tr></table></figure>
+<pre><code>/**
+ * 生成pdf文件
+ * @param htmlContent  待生成pdf的 html内容
+ * @param file  生成pdf文件地址
+ * @see  PdfUtils#getFontPath()
+ * @return true 生成成功    false 生成失败
+ */
+public static boolean generatePdf(String htmlContent,File file){
+    ...
+    return result;
+}
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">中的@see就有这个作用，其语法是:</span><br></pre></td></tr></table></figure>
+<p>@see package.class#method  label<br>@see  #field<br>@see  #method(Type, Type,…)<br>@see  #method(Type argname, Type argname,…)<br>@see  #constructor(Type, Type,…)<br>@see  #constructor(Type argname, Type argname,…)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">例如:</span><br></pre></td></tr></table></figure></p>
+<p> @see  PdfUtils#getFontPath()<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">如果是同一个类中，package(包名全路径)可以省略。有相同功能的标签有:   </span><br><span class="line">```&#123;@link package.class#metod&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 生成pdf文件</span><br><span class="line"> * @return true 生成成功    false 生成失败</span><br><span class="line"> * @throws  Exception</span><br><span class="line"> * &#123;@link PdfUtils#getFontPath()&#125;</span><br><span class="line"> */</span><br><span class="line">public static boolean generatePdf(String htmlContent,File file)&#123;</span><br><span class="line">    ....</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其区别是：@see必须要在注释行首，{@link}可以在任意位置。</p>
+<ol>
+<li>在IDEA中，我们可以选中方法通过快捷键<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">![注释截图]()</span><br><span class="line"></span><br><span class="line">2. 如果需要引用外网的连接，我们可以通过HTML标签中的a标签来表示，如下所示:</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>@see <a href="http://www.andyqian.com" target="_blank" rel="external">博客地址</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">以下为javadoc 需要熟知的注释标签:  </span><br><span class="line">@see 引用类/方法。  </span><br><span class="line">@author: 作者。  </span><br><span class="line">@date：日期。  </span><br><span class="line">@version: 版本号。  </span><br><span class="line">@throws：异常信息。  </span><br><span class="line">@param：参数  </span><br><span class="line">@return： 方法返回值。  </span><br><span class="line">@since: 开源项目常用此标签用于创建日期 。 </span><br><span class="line">&#123;@value&#125;: 会使用该值，常用于常量。   </span><br><span class="line">&#123;@link&#125; 引用类/方法。  </span><br><span class="line">&#123;@linkplain&#125; 与@link功能一致。  </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">完整案例如下:</span><br></pre></td></tr></table></figure></p>
+<p>package com.andyqian.pdf.utils;</p>
+<p>import com.itextpdf.text.log.Logger;<br>import com.itextpdf.text.log.LoggerFactory;</p>
+<p>import java.io.File;<br>import java.net.URL;</p>
+<p>/**</p>
+<ul>
+<li>@author: 鞠骞</li>
+<li>@date: 18-01-05</li>
+<li>@version: 1.0.0</li>
+<li>@description: 生成PDF 工具类<br>*/<br>public class PdfUtils {<br> private static final Logger logger = LoggerFactory.getLogger(PdfUtils.class);</li>
+</ul>
+<pre><code>/**
+ * 生成pdf文件
+ * @param htmlContent  待生成pdf的 html内容
+ * @param file  生成pdf文件地址
+ * @see  &lt;a href=&quot;https://itextpdf.com/&quot;&gt;https://itextpdf.com/&lt;/a&gt;
+ * @return true 生成成功    false 生成失败
+ */
+public static boolean generatePdf(String htmlContent,File file)throws Exception{
+    ...
+    return true;
+}
+
+/**
+ * 应用场景:
+ * 1.在windows下,使用Thread.currentThread()获取路径时,出现空对象，导致不能使用
+ * 2.在linux下,使用PdfUtils.class获取路径为null,
+ * 获取字体路径
+ * @return 返回字体路径
+ */
+private static String getFontPath(){
+    String path=&quot;&quot;;
+    // 1.
+    ClassLoader classLoader= Thread.currentThread().getContextClassLoader();
+    URL url = (classLoader==null)?null:classLoader.getResource(&quot;/&quot;);
+    String threadCurrentPath = (url==null)?&quot;&quot;:url.getPath();
+    // 2. 如果线程获取为null,则使用当前PdfUtils.class加载路径
+    if(threadCurrentPath==null||&quot;&quot;.equals(threadCurrentPath)){
+        path = PdfUtils.class.getClass().getResource(&quot;/&quot;).getPath();
+    }
+    // 3.拼接字体路径
+    StringBuffer stringBuffer = new StringBuffer(path);
+    stringBuffer.append(&quot;/fonts/SIMKAI.TTF&quot;);
+    path = stringBuffer.toString();
+    return path;
+}
+</code></pre><p>}</p>
+<p>```</p>
+<h4 id="添加注释时的一点建议"><a href="#添加注释时的一点建议" class="headerlink" title="添加注释时的一点建议"></a>添加注释时的一点建议</h4><ol>
+<li><p>类中，接口等必须有创建时间，创建人，版本号，描述等注释。</p>
+</li>
+<li><p>注释不是越多越好，比如：get/set方法就不需要写注释。更不需要每一行都写注释。</p>
+</li>
+<li>注释需要写的简明易懂。特别是方法的参数，以及返回值。</li>
+<li>每一次修改时，相应的注释也应进行同步更新。</li>
+<li>在类，接口，方法中，应该都使用<code>/** */</code>javadoc注释。因为这样调用者就不需要进入方法内部才知道方法的用处。提高编码效率。</li>
+<li>方法代码中如果有顺序之分，最好将代码也加上序号，如1，2，3等。</li>
+<li>枚举中的每一个值都需要添加注释。  </li>
+</ol>
+<h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><p>&nbsp;&nbsp;写注释是一个好习惯，能让自己和团队都受益，如果你接手一个一丁点注释都没有的项目，那么上一个程序员就倒霉了(此处省略N个字)，不知你们有没有看过开源项目的源码，那注释写的相当详细，大家可以多多参考，争取别做一个”倒霉”的程序员。</p>
+<hr>
+<p>相关阅读<br><a href="">java相关</a><br><a href="">代码</a></p>
+<hr>
+<p>相关阅读:</p>
+<p><a href="http://mp.weixin.qq.com/s/UzWxJ_pVPjU5ip0Z-Y9TdA" target="_blank" rel="external">写会MySQL索引</a>  </p>
+<p><a href="http://mp.weixin.qq.com/s/-BlLvBKcF-yalELY7XkqaQ" target="_blank" rel="external">读懂MySQL执行计划</a></p>
+<hr>
+<center><img src="http://img.blog.csdn.net/20170401092446529?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMDY5NTc5NA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></center><br><center>扫码关注，一起进步<br><br><center>个人博客: <a href="http://www.andyqian.com" target="_blank" rel="external">http://www.andyqian.com</a></center>
+</center>
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag">#Java</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/12/27/database/MySQLTable/" rel="next" title="浅谈MySQL表结构设计">
+                <i class="fa fa-chevron-left"></i> 浅谈MySQL表结构设计
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2018/01/05/java/comment/"
+           data-title="说说Java注释" data-url="http://yoursite.com/2018/01/05/java/comment/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="鞠骞" />
+          <p class="site-author-name" itemprop="name">鞠骞</p>
+          <p class="site-description motion-element" itemprop="description">微移是一种生活，分享是一种态度!</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">50</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/userandy" target="_blank">
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/userandy" target="_blank">
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#添加注释时的一点建议"><span class="nav-number">2.</span> <span class="nav-text">添加注释时的一点建议</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#小结"><span class="nav-number">3.</span> <span class="nav-text">小结</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">鞠骞</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+
+  
+
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.sidebar.display === 'post' || CONFIG.sidebar.display === 'always') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"andyhome"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+      <script src="/lib/ua-parser-js/dist/ua-parser.min.js"></script>
+      <script src="/js/src/hook-duoshuo.js"></script>
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  <!-- custom analytics part create by xiamo -->
+<script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+<script>AV.initialize("DyeMW5P0VKGbQJVb25qWYYS7-gzGzoHsz", "05Ag2XCTCbcFb6qOo96UrplX");</script>
+<script>
+function showTime(Counter) {
+	var query = new AV.Query(Counter);
+	$(".leancloud_visitors").each(function() {
+		var url = $(this).attr("id").trim();
+		query.equalTo("url", url);
+		query.find({
+			success: function(results) {
+				if (results.length == 0) {
+					var content = $(document.getElementById(url)).text() + ': 0';
+					$(document.getElementById(url)).text(content);
+					return;
+				}
+				for (var i = 0; i < results.length; i++) {
+					var object = results[i];
+					var content = $(document.getElementById(url)).text() + ': ' + object.get('time');
+					$(document.getElementById(url)).text(content);
+				}
+			},
+			error: function(object, error) {
+				console.log("Error: " + error.code + " " + error.message);
+			}
+		});
+
+	});
+}
+
+function addCount(Counter) {
+	var Counter = AV.Object.extend("Counter");
+	url = $(".leancloud_visitors").attr('id').trim();
+	title = $(".leancloud_visitors").attr('data-flag-title').trim();
+	var query = new AV.Query(Counter);
+	query.equalTo("url", url);
+	query.find({
+		success: function(results) {
+			if (results.length > 0) {
+				var counter = results[0];
+				counter.fetchWhenSave(true);
+				counter.increment("time");
+				counter.save(null, {
+					success: function(counter) {
+						var content = $(document.getElementById(url)).text() + ': ' + counter.get('time');
+						$(document.getElementById(url)).text(content);
+					},
+					error: function(counter, error) {
+						console.log('Failed to save Visitor num, with error message: ' + error.message);
+					}
+				});
+			} else {
+				var newcounter = new Counter();
+				newcounter.set("title", title);
+				newcounter.set("url", url);
+				newcounter.set("time", 1);
+				newcounter.save(null, {
+					success: function(newcounter) {
+					    console.log("newcounter.get('time')="+newcounter.get('time'));
+						var content = $(document.getElementById(url)).text() + ': ' + newcounter.get('time');
+						$(document.getElementById(url)).text(content);
+					},
+					error: function(newcounter, error) {
+						console.log('Failed to create');
+					}
+				});
+			}
+		},
+		error: function(error) {
+			console.log('Error:' + error.code + " " + error.message);
+		}
+	});
+}
+$(function() {
+	var Counter = AV.Object.extend("Counter");
+	if ($('.leancloud_visitors').length == 1) {
+		addCount(Counter);
+	} else if ($('.post-title-link').length > 1) {
+		showTime(Counter);
+	}
+}); 
+</script>
+  
+</body>
+</html>
