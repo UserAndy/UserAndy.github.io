@@ -236,6 +236,141 @@
             
               
                 
+                <a class="post-title-link" href="/2017/09/20/java/tools/htmlEscape/" itemprop="url">
+                  Spring中html字符编解码
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-09-20T22:35:00+08:00" content="2017-09-20">
+              2017-09-20
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Java/spring/" itemprop="url" rel="index">
+                    <span itemprop="name">spring</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/09/20/java/tools/htmlEscape/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/09/20/java/tools/htmlEscape/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+		
+		
+          
+          
+				<span id="/2017/09/20/java/tools/htmlEscape/"class="leancloud_visitors"  data-flag-title="Spring中html字符编解码">
+        &nbsp; | &nbsp; 阅读次数
+        </span>
+		
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h3 id="Spring中html字符编解码"><a href="#Spring中html字符编解码" class="headerlink" title="Spring中html字符编解码"></a>Spring中html字符编解码</h3><h4 id="场景描述"><a href="#场景描述" class="headerlink" title="场景描述"></a>场景描述</h4><p>&nbsp;&nbsp;今天基于 <a href="https://github.com/thinkgem/jeesite/">jeesite</a> 在做一个简单的curd的功能时,遇到个比较有意思的问题,在此记录一下,在使用springMVC form标签作双向绑定时,如果文本域中填写的为html代码,提交到后端会自动进行转义,如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;form:textarea path=&quot;content&quot; id=&quot;content&quot; style=&quot;width:600px;height:300px;&quot;/&gt;</span><br></pre></td></tr></table></figure></p>
+<p>提交后,在后端接收到的content自动会将&lt;,&gt; &amp;等符号自动转义成 \&lt;,\&gt;,\&amp;等字符,导致落地到数据库时的内容已经是转义后的内容了。<br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2017/09/20/java/tools/htmlEscape/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2017/08/07/java/tools/gitlab/" itemprop="url">
                   GitLab安装实践
                 </a>
@@ -761,156 +896,11 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/05/31/java/tools/iText/" itemprop="url">
-                  PDF生成方案之iText
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-05-31T09:42:00+08:00" content="2017-05-31">
-              2017-05-31
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Java/pdf/" itemprop="url" rel="index">
-                    <span itemprop="name">pdf</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2017/05/31/java/tools/iText/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/05/31/java/tools/iText/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-		
-		
-          
-          
-				<span id="/2017/05/31/java/tools/iText/"class="leancloud_visitors"  data-flag-title="PDF生成方案之iText">
-        &nbsp; | &nbsp; 阅读次数
-        </span>
-		
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="PDF生成方案之iText"><a href="#PDF生成方案之iText" class="headerlink" title="PDF生成方案之iText"></a>PDF生成方案之iText</h3><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>有一段时间没有更新了,最近有点懒了,在此立下flag，督促自己能够常更新吧,话不多说，进入主题，今天介绍的是电子凭证(pdf)生成的解决方案,会从几个常用的工具来介绍，也会对比一下几者之间的性能。  </p>
-<p><strong>完整代码下载地址: <a href="http://download.csdn.net/download/u010695794/9855688">http://download.csdn.net/download/u010695794/9855688</a></strong></p>
-<h3 id="iText是什么"><a href="#iText是什么" class="headerlink" title="iText是什么?"></a>iText是什么?</h3><p>在官网中 <a href="http://itextpdf.com/">http://itextpdf.com/</a>描述:</p>
-<blockquote>
-<p>iText, the world’s preferred PDF library,iText is a software developer toolkit that allows users to integrate PDF functionalities within their applications, processes or products</p>
-</blockquote>
-<p>iText，是世界上首选的PDF库，iText是一个软件开发人员工具包,允许用户将PDF功能集成到其他应用程序，流程或者产品中。<br>其特点有:</p>
-<ol>
-<li>支持表格</li>
-<li>图片，</li>
-<li>定制字体</li>
-<li>支持合并pdf 等。
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2017/05/31/java/tools/iText/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -951,7 +941,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">50</span>
+              <span class="site-state-item-count">51</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -959,7 +949,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-count">23</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
