@@ -236,6 +236,518 @@
             
               
                 
+                <a class="post-title-link" href="/2017/11/26/database/MySQLisolation/" itemprop="url">
+                  MySQL事务隔离级别
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-11-26T08:43:00+08:00" content="2017-11-26">
+              2017-11-26
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/mysql/" itemprop="url" rel="index">
+                    <span itemprop="name">mysql</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/11/26/database/MySQLisolation/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/11/26/database/MySQLisolation/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+		
+		
+          
+          
+				<span id="/2017/11/26/database/MySQLisolation/"class="leancloud_visitors"  data-flag-title="MySQL事务隔离级别">
+        &nbsp; | &nbsp; 阅读次数
+        </span>
+		
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>&nbsp;&nbsp;我们在上一篇&nbsp;&nbsp;《<a href="">MySQL之初识事务</a>》中介绍了事务的基本概念，以及查看当前事务属性，如何手动开启，提交，回滚事务。事务中还有一个非常重要的概念—-事务隔离级别。今天就一起来看看事务的隔离级别！<br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2017/11/26/database/MySQLisolation/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/11/25/database/MySQLtransaction/" itemprop="url">
+                  MySQL之初识事务
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-11-25T08:43:00+08:00" content="2017-11-25">
+              2017-11-25
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/mysql/" itemprop="url" rel="index">
+                    <span itemprop="name">mysql</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/11/25/database/MySQLtransaction/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/11/25/database/MySQLtransaction/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+		
+		
+          
+          
+				<span id="/2017/11/25/database/MySQLtransaction/"class="leancloud_visitors"  data-flag-title="MySQL之初识事务">
+        &nbsp; | &nbsp; 阅读次数
+        </span>
+		
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h4 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h4><p>&nbsp;&nbsp;最近来了不少新朋友，在这里表示感谢！有你们的真好！近期在写MySQL一系列文章(其中会掺杂一些其他文章以及个人随笔。但主要路线还是MySQL系列)，由于MySQL系列文章会比较多，可能会写好一阵子。在文章中，我会尽量通过常见场景，案例来举例说明，而不是单纯的概念记录。写完MySQL系列后，再考虑后续其他系列的编写，但均会以系列文章来写。恩，在这期间，有任何问题以及想了解的事情，都可以在留言区留言。我一定会知无不言，言无不尽！<br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2017/11/25/database/MySQLtransaction/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/11/11/database/MySQLConvert/" itemprop="url">
+                  谈谈MySQL隐式类型转换
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-11-11T21:43:00+08:00" content="2017-11-11">
+              2017-11-11
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/mysql/" itemprop="url" rel="index">
+                    <span itemprop="name">mysql</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/mysql/explain/" itemprop="url" rel="index">
+                    <span itemprop="name">explain</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/11/11/database/MySQLConvert/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/11/11/database/MySQLConvert/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+		
+		
+          
+          
+				<span id="/2017/11/11/database/MySQLConvert/"class="leancloud_visitors"  data-flag-title="谈谈MySQL隐式类型转换">
+        &nbsp; | &nbsp; 阅读次数
+        </span>
+		
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>&nbsp;&nbsp;今天我们继续回到MySQL系列文章中,谈一谈MySQL中隐式类型转换。(其实我最早知道是在慢SQL优化中知道的隐式类型转换概念的),在说隐式类型转换之前,首先我们通过一个实例来看看是怎么回事。<br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2017/11/11/database/MySQLConvert/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/11/07/database/MySQLLIMIT/" itemprop="url">
+                  学会MySQL LIMIT
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-11-07T22:00:00+08:00" content="2017-11-07">
+              2017-11-07
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/mysql/" itemprop="url" rel="index">
+                    <span itemprop="name">mysql</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/mysql/LIMIT/" itemprop="url" rel="index">
+                    <span itemprop="name">LIMIT</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/11/07/database/MySQLLIMIT/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/11/07/database/MySQLLIMIT/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+		
+		
+          
+          
+				<span id="/2017/11/07/database/MySQLLIMIT/"class="leancloud_visitors"  data-flag-title="学会MySQL LIMIT">
+        &nbsp; | &nbsp; 阅读次数
+        </span>
+		
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>&nbsp;&nbsp;前面写了《读懂MySQL执行计划》和《写会MySQL索引》后,今天我们来说说MySQL中另外一个比较重要的概念,就是&nbsp;<strong>LIMIT</strong>&nbsp;关键字。<br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2017/11/07/database/MySQLLIMIT/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2017/11/01/database/MySQLplain/" itemprop="url">
                   读懂MySQL执行计划
                 </a>
@@ -349,542 +861,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/10/29/life/run/" itemprop="url">
-                  我的第一个上海国际10K精英赛
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-10-29T20:35:00+08:00" content="2017-10-29">
-              2017-10-29
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Life/" itemprop="url" rel="index">
-                    <span itemprop="name">Life</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Life/跑步/" itemprop="url" rel="index">
-                    <span itemprop="name">跑步</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2017/10/29/life/run/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/10/29/life/run/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-		
-		
-          
-          
-				<span id="/2017/10/29/life/run/"class="leancloud_visitors"  data-flag-title="我的第一个上海国际10K精英赛">
-        &nbsp; | &nbsp; 阅读次数
-        </span>
-		
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>&nbsp;&nbsp;上海国际10K精英赛是由中国田径协会,上海市体育总会,普陀区人民政府等联合主办的上马系列赛，参加并完赛的选手,会获得300分上马积分,因此吸引了众多跑步爱好者,我就是其一,从09月21号报名开始,一直就很期待。<br>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2017/10/29/life/run/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/10/27/life/costControl/" itemprop="url">
-                  企业面试成本
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-10-27T20:35:00+08:00" content="2017-10-27">
-              2017-10-27
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Life/" itemprop="url" rel="index">
-                    <span itemprop="name">Life</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Life/面试/" itemprop="url" rel="index">
-                    <span itemprop="name">面试</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2017/10/27/life/costControl/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/10/27/life/costControl/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-		
-		
-          
-          
-				<span id="/2017/10/27/life/costControl/"class="leancloud_visitors"  data-flag-title="企业面试成本">
-        &nbsp; | &nbsp; 阅读次数
-        </span>
-		
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p> &nbsp;&nbsp;看到曹大写的《企业面试需要几轮》这篇文章，分析的简直不要太好，太赞同他的观点了，仔细看了几次之后，决定结合自己之前的求职经历简单说说<br>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2017/10/27/life/costControl/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/10/24/life/1024/" itemprop="url">
-                  1024! 程序员节日快乐！
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-10-24T20:35:00+08:00" content="2017-10-24">
-              2017-10-24
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Life/" itemprop="url" rel="index">
-                    <span itemprop="name">Life</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Life/程序员/" itemprop="url" rel="index">
-                    <span itemprop="name">程序员</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2017/10/24/life/1024/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/10/24/life/1024/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-		
-		
-          
-          
-				<span id="/2017/10/24/life/1024/"class="leancloud_visitors"  data-flag-title="1024! 程序员节日快乐！">
-        &nbsp; | &nbsp; 阅读次数
-        </span>
-		
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="1024"><a href="#1024" class="headerlink" title="1024"></a>1024</h3><p>&nbsp;&nbsp;程序员节1024,是程序员自发认定的节日,最早出现于草x社区。至于为啥是1024呢? 在计算机数学中,1024是2的10次方，二进制计数的基本计量单位,也就是: 1kb=1024 Byte，1M=1024kb,1GB=1024M, 1GB的谐音是一级棒,在一些论坛回帖中,也直接用1024代替非常好,一级棒。<br>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2017/10/24/life/1024/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/10/22/life/interview2/" itemprop="url">
-                  面试官初体验
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-10-22T20:35:00+08:00" content="2017-10-22">
-              2017-10-22
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Life/" itemprop="url" rel="index">
-                    <span itemprop="name">Life</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Life/面试/" itemprop="url" rel="index">
-                    <span itemprop="name">面试</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2017/10/22/life/interview2/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/10/22/life/interview2/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-		
-		
-          
-          
-				<span id="/2017/10/22/life/interview2/"class="leancloud_visitors"  data-flag-title="面试官初体验">
-        &nbsp; | &nbsp; 阅读次数
-        </span>
-		
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>&nbsp;&nbsp;由于公司业务发展需要,最近有大量的招聘需求,我也有幸成为面试官，进行了一系列的面试，其中大部分都是两年左右工作经验的求职者，从中发现不少问题，也有一些初次做面试官的体会，记录在这里，也算是第一次做面试官的总结吧，如果能够帮助到你,那就更好了!<br>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2017/10/22/life/interview2/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -930,7 +906,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">51</span>
+              <span class="site-state-item-count">55</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

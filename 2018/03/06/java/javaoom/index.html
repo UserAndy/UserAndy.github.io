@@ -1,0 +1,921 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Java," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="引言&amp;nbsp;&amp;nbsp;熟悉Java的童鞋，应该对OOM比较熟悉。该类问题，一般都比较棘手。因为造成此类问题的原因有很多。今天就分享一个非常有意思的案例。(说实话。这个问题，我也是前两天才遇到的。花了不少时间来分析。觉得非常有意思，记录在此。大神勿喷！)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="记一个有趣的Java OOM！">
+<meta property="og:url" content="http://yoursite.com/2018/03/06/java/javaoom/index.html">
+<meta property="og:site_name" content="鞠骞的博客">
+<meta property="og:description" content="引言&amp;nbsp;&amp;nbsp;熟悉Java的童鞋，应该对OOM比较熟悉。该类问题，一般都比较棘手。因为造成此类问题的原因有很多。今天就分享一个非常有意思的案例。(说实话。这个问题，我也是前两天才遇到的。花了不少时间来分析。觉得非常有意思，记录在此。大神勿喷！)">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_jpg/CqmXOEQ4Dia7NpBZgfk9hocyWsVWJ87FBV9KrPE0FibfHbD6CoA6icqGFqMbwDRMnLbApkjKNH1UI0t0f2kX95SbA/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1">
+<meta property="og:image" content="http://img.blog.csdn.net/20170401092446529?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMDY5NTc5NA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:updated_time" content="2018-03-10T05:07:25.431Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="记一个有趣的Java OOM！">
+<meta name="twitter:description" content="引言&amp;nbsp;&amp;nbsp;熟悉Java的童鞋，应该对OOM比较熟悉。该类问题，一般都比较棘手。因为造成此类问题的原因有很多。今天就分享一个非常有意思的案例。(说实话。这个问题，我也是前两天才遇到的。花了不少时间来分析。觉得非常有意思，记录在此。大神勿喷！)">
+<meta name="twitter:image" content="https://mmbiz.qpic.cn/mmbiz_jpg/CqmXOEQ4Dia7NpBZgfk9hocyWsVWJ87FBV9KrPE0FibfHbD6CoA6icqGFqMbwDRMnLbApkjKNH1UI0t0f2kX95SbA/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: undefined,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 记一个有趣的Java OOM！ | 鞠骞的博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">鞠骞的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">微移是一种心态！</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            时间轴
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-friendslinks">
+          <a href="/friendslinks" rel="section">
+            
+              <i class="menu-item-icon fa fa-question-circle fa-fw"></i> <br />
+            
+            小伙伴们
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                记一个有趣的Java OOM！
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-03-06T11:29:00+08:00" content="2018-03-06">
+              2018-03-06
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2018/03/06/java/javaoom/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/03/06/java/javaoom/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+		
+		
+          
+          
+				<span id="/2018/03/06/java/javaoom/"class="leancloud_visitors"  data-flag-title="记一个有趣的Java OOM！">
+        &nbsp; | &nbsp; 阅读次数
+        </span>
+		
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/CqmXOEQ4Dia7NpBZgfk9hocyWsVWJ87FBV9KrPE0FibfHbD6CoA6icqGFqMbwDRMnLbApkjKNH1UI0t0f2kX95SbA/640?wx_fmt=jpeg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1" alt="图片地址"></p>
+<h4 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h4><p>&nbsp;&nbsp;熟悉Java的童鞋，应该对OOM比较熟悉。该类问题，一般都比较棘手。因为造成此类问题的原因有很多。今天就分享一个非常有意思的案例。(说实话。这个问题，我也是前两天才遇到的。花了不少时间来分析。觉得非常有意思，记录在此。大神勿喷！)<br><a id="more"></a></p>
+<h4 id="问题场景"><a href="#问题场景" class="headerlink" title="问题场景"></a>问题场景</h4><p>重启应用时，调试到给MQ发消息时。有如下错误:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Exception in thread &quot;Thread-4&quot; java.lang.OutOfMemoryError: unable to create new native thread</span><br><span class="line">	at java.lang.Thread.start0(Native Method)</span><br><span class="line">	at java.lang.Thread.start(Thread.java:717)</span><br><span class="line">	at java.util.concurrent.ThreadPoolExecutor.addWorker(ThreadPoolExecutor.java:957)</span><br><span class="line">	at java.util.concurrent.ThreadPoolExecutor.execute(ThreadPoolExecutor.java:1378)</span><br><span class="line">	at org.apache.activemq.thread.PooledTaskRunner.wakeup(PooledTaskRunner.java:81)</span><br><span class="line">	at org.apache.activemq.transport.failover.FailoverTransport.reconnect(FailoverTransport.java:757)</span><br><span class="line">	at org.apache.activemq.transport.failover.FailoverTransport.start(FailoverTransport.java:344)</span><br><span class="line">	at org.apache.activemq.transport.TransportFilter.start(TransportFilter.java:58)</span><br><span class="line">	at org.apache.activemq.transport.TransportFilter.start(TransportFilter.java:58)</span><br></pre></td></tr></table></figure></p>
+<p>一开始，以为是系统磁盘，或者内存占满导致。通过top命令查看系统信息。均属于正常范围。正在尝试寻找其他方案的同时。在SSH中输入命令是。出现以下错误:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ bash: fork: Resource temporarily unavailable</span><br></pre></td></tr></table></figure></p>
+<p>出现上述问题后：非常明显的提示来资源不足导致。</p>
+<p>经分析：是由于当前系统使用的线程数大于ulimit中的max_user_processes的数量导致。</p>
+<h4 id="Linux-ulimit-参数"><a href="#Linux-ulimit-参数" class="headerlink" title="Linux ulimit 参数"></a>Linux ulimit 参数</h4><p>&nbsp;&nbsp;上面说到了，与系统(Linux)中的ulimit参数有关。ulimit 是用来限制系统资源的。<br>其中包括: </p>
+<ol>
+<li>max memory size (最大内存大小)。</li>
+<li>open files(打开文件数)。</li>
+<li>max user processes(最大用户进程数)<br>等等。</li>
+</ol>
+<p>系统性能优化常常会优化此参数。</p>
+<p>(有兴趣的童鞋可以自行了解更多)</p>
+<h4 id="ulimit-常用命令"><a href="#ulimit-常用命令" class="headerlink" title="ulimit 常用命令:"></a>ulimit 常用命令:</h4><h5 id="1-显示open-files"><a href="#1-显示open-files" class="headerlink" title="1. 显示open files"></a>1. 显示open files</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ ulimit -n</span><br><span class="line">65535</span><br></pre></td></tr></table></figure>
+<p>其中 ulimit -n 显示的结果为： open files的数值。</p>
+<h5 id="2-显示当前用户的最大进程数"><a href="#2-显示当前用户的最大进程数" class="headerlink" title="2. 显示当前用户的最大进程数"></a>2. 显示当前用户的最大进程数</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ ulimit -u</span><br><span class="line">60000</span><br></pre></td></tr></table></figure>
+<p>其中ulimit -u 显示的结果为: max_user_processes额值。</p>
+<h5 id="2-显示ulimit-所有属性"><a href="#2-显示ulimit-所有属性" class="headerlink" title="2. 显示ulimit 所有属性"></a>2. 显示ulimit 所有属性</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">$ ulimit -a</span><br><span class="line">core file size          (blocks, -c) 0</span><br><span class="line">data seg size           (kbytes, -d) unlimited</span><br><span class="line">scheduling priority             (-e) 0</span><br><span class="line">file size               (blocks, -f) unlimited</span><br><span class="line">pending signals                 (-i) 127399</span><br><span class="line">max locked memory       (kbytes, -l) 64</span><br><span class="line">max memory size         (kbytes, -m) unlimited</span><br><span class="line">open files                      (-n) 65535</span><br><span class="line">pipe size            (512 bytes, -p) 8</span><br><span class="line">POSIX message queues     (bytes, -q) 819200</span><br><span class="line">real-time priority              (-r) 0</span><br><span class="line">stack size              (kbytes, -s) 10240</span><br><span class="line">cpu time               (seconds, -t) unlimited</span><br><span class="line">max user processes              (-u) 60000</span><br><span class="line">virtual memory          (kbytes, -v) unlimited</span><br><span class="line">file locks                      (-x) unlimited</span><br></pre></td></tr></table></figure>
+<p>其中:</p>
+<ol>
+<li>open files 表示打开文件的最大数。</li>
+<li>max user processes 当前用户打开能打开的最大进程数。</li>
+</ol>
+<h4 id="一-修改-open-files-数量"><a href="#一-修改-open-files-数量" class="headerlink" title="(一) 修改 open files 数量"></a>(一) 修改 open files 数量</h4><p>其中open files 属性， 可以在/etc/security/limits.conf文件中修改。在文件末尾添加。如下所示代码:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">*               soft    nofile          65535</span><br><span class="line">*               hard    nofile          65535</span><br></pre></td></tr></table></figure></p>
+<p>其中:</p>
+<ol>
+<li>nofile 表示 open files  </li>
+<li>nproc  对应的属性为: max_user_processes</li>
+<li>其中 65535 为演示数字。请按照环境的实际情况进行调整。</li>
+</ol>
+<h4 id="二-修改-max-user-processes-数量"><a href="#二-修改-max-user-processes-数量" class="headerlink" title="(二) 修改 max_user_processes 数量"></a>(二) 修改 max_user_processes 数量</h4><p>其中 max_user_processes属性，可以在/etc/security/limits.d/90-nproc.conf路径下进行修改。<br>修改如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">*          soft    nproc     60000</span><br><span class="line">root       soft    nproc     unlimited</span><br></pre></td></tr></table></figure></p>
+<p>需要注意的是：</p>
+<ol>
+<li><p>max_user_processes中最大的值为: 60000。<br>如果设置超过60000，则默认为最大值。例如: 设置 655535，则会为60000。</p>
+</li>
+<li><p>执行上述步骤后。退出当前会话。重新连接即可生效！在修改之前连接的会话，需要重新连接，才能看到新的配置。</p>
+</li>
+</ol>
+<h4 id="查看系统资源方法"><a href="#查看系统资源方法" class="headerlink" title="查看系统资源方法"></a>查看系统资源方法</h4><p><strong>1. 查看当前系统使用的进程数。</strong>      </p>
+<p>&nbsp;&nbsp;我们可以使用: ps aux|wc -l或者ps -ef|wc -l命令来查看当前正在使用的进程数。<br>如下所示:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ ps aux|wc -l</span><br><span class="line">309</span><br></pre></td></tr></table></figure></p>
+<p>有时通过ps aux|wc -l命令查看得到的数据少于max_user_processes的值。<br>也出现:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ bash: fork: Resource temporarily unavailable`</span><br></pre></td></tr></table></figure></p>
+<p>这是因为一个进程中可以包含多个线程导致。</p>
+<p><strong>2. 查看指定进程数中的线程数。</strong>  </p>
+<p>&nbsp;&nbsp;当我们知道了的进程ID(PID)后，<br>也可以通过如下方法查看当前进程中有多少个线程:<br>命令:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cat /proc/&lt;pid&gt;/status</span><br></pre></td></tr></table></figure></p>
+<p>案例如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">andy@andyqian:/java$ cat /proc/11723/status</span><br><span class="line">Name:	java</span><br><span class="line">State:	S (sleeping)</span><br><span class="line">Tgid:	11723</span><br><span class="line">Ngid:	0</span><br><span class="line">Pid:	11723</span><br><span class="line">PPid:	2434</span><br><span class="line">TracerPid:	0</span><br><span class="line">Uid:	1000	1000	1000	1000</span><br><span class="line">Gid:	1000	1000	1000	1000</span><br><span class="line">FDSize:	128</span><br><span class="line">Groups:	4 24 27 30 46 108 124 1000 </span><br><span class="line">Threads:	28</span><br><span class="line">SigQ:	0/47456</span><br><span class="line">Seccomp:	0</span><br><span class="line">Cpus_allowed:	ff</span><br><span class="line">Cpus_allowed_list:	0-7</span><br><span class="line">Mems_allowed:	00000000,00000001</span><br><span class="line">Mems_allowed_list:	0</span><br><span class="line">voluntary_ctxt_switches:	88</span><br><span class="line">nonvoluntary_ctxt_switches:	3</span><br></pre></td></tr></table></figure></p>
+<p>其中： </p>
+<ol>
+<li>Threads：28 就表示该进程中，一个有28个线程。</li>
+<li>由于篇幅原因，以上删除了部分信息。</li>
+</ol>
+<p><strong>3. 如何查看应用的进程</strong><br>&nbsp;&amp;你bsp;可能有童鞋不知道如何查看应用的进程数，这里给个简单的案例:<br>例如查看一个名命为tomcat01的tomcat。我们可以通过如下命令查看:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -aux|grep tomcat01</span><br></pre></td></tr></table></figure></p>
+<p>如下所示:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">andy@andyqian:/java$ ps -aux|grep tomcat01</span><br><span class="line">andy     11723  0.5  1.0 6484560 127292 pts/1</span><br></pre></td></tr></table></figure></p>
+<p>其中: 11723 对应的就是tomcat01的进程ID。</p>
+<h4 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h4><p>&nbsp;&nbsp;赶在元宵节最后一刻。祝大家元宵节快乐～</p>
+<hr>
+<p>相关阅读：</p>
+<p>1.《<a href="https://mp.weixin.qq.com/s?__biz=MzI2NDU3OTg5Nw==&amp;mid=2247483715&amp;idx=1&amp;sn=f67a4aba1867ed1c85f793ef75351d3e&amp;chksm=eaab3f15dddcb6038a09c0ca3fcc90e2281eaabc73617410016940894444610495666c0eef8b&amp;scene=21#wechat_redirect" target="_blank" rel="external">企业面试成本</a>》<br>2.《<a href="https://mp.weixin.qq.com/s?__biz=MzI2NDU3OTg5Nw==&amp;mid=2247483708&amp;idx=1&amp;sn=cb610823c9f8939194a2c3ec95445ae6&amp;chksm=eaab3f6adddcb67cd03a8b571feae702d7a023db4f17ae61818ba31c6fe76d86d1202b8258d6&amp;scene=21#wechat_redirect" target="_blank" rel="external">面试官初体验</a>》<br>3.《<a href="https://mp.weixin.qq.com/s?__biz=MzI2NDU3OTg5Nw==&amp;mid=2247483691&amp;idx=1&amp;sn=5ee0bc955bcc41ff0d933dbac1514dff&amp;chksm=eaab3f7ddddcb66bd665e5caf0136d0c2329b7d2faa04ceba34722f7b8f69c61e3f1e238b9ac&amp;scene=21#wechat_redirect" target="_blank" rel="external">一份面试总结</a>》<br>4.《<a href="https://mp.weixin.qq.com/s?__biz=MzI2NDU3OTg5Nw==&amp;mid=2247483995&amp;idx=1&amp;sn=f15a788c76ca00d865627028857d5d39&amp;chksm=eaab3c0ddddcb51ba16b4c7d755338394f9d690bb90de6ef108eb1020d1d4df128c48207b7c8&amp;scene=21#wechat_redirect" target="_blank" rel="external">一个Java细节！</a>》</p>
+<hr>
+<center><img src="http://img.blog.csdn.net/20170401092446529?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMDY5NTc5NA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></center><br><center>扫码关注，一起进步<br><br><center>个人博客: <a href="http://www.andyqian.com" target="_blank" rel="external">http://www.andyqian.com</a></center>
+
+
+
+</center>
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag">#Java</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/05/life/imback/" rel="next" title="我回来了">
+                <i class="fa fa-chevron-left"></i> 我回来了
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/07/java/javaSmallDetail/" rel="prev" title="一个Java小细节！">
+                一个Java小细节！ <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2018/03/06/java/javaoom/"
+           data-title="记一个有趣的Java OOM！" data-url="http://yoursite.com/2018/03/06/java/javaoom/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="鞠骞" />
+          <p class="site-author-name" itemprop="name">鞠骞</p>
+          <p class="site-description motion-element" itemprop="description">微移是一种生活，分享是一种态度!</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">55</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/userandy" target="_blank">
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/userandy" target="_blank">
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#引言"><span class="nav-number">1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#问题场景"><span class="nav-number">2.</span> <span class="nav-text">问题场景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Linux-ulimit-参数"><span class="nav-number">3.</span> <span class="nav-text">Linux ulimit 参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ulimit-常用命令"><span class="nav-number">4.</span> <span class="nav-text">ulimit 常用命令:</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-显示open-files"><span class="nav-number">4.1.</span> <span class="nav-text">1. 显示open files</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-显示当前用户的最大进程数"><span class="nav-number">4.2.</span> <span class="nav-text">2. 显示当前用户的最大进程数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-显示ulimit-所有属性"><span class="nav-number">4.3.</span> <span class="nav-text">2. 显示ulimit 所有属性</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一-修改-open-files-数量"><span class="nav-number">5.</span> <span class="nav-text">(一) 修改 open files 数量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二-修改-max-user-processes-数量"><span class="nav-number">6.</span> <span class="nav-text">(二) 修改 max_user_processes 数量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查看系统资源方法"><span class="nav-number">7.</span> <span class="nav-text">查看系统资源方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#最后"><span class="nav-number">8.</span> <span class="nav-text">最后</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">鞠骞</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+
+  
+
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.sidebar.display === 'post' || CONFIG.sidebar.display === 'always') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"andyhome"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+      <script src="/lib/ua-parser-js/dist/ua-parser.min.js"></script>
+      <script src="/js/src/hook-duoshuo.js"></script>
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  <!-- custom analytics part create by xiamo -->
+<script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+<script>AV.initialize("DyeMW5P0VKGbQJVb25qWYYS7-gzGzoHsz", "05Ag2XCTCbcFb6qOo96UrplX");</script>
+<script>
+function showTime(Counter) {
+	var query = new AV.Query(Counter);
+	$(".leancloud_visitors").each(function() {
+		var url = $(this).attr("id").trim();
+		query.equalTo("url", url);
+		query.find({
+			success: function(results) {
+				if (results.length == 0) {
+					var content = $(document.getElementById(url)).text() + ': 0';
+					$(document.getElementById(url)).text(content);
+					return;
+				}
+				for (var i = 0; i < results.length; i++) {
+					var object = results[i];
+					var content = $(document.getElementById(url)).text() + ': ' + object.get('time');
+					$(document.getElementById(url)).text(content);
+				}
+			},
+			error: function(object, error) {
+				console.log("Error: " + error.code + " " + error.message);
+			}
+		});
+
+	});
+}
+
+function addCount(Counter) {
+	var Counter = AV.Object.extend("Counter");
+	url = $(".leancloud_visitors").attr('id').trim();
+	title = $(".leancloud_visitors").attr('data-flag-title').trim();
+	var query = new AV.Query(Counter);
+	query.equalTo("url", url);
+	query.find({
+		success: function(results) {
+			if (results.length > 0) {
+				var counter = results[0];
+				counter.fetchWhenSave(true);
+				counter.increment("time");
+				counter.save(null, {
+					success: function(counter) {
+						var content = $(document.getElementById(url)).text() + ': ' + counter.get('time');
+						$(document.getElementById(url)).text(content);
+					},
+					error: function(counter, error) {
+						console.log('Failed to save Visitor num, with error message: ' + error.message);
+					}
+				});
+			} else {
+				var newcounter = new Counter();
+				newcounter.set("title", title);
+				newcounter.set("url", url);
+				newcounter.set("time", 1);
+				newcounter.save(null, {
+					success: function(newcounter) {
+					    console.log("newcounter.get('time')="+newcounter.get('time'));
+						var content = $(document.getElementById(url)).text() + ': ' + newcounter.get('time');
+						$(document.getElementById(url)).text(content);
+					},
+					error: function(newcounter, error) {
+						console.log('Failed to create');
+					}
+				});
+			}
+		},
+		error: function(error) {
+			console.log('Error:' + error.code + " " + error.message);
+		}
+	});
+}
+$(function() {
+	var Counter = AV.Object.extend("Counter");
+	if ($('.leancloud_visitors').length == 1) {
+		addCount(Counter);
+	} else if ($('.post-title-link').length > 1) {
+		showTime(Counter);
+	}
+}); 
+</script>
+  
+</body>
+</html>
