@@ -1,0 +1,1022 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Java," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="前言  
+前言&amp;nbsp;&amp;nbsp;系统通常都是由单体应用逐渐演化而来，演化成为前后端分离的分布式应用。在享受分布式系统带来的诸多好处之时，随之而来的也有不少新的问题。其中跨域问题就成了第一只拦路虎。今天我们就来揭露一下这只老虎的真面目!">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CORS跨域实践">
+<meta property="og:url" content="http://yoursite.com/2018/07/18/java/cors/index.html">
+<meta property="og:site_name" content="鞠骞的博客">
+<meta property="og:description" content="前言  
+前言&amp;nbsp;&amp;nbsp;系统通常都是由单体应用逐渐演化而来，演化成为前后端分离的分布式应用。在享受分布式系统带来的诸多好处之时，随之而来的也有不少新的问题。其中跨域问题就成了第一只拦路虎。今天我们就来揭露一下这只老虎的真面目!">
+<meta property="og:image" content="http://yoursite.com/img/java/cors/title.png">
+<meta property="og:image" content="http://yoursite.com/img/java/cors/CORS_principle.png">
+<meta property="og:image" content="http://yoursite.com/img/java/cors/simple_req.png">
+<meta property="og:image" content="http://yoursite.com/img/java/cors/prelight.png">
+<meta property="og:image" content="http://yoursite.com/img/logo.png">
+<meta property="og:updated_time" content="2018-07-18T15:26:41.582Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CORS跨域实践">
+<meta name="twitter:description" content="前言  
+前言&amp;nbsp;&amp;nbsp;系统通常都是由单体应用逐渐演化而来，演化成为前后端分离的分布式应用。在享受分布式系统带来的诸多好处之时，随之而来的也有不少新的问题。其中跨域问题就成了第一只拦路虎。今天我们就来揭露一下这只老虎的真面目!">
+<meta name="twitter:image" content="http://yoursite.com/img/java/cors/title.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: undefined,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> CORS跨域实践 | 鞠骞的博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">鞠骞的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">微移是一种心态！</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            时间轴
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-friendslinks">
+          <a href="/friendslinks" rel="section">
+            
+              <i class="menu-item-icon fa fa-question-circle fa-fw"></i> <br />
+            
+            小伙伴们
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                CORS跨域实践
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-07-18T11:35:00+08:00" content="2018-07-18">
+              2018-07-18
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Java/跨域/" itemprop="url" rel="index">
+                    <span itemprop="name">跨域</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Java/跨域/前端工程师/" itemprop="url" rel="index">
+                    <span itemprop="name">前端工程师</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2018/07/18/java/cors/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/07/18/java/cors/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+		
+		
+          
+          
+				<span id="/2018/07/18/java/cors/"class="leancloud_visitors"  data-flag-title="CORS跨域实践">
+        &nbsp; | &nbsp; 阅读次数
+        </span>
+		
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p><img src="/img/java/cors/title.png" alt="ll列表">  </p>
+<h4 id="前言-1"><a href="#前言-1" class="headerlink" title="前言"></a>前言</h4><p>&nbsp;&nbsp;系统通常都是由单体应用逐渐演化而来，演化成为前后端分离的分布式应用。在享受分布式系统带来的诸多好处之时，随之而来的也有不少新的问题。其中跨域问题就成了第一只拦路虎。今天我们就来揭露一下这只老虎的真面目!<br><a id="more"></a></p>
+<h4 id="什么是跨域"><a href="#什么是跨域" class="headerlink" title="什么是跨域?"></a>什么是跨域?</h4><p>&nbsp;&nbsp;在解决问题前，我们首先得先了解什么是跨域？其实我们可以简单的理解跨域名就是跨不同的”域名”。但这个域名比我们通常理解中的域名范围更广泛一些。在这里用 “非同源访问” 可能更合适一些。那么同源又是什么呢？ </p>
+<p><strong>同源为: 相同协议，相同域名，相同端口</strong>。  </p>
+<blockquote>
+<p>早在1995年，同源政策由 Netscape 公司引入浏览器。目前，所有浏览器都实行这个政策。<br>其引入的目的是为了保证用户信息的安全，防止恶意的网站窃取数据。</p>
+</blockquote>
+<p>例如：<a href="http://www.andyqian.com" target="_blank" rel="external">http://www.andyqian.com</a>  其中：</p>
+<ol>
+<li>http 为协议，常用的有http和https协议。</li>
+<li>www.andyqian.com为域名。</li>
+<li>端口为80。(默认端口省略)。</li>
+</ol>
+<p>基于上面的定义。我们来判断一下下面表格中，哪些属于同源，哪些不属于同源。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://www.andyqian.com</span><br></pre></td></tr></table></figure></p>
+<table>
+<thead>
+<tr>
+<th>URL</th>
+<th>是否同源</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://www.andyqian.com" target="_blank" rel="external">https://www.andyqian.com</a></td>
+<td>否</td>
+<td>协议不同</td>
+</tr>
+<tr>
+<td><a href="http://tech.andyqian.com" target="_blank" rel="external">http://tech.andyqian.com</a></td>
+<td>否</td>
+<td>域名不同</td>
+</tr>
+<tr>
+<td><a href="http://www.andyqian.com:8080" target="_blank" rel="external">http://www.andyqian.com:8080</a></td>
+<td>否</td>
+<td>端口</td>
+</tr>
+<tr>
+<td><a href="http://www.andyqian.com/a/" target="_blank" rel="external">http://www.andyqian.com/a/</a></td>
+<td>是</td>
+<td>协议，域名，端口均一致</td>
+</tr>
+</tbody>
+</table>
+<p>其交互方式。如下图所示:</p>
+<p><img src="/img/java/cors/CORS_principle.png" alt="ll列表">  </p>
+<h4 id="CORS中的两种请求"><a href="#CORS中的两种请求" class="headerlink" title="CORS中的两种请求"></a>CORS中的两种请求</h4><p>&nbsp;&nbsp;通过上面的介绍，我们已经知道同源的概念，以及跨域是怎么回事。现在我们继续说说，如何解决跨域问题。其实根据同源政策规定，AJAX请求只能发给同源的网址，否则就报错。在日常中，通常我们通过代理服务器以及CORS（Cross-Origin Resource Sharing）跨源资源分享来解决。浏览器中通常将CORS分为简单请求以及复杂请求。</p>
+<p><strong>简单请求</strong>： </p>
+<ol>
+<li><p>简单请求只支持以下请求方法: </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET，POST，PUT</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>除了用户设置的代理请求头外(Content，User-Agent)，仅支持以下请求头：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Accept</span><br><span class="line">Accept-Language</span><br><span class="line">Content-Language</span><br><span class="line">Last-Event-ID</span><br><span class="line">Content-type</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>其中Content-Type也仅支持以下几种类型：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">application/x-www-form-urlencoded</span><br><span class="line">multipart/form-data</span><br><span class="line">text/plain</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>使用简单请求在发送请求时，浏览器通常会在Request Header中自动添加一个名为 <strong>Origin</strong>的字段，用来表示请求来源。如以下请求信息为例:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Accept: application/json, text/javascript, */*; q=0.01</span><br><span class="line">Accept-Encoding: gzip, deflate, br</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.9,en;q=0.8</span><br><span class="line">Connection: keep-alive</span><br><span class="line">Content-Length: 2116</span><br><span class="line">Content-Type: application/x-www-form-urlencoded; charset=UTF-8</span><br><span class="line">Cookie: QC005=7edda8574ca744e800667e65ba85e01d; QP001=1; </span><br><span class="line">Host: apollo.iqiyi.com</span><br><span class="line">Origin: https://www.iqiyi.com</span><br><span class="line">User-Agent: Mozilla/5.0</span><br></pre></td></tr></table></figure></p>
+<p>其中<strong>Origin</strong>中的<strong><a href="https://www.iqiyi.com" target="_blank" rel="external">https://www.iqiyi.com</a></strong>表示请求来源。如果服务端允许该<strong>Origin</strong>进行访问。其Response Header返回头信息如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Accept-Charset: utf</span><br><span class="line">Access-Control-Allow-Credentials: true</span><br><span class="line">Access-Control-Allow-Headers: X-Requested-With</span><br><span class="line">Access-Control-Allow-Origin: https://www.iqiyi.com</span><br><span class="line">Connection: keep-alive</span><br><span class="line">Content-Encoding: gzip</span><br><span class="line">Content-Type: application/json;charset=UTF-8</span><br><span class="line">Date: Mon, 16 Jul 2018 15:47:22 GMT</span><br><span class="line">Server: openresty/1.11.2.2</span><br><span class="line">Transfer-Encoding: chunked</span><br><span class="line">Vary: Accept-Encoding</span><br></pre></td></tr></table></figure></p>
+<p>其中以<strong>Access-Control-Allow</strong>开头字段均与CORS请求相关。(会在下面章节做详细介绍)。</p>
+<p>其交互方式，如图所示:  </p>
+<p><img src="/img/java/cors/simple_req.png" alt="简单请求">  </p>
+<p><strong>备注:</strong> <font color="gray" size="2">为了更好的理解。以上例子为爱奇艺登录界面抓包(<a href="https://apollo.iqiyi.com/validate)接口的实际Request头信息，Response头信息。有兴趣的童鞋也可以自己抓包看看。" target="_blank" rel="external">https://apollo.iqiyi.com/validate)接口的实际Request头信息，Response头信息。有兴趣的童鞋也可以自己抓包看看。</a></font></p>
+<p><strong>复杂请求</strong>：不满足简单请求的，均为复杂请求。例如请求方法为 <strong>DELETE</strong> 方法。</p>
+<p><strong>Content-Type</strong> 为 <strong>applicatioin/json</strong> 或者 <strong>application/xml</strong> 。</p>
+<p>还需要特别注意的是，复杂请求在正式通信之前，浏览器会自动增加一次Request Mehotd方法为: OPTIONS 的HTTP请求，我们通常称之为”预检”请求。主要用来检查当前请求的 <strong>Origin</strong> 以及 <strong>Header</strong> , <strong>Method</strong> 是否能够被服务端允许。  </p>
+<p>以下列请求例子:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Accept: */*</span><br><span class="line">Accept-Encoding: gzip, deflate, br</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.9,en;q=0.</span><br><span class="line">Access-Control-Request-Headers: auhorization,content-type</span><br><span class="line">Access-Control-Request-Method: POST</span><br><span class="line">Connection: keep-alive</span><br><span class="line">Origin: https://www.iqiyi.com</span><br></pre></td></tr></table></figure></p>
+<p>其中:</p>
+<ol>
+<li><p><strong>Access-Control-Request-Headers</strong>：表示此次复杂请求额外携带的请求头信息。上例中分别为:<br><strong>auhorization</strong> 和 <strong>content-type</strong>。</p>
+</li>
+<li><p><strong>Access-Control-Request-Method</strong>： 则表示此次复杂请求的方法。上例为: POST方法。</p>
+</li>
+</ol>
+<p>收到预检请求后。服务端会将 <strong>Access-Control-Request</strong> 为前缀的请求头信息进行校验。如果校验通过。则表示服务端允许此次跨域请求。  </p>
+<p>其返回Response Header信息中则会返回如下信息所示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Access-Control-Allow-Credentials: true</span><br><span class="line">Access-Control-Allow-Headers: *</span><br><span class="line">Access-Control-Allow-Methods: GET, POST, OPTION</span><br><span class="line">Access-Control-Allow-Origin: *</span><br><span class="line">Access-Control-Expose-Headers:authorization</span><br><span class="line">Connection: close</span><br><span class="line">Content-Type: text/plain</span><br></pre></td></tr></table></figure></p>
+<p>则表示服务端允许此次复杂请求。  </p>
+<p>其交互方式，如下图所示:  </p>
+<p><img src="/img/java/cors/prelight.png" alt="非简单请求">  </p>
+<h4 id="CORS中支持所有属性"><a href="#CORS中支持所有属性" class="headerlink" title="CORS中支持所有属性"></a>CORS中支持所有属性</h4><p>CORS中服务端可以控制的所有header头属性有:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Access-Control-Allow-Origin: *</span><br><span class="line">Access-Control-Allow-Credentials: true</span><br><span class="line">Access-Control-Expose-Headers:authorization</span><br><span class="line">Access-Control-Allow-Headers: *</span><br><span class="line">Access-Control-Allow-Methods: GET, POST, OPTIONS</span><br><span class="line">Access-Control-Max-Age: 1024</span><br></pre></td></tr></table></figure></p>
+<p>其中：  </p>
+<ol>
+<li>Access-Control-Allow-Origin： (必选参数)表示允许接受请求源。如果为*，则表示接受任意域名的请求。如果已知来源，我们可以设置为特定的值。例如:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Access-Control-Allow-Origin: https://www.andyqian.com</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>指定特定的请求源后，其他请求源的请求过来后均会被拒绝</p>
+<ol>
+<li><p>Access-Control-Allow-Credentials:(可选参数) 表示服务端是否允许携带cookie至服务端。它的值是一个boolean类型的值。为true时则表示服务端明确接收允许携带cookie信</p>
+</li>
+<li><p>Access-Control-Expose-Headers: (可选参数) 表示请求中的Response Headers中允许返回的自定义Header。如果有多个。则使用<strong>，</strong>符号进行分割。  </p>
+</li>
+</ol>
+<blockquote>
+<p>在CORS请求中，使用XMLHttpRequest对象的getResponseHeader()方法只能拿到以下标准字段:<br>Cache-Control，Connect，Content-Type，Date，Server，Content-Language，Expires，Last-Modified，Transfer-Encoding，Vary等标准字段。当我们需要使用自定义header头时。我们需要在此处进行填写对应的key值。</p>
+</blockquote>
+<p>例如设置为如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Access-Control-Expose-Headers: mysign</span><br></pre></td></tr></table></figure></p>
+<p>我们就可以通过 <strong>getResponseHeader(“mysign”)</strong> 获取到对应的值。</p>
+<ol>
+<li><p>Access-Control-Allow-Headers : (可选参数) 表示允许的Request中的header信息。使用 <strong>/ * /</strong>表示所有请求头信息。</p>
+</li>
+<li><p>Access-Control-Allow-Methods： (可选参数) 表示允许跨域的请求方法，如果请求方法不在此列表中。则表示该方法不允许跨域。在校验时，会认为是一个不允许的请求而被拦截。</p>
+</li>
+<li><p>Access-Control-Max-Age ： (可选参数) 表示本次预检请求的有效期，单位为秒。在有效期内，不再发起预检请求。 (建议设置该值，否则每次都会进行一次预检请求)。 </p>
+</li>
+</ol>
+<h4 id="如何解决跨域？"><a href="#如何解决跨域？" class="headerlink" title="如何解决跨域？"></a>如何解决跨域？</h4><p>&nbsp;&nbsp;通过上面的了解，我们知道解决跨域问题时，需要在服务端进行配置。如何配置呢？我们以Nginx为例。通常我们在Nginx中的nginx.conf文件中对应location路径下添加如下配置即可:</p>
+<ol>
+<li>跨域名<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Access-Control-Allow-Origin:   *;</span><br><span class="line">Access-Control-Allow-Credentials: true;</span><br><span class="line">Access-Control-Allow-Methods: POST,PUT,GET,HEAD,OPTIONS</span><br><span class="line">Access-Control-Allow-Headers: *</span><br><span class="line">Access-Control-Max-Age: 21600</span><br><span class="line">Access-Control-Expose-Headers: sign</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>上述预检请求的时间有效期为6小时，以及其他对应的值。均可根据实际情况进行修改使用。</p>
+<ol>
+<li>对于OPTIONS预检查请求，我们可以使用下述方法进行返回处理：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">if ($request_method = OPTIONS ) &#123;</span><br><span class="line">     add_header Content-Length 0;</span><br><span class="line">     add_header Content-Type text/plain;</span><br><span class="line">     return 204;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>这样做的好处，是在nginx层做出返回结果。也可以看作是对业务层的一种保护。(状态码不一定为204，只要为成功的状态即可，200也行。)</p>
+<p>建议将内容新建为一个后nf的文件，在使用时导入即可。</p>
+<h4 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h4><p>&nbsp;&nbsp;上面简单记录了什么是跨域以及如何解决跨域。通常我们在开发中，上面这个问题也确确实实的存在。希望在遇到以下问题时，我觉得应该可以优先考虑一下是否是跨域在作祟。</p>
+<ol>
+<li>后端接口在Postman中访问是正常的，在与前端工程师联调时，死活都不通。甚至在测试环境是正常的。一上线到生产环境时。连后端接口请求都访问不了。 (跨域问题)</li>
+</ol>
+<ol>
+<li>后端接口中莫名出现类型转换异常。(OPTIONS方法) </li>
+</ol>
+<p>话外音：之前就吃过上面的亏，踩了上面的坑，你们可别再掉下去了。如果已经掉下去了，那就赶紧爬上来。前面还有若干坑等着你呢！(手动微笑)</p>
+<font size="2" color="gray">本文图片均来源于: <a href="https://developer.mozilla.org/" target="_blank" rel="external">https://developer.mozilla.org/</a></font>
+
+
+<hr>
+<p>相关阅读：</p>
+<p>1.《<a href="https://mp.weixin.qq.com/s?__biz=MzI2NDU3OTg5Nw==&amp;mid=2247483715&amp;idx=1&amp;sn=f67a4aba1867ed1c85f793ef75351d3e&amp;chksm=eaab3f15dddcb6038a09c0ca3fcc90e2281eaabc73617410016940894444610495666c0eef8b&amp;scene=21#wechat_redirect" target="_blank" rel="external">企业面试成本</a>》<br>2.《<a href="https://mp.weixin.qq.com/s?__biz=MzI2NDU3OTg5Nw==&amp;mid=2247483708&amp;idx=1&amp;sn=cb610823c9f8939194a2c3ec95445ae6&amp;chksm=eaab3f6adddcb67cd03a8b571feae702d7a023db4f17ae61818ba31c6fe76d86d1202b8258d6&amp;scene=21#wechat_redirect" target="_blank" rel="external">面试官初体验</a>》<br>3.《<a href="https://mp.weixin.qq.com/s?__biz=MzI2NDU3OTg5Nw==&amp;mid=2247483691&amp;idx=1&amp;sn=5ee0bc955bcc41ff0d933dbac1514dff&amp;chksm=eaab3f7ddddcb66bd665e5caf0136d0c2329b7d2faa04ceba34722f7b8f69c61e3f1e238b9ac&amp;scene=21#wechat_redirect" target="_blank" rel="external">一份面试总结</a>》<br>4.《<a href="https://mp.weixin.qq.com/s?__biz=MzI2NDU3OTg5Nw==&amp;mid=2247483995&amp;idx=1&amp;sn=f15a788c76ca00d865627028857d5d39&amp;chksm=eaab3c0ddddcb51ba16b4c7d755338394f9d690bb90de6ef108eb1020d1d4df128c48207b7c8&amp;scene=21#wechat_redirect" target="_blank" rel="external">一个Java细节！</a>》</p>
+<hr>
+<center><img src="/img/logo.png" alt="这里写图片描述"></center><br><center>扫码关注，一起进步<br><br><center>个人博客: <a href="http://www.andyqian.com" target="_blank" rel="external">http://www.andyqian.com</a></center>
+
+
+</center>
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag">#Java</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/15/java/tools/privateinfo/" rel="next" title="分享两个小问题">
+                <i class="fa fa-chevron-left"></i> 分享两个小问题
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2018/07/18/java/cors/"
+           data-title="CORS跨域实践" data-url="http://yoursite.com/2018/07/18/java/cors/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="鞠骞" />
+          <p class="site-author-name" itemprop="name">鞠骞</p>
+          <p class="site-description motion-element" itemprop="description">微移是一种生活，分享是一种态度!</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">57</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">27</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/userandy" target="_blank">
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/userandy" target="_blank">
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#前言-1"><span class="nav-number">2.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是跨域"><span class="nav-number">3.</span> <span class="nav-text">什么是跨域?</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CORS中的两种请求"><span class="nav-number">4.</span> <span class="nav-text">CORS中的两种请求</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CORS中支持所有属性"><span class="nav-number">5.</span> <span class="nav-text">CORS中支持所有属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如何解决跨域？"><span class="nav-number">6.</span> <span class="nav-text">如何解决跨域？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#最后"><span class="nav-number">7.</span> <span class="nav-text">最后</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">鞠骞</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+
+  
+
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.sidebar.display === 'post' || CONFIG.sidebar.display === 'always') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"andyhome"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+      <script src="/lib/ua-parser-js/dist/ua-parser.min.js"></script>
+      <script src="/js/src/hook-duoshuo.js"></script>
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  <!-- custom analytics part create by xiamo -->
+<script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+<script>AV.initialize("DyeMW5P0VKGbQJVb25qWYYS7-gzGzoHsz", "05Ag2XCTCbcFb6qOo96UrplX");</script>
+<script>
+function showTime(Counter) {
+	var query = new AV.Query(Counter);
+	$(".leancloud_visitors").each(function() {
+		var url = $(this).attr("id").trim();
+		query.equalTo("url", url);
+		query.find({
+			success: function(results) {
+				if (results.length == 0) {
+					var content = $(document.getElementById(url)).text() + ': 0';
+					$(document.getElementById(url)).text(content);
+					return;
+				}
+				for (var i = 0; i < results.length; i++) {
+					var object = results[i];
+					var content = $(document.getElementById(url)).text() + ': ' + object.get('time');
+					$(document.getElementById(url)).text(content);
+				}
+			},
+			error: function(object, error) {
+				console.log("Error: " + error.code + " " + error.message);
+			}
+		});
+
+	});
+}
+
+function addCount(Counter) {
+	var Counter = AV.Object.extend("Counter");
+	url = $(".leancloud_visitors").attr('id').trim();
+	title = $(".leancloud_visitors").attr('data-flag-title').trim();
+	var query = new AV.Query(Counter);
+	query.equalTo("url", url);
+	query.find({
+		success: function(results) {
+			if (results.length > 0) {
+				var counter = results[0];
+				counter.fetchWhenSave(true);
+				counter.increment("time");
+				counter.save(null, {
+					success: function(counter) {
+						var content = $(document.getElementById(url)).text() + ': ' + counter.get('time');
+						$(document.getElementById(url)).text(content);
+					},
+					error: function(counter, error) {
+						console.log('Failed to save Visitor num, with error message: ' + error.message);
+					}
+				});
+			} else {
+				var newcounter = new Counter();
+				newcounter.set("title", title);
+				newcounter.set("url", url);
+				newcounter.set("time", 1);
+				newcounter.save(null, {
+					success: function(newcounter) {
+					    console.log("newcounter.get('time')="+newcounter.get('time'));
+						var content = $(document.getElementById(url)).text() + ': ' + newcounter.get('time');
+						$(document.getElementById(url)).text(content);
+					},
+					error: function(newcounter, error) {
+						console.log('Failed to create');
+					}
+				});
+			}
+		},
+		error: function(error) {
+			console.log('Error:' + error.code + " " + error.message);
+		}
+	});
+}
+$(function() {
+	var Counter = AV.Object.extend("Counter");
+	if ($('.leancloud_visitors').length == 1) {
+		addCount(Counter);
+	} else if ($('.post-title-link').length > 1) {
+		showTime(Counter);
+	}
+}); 
+</script>
+  
+</body>
+</html>
