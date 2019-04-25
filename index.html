@@ -236,6 +236,128 @@
             
               
                 
+                <a class="post-title-link" href="/2019/04/26/java/tools/btrace/" itemprop="url">
+                  Java 生产神器 BTrace
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2019-04-26T23:54:00+08:00" content="2019-04-26">
+              2019-04-26
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2019/04/26/java/tools/btrace/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2019/04/26/java/tools/btrace/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+		
+		
+          
+          
+				<span id="/2019/04/26/java/tools/btrace/"class="leancloud_visitors"  data-flag-title="Java 生产神器 BTrace">
+        &nbsp; | &nbsp; 阅读次数
+        </span>
+		
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>&nbsp;&nbsp;在《说说Java单元测试》文章中，强调了单元测试的重要性，也提倡大家一定要写单元测试，能帮我们筛选掉很多低级错误，找出一些没必要的bug，避免生产事故。单元测试通过后，我们开始集成，随着服务集成的日渐增多，业务逻辑也变得越来越复杂，在这样的前提下，解决bug就变得异常复杂。在本地环境中，我们可以通过日志分析 + debug的方式，进行排查解决，再不济，我们还可以开启远程调试进行解决。但当生产系统上出现了bug时，我们可不能开启远程调试，这样会造成线程阻塞，足以让生产系统爆炸的。那么，我们该怎么办呢？代码执行到哪一行了？我们两眼一抹黑，不知从何下手，真是一个悲伤的故事。当然了，我们也可以通过修改代码的方式新增日志，打印方法的入参，出参，上线，重启 … 直至问题得以解决。办法虽然原始，好在能解决问题，但其过程非常痛苦，让人精疲力尽，有很多朋友估计都有过这样的经历。现在回过头来想，如果有这么一个工具，在不修改代码，不重启应用，不上线的前提下，就能查看到代码执行到哪一行，查看某个方法的出参，入参，查看方法的耗时，是该有多好。今天要介绍的就是这么一个工具 - BTrace ( Github主页：<strong><a href="https://github.com/btraceio/btrace">https://github.com/btraceio/btrace</a></strong>)<br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2019/04/26/java/tools/btrace/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2019/04/20/java/basic/java_cas/" itemprop="url">
                   Java 基本功 之 CAS
                 </a>
@@ -766,128 +888,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2018/03/07/java/javaSmallDetail/" itemprop="url">
-                  一个Java小细节！
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2018-03-07T11:29:00+08:00" content="2018-03-07">
-              2018-03-07
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2018/03/07/java/javaSmallDetail/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/03/07/java/javaSmallDetail/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-		
-		
-          
-          
-				<span id="/2018/03/07/java/javaSmallDetail/"class="leancloud_visitors"  data-flag-title="一个Java小细节！">
-        &nbsp; | &nbsp; 阅读次数
-        </span>
-		
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>&nbsp;&nbsp;今天我们一起来做个简单有趣的实验。熟悉Java的童鞋，对ScheduledExecutorService类应该不陌生。不记得的童鞋，先回忆下。<br>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2018/03/07/java/javaSmallDetail/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -933,7 +933,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">58</span>
+              <span class="site-state-item-count">59</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

@@ -57,17 +57,17 @@
 
 
 
-<meta name="description" content="前言&amp;nbsp;&amp;nbsp;今天我们一起来做个简单有趣的实验。熟悉Java的童鞋，对ScheduledExecutorService类应该不陌生。不记得的童鞋，先回忆下。">
+<meta name="description" content="前言&amp;nbsp;&amp;nbsp;在《说说Java单元测试》文章中，强调了单元测试的重要性，也提倡大家一定要写单元测试，能帮我们筛选掉很多低级错误，找出一些没必要的bug，避免生产事故。单元测试通过后，我们开始集成，随着服务集成的日渐增多，业务逻辑也变得越来越复杂，在这样的前提下，解决bug就变得异常复杂。在本地环境中，我们可以通过日志分析 + debug的方式，进行排查解决，再不济，我们还可以开启远程">
 <meta property="og:type" content="article">
-<meta property="og:title" content="一个Java小细节！">
-<meta property="og:url" content="http://yoursite.com/2018/03/07/java/javaSmallDetail/index.html">
+<meta property="og:title" content="Java 生产神器 BTrace">
+<meta property="og:url" content="http://yoursite.com/2019/04/26/java/tools/btrace/index.html">
 <meta property="og:site_name" content="鞠骞的博客">
-<meta property="og:description" content="前言&amp;nbsp;&amp;nbsp;今天我们一起来做个简单有趣的实验。熟悉Java的童鞋，对ScheduledExecutorService类应该不陌生。不记得的童鞋，先回忆下。">
+<meta property="og:description" content="前言&amp;nbsp;&amp;nbsp;在《说说Java单元测试》文章中，强调了单元测试的重要性，也提倡大家一定要写单元测试，能帮我们筛选掉很多低级错误，找出一些没必要的bug，避免生产事故。单元测试通过后，我们开始集成，随着服务集成的日渐增多，业务逻辑也变得越来越复杂，在这样的前提下，解决bug就变得异常复杂。在本地环境中，我们可以通过日志分析 + debug的方式，进行排查解决，再不济，我们还可以开启远程">
 <meta property="og:image" content="http://img.blog.csdn.net/20170401092446529?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMDY5NTc5NA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
-<meta property="og:updated_time" content="2018-03-10T04:58:22.321Z">
+<meta property="og:updated_time" content="2019-04-25T16:33:46.391Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="一个Java小细节！">
-<meta name="twitter:description" content="前言&amp;nbsp;&amp;nbsp;今天我们一起来做个简单有趣的实验。熟悉Java的童鞋，对ScheduledExecutorService类应该不陌生。不记得的童鞋，先回忆下。">
+<meta name="twitter:title" content="Java 生产神器 BTrace">
+<meta name="twitter:description" content="前言&amp;nbsp;&amp;nbsp;在《说说Java单元测试》文章中，强调了单元测试的重要性，也提倡大家一定要写单元测试，能帮我们筛选掉很多低级错误，找出一些没必要的bug，避免生产事故。单元测试通过后，我们开始集成，随着服务集成的日渐增多，业务逻辑也变得越来越复杂，在这样的前提下，解决bug就变得异常复杂。在本地环境中，我们可以通过日志分析 + debug的方式，进行排查解决，再不济，我们还可以开启远程">
 <meta name="twitter:image" content="http://img.blog.csdn.net/20170401092446529?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMDY5NTc5NA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
 
 
@@ -86,7 +86,7 @@
   };
 </script>
 
-  <title> 一个Java小细节！ | 鞠骞的博客 </title>
+  <title> Java 生产神器 BTrace | 鞠骞的博客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -236,7 +236,7 @@
             
             
               
-                一个Java小细节！
+                Java 生产神器 BTrace
               
             
           </h1>
@@ -248,8 +248,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2018-03-07T11:29:00+08:00" content="2018-03-07">
-              2018-03-07
+            <time itemprop="dateCreated" datetime="2019-04-26T23:54:00+08:00" content="2019-04-26">
+              2019-04-26
             </time>
           </span>
 
@@ -278,8 +278,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2018/03/07/java/javaSmallDetail/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/03/07/java/javaSmallDetail/" itemprop="commentsCount"></span>
+                <a href="/2019/04/26/java/tools/btrace/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2019/04/26/java/tools/btrace/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -290,7 +290,7 @@
 		
           
           
-				<span id="/2018/03/07/java/javaSmallDetail/"class="leancloud_visitors"  data-flag-title="一个Java小细节！">
+				<span id="/2019/04/26/java/tools/btrace/"class="leancloud_visitors"  data-flag-title="Java 生产神器 BTrace">
         &nbsp; | &nbsp; 阅读次数
         </span>
 		
@@ -306,37 +306,64 @@
       
 
       
-        <h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>&nbsp;&nbsp;今天我们一起来做个简单有趣的实验。熟悉Java的童鞋，对ScheduledExecutorService类应该不陌生。不记得的童鞋，先回忆下。<br><a id="more"></a></p>
-<h4 id="实验一"><a href="#实验一" class="headerlink" title="实验一"></a>实验一</h4><p>我们先看下下面这段简单的代码。如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">public class ExecutoryServiceTest &#123;</span><br><span class="line"></span><br><span class="line">        private static ScheduledExecutorService executorService = Executors.newScheduledThreadPool(10);</span><br><span class="line"></span><br><span class="line">        public static void main(String[] args)&#123;</span><br><span class="line">            executorService.scheduleAtFixedRate(new Runnable() &#123;</span><br><span class="line">                @Override</span><br><span class="line">                public void run() &#123;</span><br><span class="line">                        int[] array  = new int[1];</span><br><span class="line">                        System.out.println(&quot;&lt;hello world&gt;&quot;);</span><br><span class="line">                        System.out.println(array[1]);</span><br><span class="line">                &#125;&#125;,0,2, TimeUnit.SECONDS);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure></p>
-<p>够简单了吧。意思我就不再阐述了。看完别急，我们先回答下面这个问题：</p>
-<h4 id="问题一："><a href="#问题一：" class="headerlink" title="问题一："></a>问题一：</h4><p>请问：上面一共打印了多少个hello world。</p>
-<h4 id="实验二"><a href="#实验二" class="headerlink" title="实验二"></a>实验二</h4><p>&nbsp;&nbsp;看到此处的童鞋，请在评论区给出你第一个实验的答案。紧接着，我们继续看第二个实验。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">public class ExecutoryServiceTest &#123;</span><br><span class="line"></span><br><span class="line">        private static ScheduledExecutorService executorService = Executors.newScheduledThreadPool(10);</span><br><span class="line"></span><br><span class="line">        public static void main(String[] args)&#123;</span><br><span class="line">            executorService.scheduleAtFixedRate(new Runnable() &#123;</span><br><span class="line">                @Override</span><br><span class="line">                public void run() &#123;</span><br><span class="line">                    try &#123;</span><br><span class="line">                        int[] array = new int[1];</span><br><span class="line">                        System.out.println(&quot;&lt;hello world&gt;&quot;);</span><br><span class="line">                        System.out.println(array[1]);</span><br><span class="line">                    &#125;catch(Exception ex)&#123;</span><br><span class="line">                        ex.printStackTrace();</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;&#125;,0,2, TimeUnit.SECONDS);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="问题二"><a href="#问题二" class="headerlink" title="问题二:"></a>问题二:</h4><p>请问: 实验二中一共打印了多少个<code>&lt;hello world&gt;</code>。</p>
-<p>请在评论区中给出你的答案。</p>
-<h4 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h4><p>&nbsp;&nbsp;经过上述两个实验后，我们会发现两者的答案并不相同。这是为什么呢？因为在:<code>run()</code>方法中，发生异常后，中断了后续的执行。这是为什么呢？</p>
-<p>其实呀，早在：<code>scheduleAtFixedRate()</code>JDK源码中就有这么一段描述:</p>
-<blockquote>
-<p> If any execution of the task encounters an exception, subsequent executions are suppressed.Otherwise, the task will only terminate via cancellation or termination of the executor. </p>
-</blockquote>
-<p>其意思就是告诉我们：如果任何执行任务遇到异常，其后续的操作会被压制。</p>
-<p>同样的，在<code>scheduleWithFixedDelay()</code>方法中也有同样的描述。</p>
-<h4 id="一点点建议"><a href="#一点点建议" class="headerlink" title="一点点建议"></a>一点点建议</h4><ol>
-<li><p>在使用<code>scheduleAtFixedRate()</code>或<code>scheduleWithFixedDelay()</code>时，<code>run()</code>方法均要在使用<code>try{}catch</code>处理。避免出现定时任务执行若干次后不执行的”怪现象”。</p>
+        <h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>&nbsp;&nbsp;在《说说Java单元测试》文章中，强调了单元测试的重要性，也提倡大家一定要写单元测试，能帮我们筛选掉很多低级错误，找出一些没必要的bug，避免生产事故。单元测试通过后，我们开始集成，随着服务集成的日渐增多，业务逻辑也变得越来越复杂，在这样的前提下，解决bug就变得异常复杂。在本地环境中，我们可以通过日志分析 + debug的方式，进行排查解决，再不济，我们还可以开启远程调试进行解决。但当生产系统上出现了bug时，我们可不能开启远程调试，这样会造成线程阻塞，足以让生产系统爆炸的。那么，我们该怎么办呢？代码执行到哪一行了？我们两眼一抹黑，不知从何下手，真是一个悲伤的故事。当然了，我们也可以通过修改代码的方式新增日志，打印方法的入参，出参，上线，重启 … 直至问题得以解决。办法虽然原始，好在能解决问题，但其过程非常痛苦，让人精疲力尽，有很多朋友估计都有过这样的经历。现在回过头来想，如果有这么一个工具，在不修改代码，不重启应用，不上线的前提下，就能查看到代码执行到哪一行，查看某个方法的出参，入参，查看方法的耗时，是该有多好。今天要介绍的就是这么一个工具 - BTrace ( Github主页：<strong><a href="https://github.com/btraceio/btrace" target="_blank" rel="external">https://github.com/btraceio/btrace</a></strong>)<br><a id="more"></a></p>
+<h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p>&nbsp;&nbsp;BTrace 是一个安全，动态的Java追踪工具。通过动态（字节码），动态替换的原理以追踪正在运行的Java程序。简单的说，我们可以使用它在不修改代码，不重启应用，不上线的前提下，查看指定方法的运行环境，如：方法出入参，运行环境，方法耗时等运行时环境。正因为 BTrace 是动态追踪，尽量避免影响线上服务的可用性，在编写BTrace 脚本时，也有如下约定：</p>
+<ol>
+<li>不能创建对象，数组。</li>
+<li>不能throw，catch 异常。</li>
+<li>不能有循环(for，while，do..while)。</li>
+<li>不能实现接口。</li>
+<li>不能有同步块及同步方法。</li>
+<li>不能有断言语句。</li>
+<li>不能有外部，内部，嵌套 或本地类。</li>
+<li>不能进行任何实例好或静态方法调用，只能从com.sun.btrace.BtraceUtils类的公共静态方法。<br>….</li>
+</ol>
+<p>别看限制这么多，其实我们可操作的比这更多，其使用语法也非常简单，如下所示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">btrace &lt;pid&gt; &lt;btrace-script&gt;</span><br></pre></td></tr></table></figure></p>
+<p>其中 pid 是 需要追踪的 Java 进程 ID (可以通过jps命令查看)，btrace-script 脚本是我们需要编写的追踪文件，语法会在下面详细介绍。</p>
+<h4 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h4><p><strong>1. 执行btrace环境</strong>：  </p>
+<p>&nbsp;&nbsp;在使用之前，我们需要下载并安装，像设置JDK环境一样，设置Btrace环境即可。  </p>
+<p>以Linux为例：</p>
+<ol>
+<li><p>下载 btrace：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://github.com/btraceio/btrace/releases/download/v1.3.11.3/btrace-bin-1.3.11.3.tgz</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>我们平时在写系统时，无论是使用JDK自带函数，还是对接外部服务。使用时，一定要了解其使用方法。对入参，结果等都充分理解。(不瞒你说，我就出现过很多次没理解充分。导致Bug产生)。</p>
+<li><p>设置环境，编辑 /etc/profile 文件，向其添加如下内容，（其中 /usr/local/btrace/ 为 btrace 的安装路径）。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export BTRACE_HOME=/usr/local/btrace/;</span><br><span class="line">export PATH=$PATH:$BTRACE_HOME;</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>强烈建议大家都在本机上运行下上面这实验的代码。这样有利于加深影响。</p>
+<li><p>使环境变量生效。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source /etc/profile;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>设置完成后，可以使用 btrace –version 命令验证其有效性。</p>
 </li>
 </ol>
-<p>最后： 大家晚安~</p>
+<p><strong>2. BTrace 脚本编写环境</strong></p>
+<p>&nbsp;&nbsp;比较遗憾的是在 mvnrepository 仓库中，btrace是非常老的版本，通常建议通过Github下载其最新jar包上传至私服中使用，也可以引用本地进行使用，如下所示：</p>
+<ol>
+<li>在 pom.xml 文件中的 properties 标签中，添加如下内容：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;btrace.home&gt;/java/jar/btrace&lt;/btrace.home&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>其中 /java/jar/btrace/ 为 btrace的本地路径，可修改为实际路径。</p>
+<ol>
+<li>在 dependencies 标签下，添加如下依赖：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--btrace start--&gt;</span><br><span class="line">       &lt;dependency&gt;</span><br><span class="line">           &lt;groupId&gt;com.sun.tools.btrace&lt;/groupId&gt;</span><br><span class="line">           &lt;artifactId&gt;btrace-agent&lt;/artifactId&gt;</span><br><span class="line">           &lt;version&gt;1.3.11.3&lt;/version&gt;</span><br><span class="line">           &lt;scope&gt;system&lt;/scope&gt;</span><br><span class="line">           &lt;systemPath&gt;$&#123;btrace.home&#125;/build/btrace-agent.jar&lt;/systemPath&gt;</span><br><span class="line">       &lt;/dependency&gt;</span><br><span class="line">       &lt;dependency&gt;</span><br><span class="line">           &lt;groupId&gt;com.sun.tools.btrace&lt;/groupId&gt;</span><br><span class="line">           &lt;artifactId&gt;btrace-boot&lt;/artifactId&gt;</span><br><span class="line">           &lt;version&gt;1.3.11.3&lt;/version&gt;</span><br><span class="line">           &lt;scope&gt;system&lt;/scope&gt;</span><br><span class="line">           &lt;systemPath&gt;$&#123;btrace.home&#125;/build/btrace-boot.jar&lt;/systemPath&gt;</span><br><span class="line">       &lt;/dependency&gt;</span><br><span class="line">       &lt;dependency&gt;</span><br><span class="line">           &lt;groupId&gt;com.sun.tools.btrace&lt;/groupId&gt;</span><br><span class="line">           &lt;artifactId&gt;btrace-client&lt;/artifactId&gt;</span><br><span class="line">           &lt;version&gt;1.3.11.3&lt;/version&gt;</span><br><span class="line">           &lt;scope&gt;system&lt;/scope&gt;</span><br><span class="line">           &lt;systemPath&gt;$&#123;btrace.home&#125;/build/btrace-client.jar&lt;/systemPath&gt;</span><br><span class="line">       &lt;/dependency&gt;</span><br><span class="line">       &lt;!--btrace end--&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>也可以通过Maven plugin 插件的形式运行，这里不再演示，有兴趣的可以在其Github主页上查看方法。</p>
+<h4 id="编写-BTrace脚本"><a href="#编写-BTrace脚本" class="headerlink" title="编写 BTrace脚本"></a>编写 BTrace脚本</h4><p>&nbsp;&nbsp;通过上面的一顿操作，是时候表演真正的技术了，下面以运行一段程序为例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">@POST</span><br><span class="line">   @Path(&quot;/load&quot;)</span><br><span class="line">   @Override</span><br><span class="line">   public UserDTO loadUserInfo() &#123;</span><br><span class="line">       return getUserInfo(&quot;www.andyqian.com&quot;,&quot;andyqian&quot;,&quot;andyqian&quot;);</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   /**</span><br><span class="line">    * 获取用户信息</span><br><span class="line">    * @param blog             博客地址</span><br><span class="line">    * @param name             andyqian</span><br><span class="line">    * @param officialAccount  公众号</span><br><span class="line">    * @return user DTO</span><br><span class="line">    */</span><br><span class="line">   private UserDTO getUserInfo(String blog,String name,String officialAccount)&#123;</span><br><span class="line">       UserDTO userDTO = new UserDTO();</span><br><span class="line">       userDTO.setBlog(blog);</span><br><span class="line">       userDTO.setName(name);</span><br><span class="line">       userDTO.setOfficialAccount(officialAccount);</span><br><span class="line">       // 该段代码纯粹用于增加方法耗时， 无其他任何意义。</span><br><span class="line">       try &#123;</span><br><span class="line">           Thread.sleep(1000);</span><br><span class="line">       &#125;catch (InterruptedException te)&#123;</span><br><span class="line">           te.printStackTrace();</span><br><span class="line">       &#125;</span><br><span class="line">       return userDTO;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
+<p>BTrace 脚本文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">@BTrace</span><br><span class="line">public class BtraceTest &#123;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 打印用户信息</span><br><span class="line">     */</span><br><span class="line">    @OnMethod(clazz=&quot;com.jq.wechat.facade.srv.impl.AuthRestServiceImpl&quot;, method=&quot;getUserInfo&quot;,location=@Location(value=Kind.RETURN))</span><br><span class="line">    public static void printUserInfo(@Duration long duration,String blog, String name, String officialAccount)&#123;</span><br><span class="line">        //</span><br><span class="line">        BTraceUtils.print(&quot;====method duration: &quot;+duration/1000000+&quot; 毫秒=== &quot;);</span><br><span class="line">        BTraceUtils.println(&quot;blog:&quot;+blog+&quot; name:&quot;+name+&quot; account: &quot;+ officialAccount);</span><br><span class="line">        //1. 建议最后一行加上这个，(因为在测试过程中，最后一行未能显示)</span><br><span class="line">        BTraceUtils.println();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>执行脚本结果后，我们请求接口多次，其脚本追踪结果如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">andy@andyqian:/java/andyqian/wechat$ btrace 18596 BtraceTest.java </span><br><span class="line">====method duration: 1000 毫秒=== blog:www.andyqian.com name:andyqian account: andyqian</span><br><span class="line">====method duration: 1000 毫秒=== blog:www.andyqian.com name:andyqian account: andyqian</span><br><span class="line">====method duration: 1000 毫秒=== blog:www.andyqian.com name:andyqian account: andyqian</span><br></pre></td></tr></table></figure></p>
+<p>备注：其中 18596 是我系统演示时的Java进程ID。你使用时，请使用 jps -l 命令查看自己的进程ID。</p>
+<p>当参数是对象，我们可以使 BTraceUtils.printFields()方法打印对象属性，也可以使用BTraceUtils.getInt(Field field, Object obj)打印对象中的指定Int类型属性。 </p>
 <hr>
-<p>相关阅读：</p>
-<p>1.《<a href="https://mp.weixin.qq.com/s?__biz=MzI2NDU3OTg5Nw==&amp;mid=2247483715&amp;idx=1&amp;sn=f67a4aba1867ed1c85f793ef75351d3e&amp;chksm=eaab3f15dddcb6038a09c0ca3fcc90e2281eaabc73617410016940894444610495666c0eef8b&amp;scene=21#wechat_redirect" target="_blank" rel="external">企业面试成本</a>》<br>2.《<a href="https://mp.weixin.qq.com/s?__biz=MzI2NDU3OTg5Nw==&amp;mid=2247483708&amp;idx=1&amp;sn=cb610823c9f8939194a2c3ec95445ae6&amp;chksm=eaab3f6adddcb67cd03a8b571feae702d7a023db4f17ae61818ba31c6fe76d86d1202b8258d6&amp;scene=21#wechat_redirect" target="_blank" rel="external">面试官初体验</a>》<br>3.《<a href="https://mp.weixin.qq.com/s?__biz=MzI2NDU3OTg5Nw==&amp;mid=2247483691&amp;idx=1&amp;sn=5ee0bc955bcc41ff0d933dbac1514dff&amp;chksm=eaab3f7ddddcb66bd665e5caf0136d0c2329b7d2faa04ceba34722f7b8f69c61e3f1e238b9ac&amp;scene=21#wechat_redirect" target="_blank" rel="external">一份面试总结</a>》<br>4.《<a href="https://mp.weixin.qq.com/s?__biz=MzI2NDU3OTg5Nw==&amp;mid=2247483995&amp;idx=1&amp;sn=f15a788c76ca00d865627028857d5d39&amp;chksm=eaab3c0ddddcb51ba16b4c7d755338394f9d690bb90de6ef108eb1020d1d4df128c48207b7c8&amp;scene=21#wechat_redirect" target="_blank" rel="external">一个Java细节！</a>》</p>
+<p>&nbsp;&nbsp;写到这里，篇幅不知不觉已经很长了，上面介绍了BTrace的最基本用法，其实BTrace还是有很多用法值得我们掌握的，我们放在下一篇来介绍。</p>
 <hr>
-<center><img src="http://img.blog.csdn.net/20170401092446529?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMDY5NTc5NA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></center><br><center>扫码关注，一起进步<br><br><center>个人博客: <a href="http://www.andyqian.com" target="_blank" rel="external">http://www.andyqian.com</a></center>
+<p>相关阅读:</p>
+<p>《<a href="http://www.andyqian.com/2019/04/20/java/basic/java_cas/" target="_blank" rel="external">Java 基本功 之 CAS</a>》  </p>
+<p>《<a href="http://www.andyqian.com/2018/07/18/java/cors/" target="_blank" rel="external">CORS跨域实践</a>》</p>
+<p>《<a href="http://www.andyqian.com/2018/03/10/life/talkinterface/" target="_blank" rel="external">说说面试那些事</a>》</p>
+<p>《<a href="http://www.andyqian.com/2018/03/06/java/javaoom/" target="_blank" rel="external">记一个有趣的Java OOM！</a>》</p>
+<h2 id="—"><a href="#—" class="headerlink" title="—"></a>—</h2><center><img src="http://img.blog.csdn.net/20170401092446529?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMDY5NTc5NA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></center><br><center>扫码关注，一起进步<br><br><center>个人博客: <a href="http://www.andyqian.com" target="_blank" rel="external">http://www.andyqian.com</a></center>
 
-
-
+<hr>
 </center>
       
     </div>
@@ -360,17 +387,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/03/06/java/javaoom/" rel="next" title="记一个有趣的Java OOM！">
-                <i class="fa fa-chevron-left"></i> 记一个有趣的Java OOM！
+              <a href="/2019/04/20/java/basic/java_cas/" rel="next" title="Java 基本功 之 CAS">
+                <i class="fa fa-chevron-left"></i> Java 基本功 之 CAS
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/03/10/life/talkinterface/" rel="prev" title="说说面试那些事">
-                说说面试那些事 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -396,8 +419,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2018/03/07/java/javaSmallDetail/"
-           data-title="一个Java小细节！" data-url="http://yoursite.com/2018/03/07/java/javaSmallDetail/">
+      <div class="ds-thread" data-thread-key="2019/04/26/java/tools/btrace/"
+           data-title="Java 生产神器 BTrace" data-url="http://yoursite.com/2019/04/26/java/tools/btrace/">
       </div>
     
   </div>
@@ -507,7 +530,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实验一"><span class="nav-number">2.</span> <span class="nav-text">实验一</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#问题一："><span class="nav-number">3.</span> <span class="nav-text">问题一：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实验二"><span class="nav-number">4.</span> <span class="nav-text">实验二</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#问题二"><span class="nav-number">5.</span> <span class="nav-text">问题二:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分析"><span class="nav-number">6.</span> <span class="nav-text">分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一点点建议"><span class="nav-number">7.</span> <span class="nav-text">一点点建议</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#简介"><span class="nav-number">2.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#环境配置"><span class="nav-number">3.</span> <span class="nav-text">环境配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#编写-BTrace脚本"><span class="nav-number">4.</span> <span class="nav-text">编写 BTrace脚本</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#—"><span class="nav-number"></span> <span class="nav-text">—</span></a></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
